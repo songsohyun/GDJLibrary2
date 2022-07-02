@@ -304,7 +304,7 @@ public class QaaServiceImpl implements QaaService {
 	}
 	
 	
-	// 댓글 삭제하기
+	// 댓글 삭제하기.
 	@Transactional
 	@Override
 	public Map<String, Object> removeReply(QaaDTO qaa) {
