@@ -12,14 +12,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class MemberLogDTO {
-<<<<<<< HEAD
+
 	private Long memberLogNo;
 	private String memberId;
 	private Date memberLogSignIn;
-=======
-   private Long memberLogNo;
-   private String memberId;
-   private Date memberLogSignIn;
->>>>>>> main
+
+
 
 }

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class BookDTO {
-<<<<<<< HEAD
+
 		private Long bookNo;
 		private String bookIsbn;
 		private String bookTitle;
@@ -19,15 +19,5 @@ public class BookDTO {
 		private String bookDescription;
 		private String bookImage;
 		private String bookField;
-=======
-	private Long bookNo;
-	private String bookIsbn;
-	private String bookTitle;
-	private String bookAuthor;
-	private String bookPublisher;
-	private String bookPubdate;
-	private String bookDescription;
-	private String bookImage;
-	private String bookField;
->>>>>>> main
+
 }
