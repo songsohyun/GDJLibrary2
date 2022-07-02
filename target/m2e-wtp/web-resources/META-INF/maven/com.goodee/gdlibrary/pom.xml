@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.goodee</groupId>
 	<artifactId>gdlibrary</artifactId>
-	<name>GDJLibrary2</name>
+	<name>GDJLibrary</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>

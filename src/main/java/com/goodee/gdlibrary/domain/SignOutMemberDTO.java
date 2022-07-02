@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class SignOutMemberDTO {
-<<<<<<< HEAD
+
 	private Long signOutNo;
 	private Long memberNo;
 	private String memberId;
@@ -25,18 +25,5 @@ public class SignOutMemberDTO {
 	private Integer memberAgreeState;
 	private Date memberSignUp;
 	private Date signOut;
-=======
-   private Long signOutNo;
-   private Long memberNo;
-   private String memberId;
-   private String memberName;
-   private String memberPhone;
-   private String memberEmail;
-   private String memberPostcode;
-   private String memberRoadAddress;
-   private String memberDetailAddress;
-   private Integer memberAgreeState;
-   private Date memberSignUp;
-   private Date signOut;
->>>>>>> main
+
 }
