@@ -19,6 +19,7 @@
 	
 	<dependencies>
 	
+	<!-- 테스트 -->
 	<!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-dbcp -->
 		<dependency>
 		    <groupId>org.apache.tomcat</groupId>
