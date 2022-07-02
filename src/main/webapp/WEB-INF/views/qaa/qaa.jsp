@@ -148,7 +148,7 @@
 		padding-left: 20px;
 	}
 	.qaa_top_wrap {
-		width: 1040px;
+		width: 1065px;
 		padding-left: 20px;
 		margin-bottom: 20px;
 	}
@@ -159,7 +159,7 @@
 		background-color: #e0e2ef;
 	}
 	#btnWrite {
-		margin-left: 780px;
+		margin-left: 820px;
 	}
 	.search_column {
 		background-color: white;
@@ -185,7 +185,7 @@
 		text-align: center;
 	}
 	td:nth-of-type(1) { width: 80px; }
-	td:nth-of-type(2) { width: 100px; }
+	td:nth-of-type(2) { width: 125px; }
 	td:nth-of-type(3) { 
 		width: 500px; 
 		text-align: left;
@@ -215,7 +215,7 @@
 	}
 	input[name="memberId"], input[name="content"] {
 		height: 35px;
-		padding-left: 15px;
+		padding-left: 5px;
 		border-radius: 10px;
 	}
 
@@ -223,7 +223,7 @@
 		margin-top: 30px;
 	}
 	#qaa_search {
-		width: 1040px; 
+		width: 1065px; 
 		margin-top: 40px;
 		text-align: center;
 	}
@@ -429,7 +429,7 @@
 						<tr class="reply_form blind">
 							<td colspan="5">
 								<form class="f" action="${contextPath}/qaa/saveReply" method="post">
-									<input type="text" name="memberId" value="${loginMember.memberId}" readonly size="4">
+									<input type="text" name="memberId" value="${loginMember.memberId}" readonly size="10">
 									<input type="text" name="content" class="writeReply" placeholder="내용" size="80">
 									<!-- 원글의 Depth, GroupNo, GroupOrd -->
 									<input type="hidden" name="depth" value="${qaa.qaaDepth}">
