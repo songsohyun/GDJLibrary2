@@ -21,18 +21,7 @@ public class FnqController {
 	private FnqService fnqService;
 
 	@GetMapping("/fnq/fnqPage")
-	public String fnqPage(HttpServletRequest request) {
-		
-		// 테스트, 나중에 지우기
-		// 나중에 지우면서 
-		// fnqPage() 메소드 안에 있는
-		// HttpServletRequest request 지우기!!
-		MemberDTO loginMember1 = MemberDTO.builder()
-				.memberId("admin")
-				.build();
-		request.getSession().setAttribute("loginMember", loginMember1);
-		
-		
+	public String fnqPage() {
 		return "fnq/fnq";
 	}
 	

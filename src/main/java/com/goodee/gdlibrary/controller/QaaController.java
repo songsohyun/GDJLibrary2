@@ -28,14 +28,6 @@ public class QaaController {
 	@GetMapping("/qaa/qaaPage")
 	public String qaaPage(HttpServletRequest request, Model model) {
 		
-		
-		// 테스트, 나중에 지우기
-		MemberDTO loginMember1 = MemberDTO.builder()
-				.memberId("a2")
-				.build();
-		request.getSession().setAttribute("loginMember", loginMember1);
-		
-		
 		qaaService.qaaList(request, model);
 		return "qaa/qaa";
 		
