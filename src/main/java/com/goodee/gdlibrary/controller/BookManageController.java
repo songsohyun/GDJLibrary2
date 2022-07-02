@@ -19,10 +19,6 @@ public class BookManageController {
 	@Autowired
 	private BookManageService bookManageService;
 
-	@GetMapping("/")
-	public String index() {
-		return "index";
-	}
 	
 
 	// 책 대여하기

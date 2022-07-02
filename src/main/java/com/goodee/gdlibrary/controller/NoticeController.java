@@ -31,13 +31,6 @@ public class NoticeController {
 	@GetMapping("/notice/noticePage")
 	public String noticePage(HttpServletRequest request, Model model) {
 		
-		// 테스트, 나중에 지우기
-		MemberDTO loginMember1 = MemberDTO.builder()
-				.memberId("admin")
-				.build();
-		request.getSession().setAttribute("loginMember", loginMember1);
-		
-		
 		noticeService.getNotices(request, model);
 		return "notice/notice";
 	}
@@ -46,18 +39,7 @@ public class NoticeController {
 	// 관리자만 볼 수 있는 버튼임.
 	// 공지사항 작성 페이지로 이동하기
 	@GetMapping("/notice/addNoticePage")
-	public String addNoticePage(HttpServletRequest request) {
-		
-		// 테스트, 나중에 지우기
-		// 나중에 지우면서 
-		// addNoticePage() 메소드 안에 있는
-		// HttpServletRequest request 지우기!!
-		MemberDTO loginMember1 = MemberDTO.builder()
-				.memberId("admin")
-				.build();
-		request.getSession().setAttribute("loginMember", loginMember1);
-		
-		request.setAttribute("res", "add");
+	public String addNoticePage() {
 		return "notice/addNotice";
 	}
 	

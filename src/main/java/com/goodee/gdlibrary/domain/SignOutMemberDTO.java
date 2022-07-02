@@ -19,7 +19,7 @@ public class SignOutMemberDTO {
 	private String memberName;
 	private String memberPhone;
 	private String memberEmail;
-	private Integer memberPostcode;
+	private String memberPostcode;
 	private String memberRoadAddress;
 	private String memberDetailAddress;
 	private Integer memberAgreeState;

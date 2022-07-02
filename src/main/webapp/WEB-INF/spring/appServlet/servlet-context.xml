@@ -24,8 +24,7 @@
 	<context:component-scan base-package="com.goodee.gdlibrary" />
 	
 	
-	<!-- 배성연 -->
-	<!--  
+	
 	<beans:bean class="com.goodee.gdlibrary.interceptor.LoginInterceptor" id="loginInterceptor" />
 	<beans:bean class="com.goodee.gdlibrary.interceptor.PreventLoginInterceptor" id="preventLoginInterceptor" />
 	<beans:bean class="com.goodee.gdlibrary.interceptor.KeepLoginInterceptor" id="keepLoginInterceptor" />
@@ -57,14 +56,13 @@
          <beans:ref bean="PreventNaverInterceptor" />
       </interceptor>
    </interceptors>
-	-->
+
 	
 	
 	
 	
 	
-	<!-- 송소현 -->
-	<!--  
+
 	<beans:bean class="com.goodee.gdlibrary.interceptor.RequiredLoginInterceptor" id="requiredLoginInterceptor" />
 
 	  
@@ -76,6 +74,6 @@
 			<beans:ref bean="requiredLoginInterceptor"/>
 		</interceptor>
 	</interceptors>	
-	-->
+
 	
 </beans:beans>

@@ -39,15 +39,6 @@ public class BookManageServiceImpl implements BookManageService {
 		BookDTO book = bookManageMapper.selectBookByNo(bookNo);
 		
 		
-		
-		// 테스트, 나중에 지우기
-		MemberDTO loginMember1 = MemberDTO.builder()
-				.memberId("a")
-				.build();
-		request.getSession().setAttribute("loginMember", loginMember1);
-		
-		
-		
 		// session에 올라간 loginMember에서 memberId 빼기
 		MemberDTO loginMember = (MemberDTO)request.getSession().getAttribute("loginMember");
 		String memberId = loginMember.getMemberId();
@@ -194,13 +185,6 @@ public class BookManageServiceImpl implements BookManageService {
 	@Override
 	public List<Map<String, Object>> rentBookList(HttpServletRequest request) {
 		
-		// 테스트, 나중에 지우기
-		MemberDTO loginMember1 = MemberDTO.builder()
-				.memberId("a")
-				.build();
-		request.getSession().setAttribute("loginMember", loginMember1);
-		
-		
 		// session에 올라간 loginMember에서 memberId 빼기
 		MemberDTO loginMember = (MemberDTO)request.getSession().getAttribute("loginMember");
 		String memberId = loginMember.getMemberId();
@@ -265,13 +249,6 @@ public class BookManageServiceImpl implements BookManageService {
 	// 연체중인 책 목록
 	@Override
 	public List<Map<String, Object>> overdueBookList(HttpServletRequest request) {
-		
-		// 테스트, 나중에 지우기
-		MemberDTO loginMember1 = MemberDTO.builder()
-				.memberId("a")
-				.build();
-		request.getSession().setAttribute("loginMember", loginMember1);
-		
 		
 		// session에 올라간 loginMember에서 memberId 빼기
 		MemberDTO loginMember = (MemberDTO)request.getSession().getAttribute("loginMember");
