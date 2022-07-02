@@ -23,6 +23,7 @@
 	
 	<!-- 강병수 -->
 	<a href="${contextPath}/admin/manageMain">관리자페이지</a>
+	
 
 	<!-- 송소현 -->
 	<a href="${contextPath}/rent/rentBook?bookNo=1">대여하기 기능</a>
