@@ -39,7 +39,9 @@ public class NoticeController {
 	// 관리자만 볼 수 있는 버튼임.
 	// 공지사항 작성 페이지로 이동하기
 	@GetMapping("/notice/addNoticePage")
-	public String addNoticePage() {
+	public String addNoticePage(HttpServletRequest request) {
+		
+		request.setAttribute("res", "add");
 		return "notice/addNotice";
 	}
 	

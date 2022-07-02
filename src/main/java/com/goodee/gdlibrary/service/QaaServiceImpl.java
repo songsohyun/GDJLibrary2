@@ -328,21 +328,7 @@ public class QaaServiceImpl implements QaaService {
 		return res;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 
 }
