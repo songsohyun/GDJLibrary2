@@ -50,16 +50,6 @@
 	
 	
 	
-
-	/*
-	function fnBlind(){
-		$('.reply_link').on('click', function(){
-			$('.reply_form').addClass('blind');
-	    	$(this).parent().parent().next().removeClass('blind');
-		});
-	}
-	*/
-	
 	function fnBlind(){
 		$('.reply_link').on('click', function(){
 	    	
@@ -341,16 +331,6 @@
 								<!-- 댓글은 아이콘 표시 -->
 								<c:if test="${qaa.qaaDepth gt 0}"><i class="fa-solid fa-reply deg"></i></c:if>
 								
-								<!--  
-								제목
-								<c:if test="${qaa.qaaTitle.length() gt 20}">								
-									${qaa.qaaTitle.substring(0, 20)}
-								</c:if>
-								<c:if test="${qaa.qaaTitle.length() le 20}">								
-										${qaa.qaaTitle}
-								</c:if>
-								-->
-								
 								<!-- 
 									게시글인 경우 : 회원(제목)
 									댓글인 경우   : 회원(댓글), 관리자(댓글)
@@ -363,18 +343,6 @@
 										${qaa.qaaContent}
 									</c:if>
 								</c:if>
-								
-								<!--  
-								<c:if test="${qaa.memberId ne 'admin'}">
-									<c:if test="${qaa.qaaTitle.length() gt 20}">								
-										${qaa.qaaTitle.substring(0, 20)}
-									</c:if>
-									<c:if test="${qaa.qaaTitle.length() le 20}">								
-											${qaa.qaaTitle}
-									</c:if>
-								</c:if>
-								-->
-								
 								
 								<c:if test="${qaa.memberId ne 'admin' && qaa.qaaTitle eq '댓글 작성'}">
 									<c:if test="${qaa.qaaContent.length() gt 20}">								
@@ -394,17 +362,9 @@
 									</c:if>
 								</c:if>
 								
-								
-								
-								
-								<!-- 관리자만 답글 등록할 수 있게함. -->
-								<!--  
-								<c:if test="${loginMember.memberId eq 'admin'}">
+								<c:if test="${loginMember ne null}">
 									<a class="reply_link">답글</a>
 								</c:if>
-								-->
-								<a class="reply_link">답글</a>
-								
 								
 								
 							</td>

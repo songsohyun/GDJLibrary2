@@ -14,9 +14,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
-import com.goodee.gdlibrary.util.PageUtils2;
 import com.goodee.gdlibrary.domain.QaaDTO;
 import com.goodee.gdlibrary.mapper.QaaMapper;
+import com.goodee.gdlibrary.util.PageUtils2;
+import com.goodee.gdlibrary.util.SecurityUtils;
 
 @Service
 public class QaaServiceImpl implements QaaService {
@@ -29,9 +30,9 @@ public class QaaServiceImpl implements QaaService {
 	@Override
 	public void addQaa(HttpServletRequest request, HttpServletResponse response) {
 		
-		String title = request.getParameter("title");
+		String title = SecurityUtils.xss(request.getParameter("title"));
 		String memberId = request.getParameter("memberId");
-		String content = request.getParameter("content");
+		String content = SecurityUtils.xss(request.getParameter("content"));
 		
 		QaaDTO qaa = QaaDTO.builder()
 				.qaaTitle(title)
@@ -143,7 +144,7 @@ public class QaaServiceImpl implements QaaService {
 	public void saveReply(HttpServletRequest request, HttpServletResponse response) {
 		
 		String memberId = request.getParameter("memberId");
-		String content = request.getParameter("content");
+		String content = SecurityUtils.xss(request.getParameter("content"));
 		
 		int depth = Integer.parseInt(request.getParameter("depth"));
 		Long groupNo = Long.parseLong(request.getParameter("groupNo"));
