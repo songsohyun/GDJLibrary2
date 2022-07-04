@@ -14,6 +14,7 @@
 <script>
 	$(function() {
 
+		
 		//전체 선택
 		$('#checkAll').on('click', function() {
 			
