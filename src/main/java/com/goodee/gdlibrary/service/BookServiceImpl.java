@@ -87,8 +87,7 @@ public class BookServiceImpl implements BookService {
 				book.setBookDescription(b.getString("recomcontens"));
 			}
 			book.setBookImage(b.getString("recomfilepath"));
-			book.setBookField(b.getString("drCodeName"));
-			
+			book.setBookType(b.getString("drCodeName"));
 			list.add(book);
 		}
 			
