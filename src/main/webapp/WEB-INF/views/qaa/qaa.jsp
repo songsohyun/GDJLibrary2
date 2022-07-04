@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
 <!DOCTYPE html>
@@ -323,9 +324,6 @@
 				<c:if test="${not empty qaaList}">
 					<c:forEach var="qaa" items="${qaaList}" varStatus="vs">
 						<tr>
-							<!--  
-							<td>${totalRecord - qaa.rowNum + 1}</td>
-							-->
 							<td>${startNo - vs.index}</td>
 							<td>${qaa.memberId}</td>
 							<td>
@@ -371,7 +369,9 @@
 								
 								
 							</td>
-							<td>${qaa.qaaCreated}</td>
+							<td>
+								<fmt:formatDate value="${qaa.qaaCreated}" pattern="yyyy-MM-dd"/>
+							</td>
 							<td>
 								<c:if test="${(loginMember.memberId eq 'admin' && qaa.qaaTitle ne '댓글 작성') || (loginMember.memberId eq qaa.memberId && qaa.qaaTitle ne '댓글 작성')}">
 									<!-- 

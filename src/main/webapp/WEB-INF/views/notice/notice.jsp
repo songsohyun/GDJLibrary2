@@ -73,6 +73,7 @@
 	}
 	.notice_all_wrap {
 		width: 1020px;
+		padding-left: 20px;
 	}
 	.notice_top {
 		width: 100%;
@@ -149,7 +150,7 @@
 		background-color: white;
 		color: black;
 		font-size: 14px;
-		width: 50px;
+		width: 60px;
 		height: 25px;
 	}
 	.search_query {
@@ -237,14 +238,10 @@
 					<c:if test="${not empty noticeList}">
 						<c:forEach items="${noticeList}" var="notice" varStatus="vs">
 							<tr class="content_wrap">
-							
-								<!--  
-								<td>${totalRecord - notice.rowNum + 1}</td>
-								-->
 								<td>${startNo - vs.index}</td>
 								<td><a class="a_style" href="${contextPath}/notice/detailNotice?noticeNo=${notice.noticeNo}">${notice.noticeTitle}</a></td>
 								<td>
-									<fmt:formatDate value="${notice.noticeCreated}" pattern="yyyy.MM.dd"/>
+									<fmt:formatDate value="${notice.noticeCreated}" pattern="yyyy-MM-dd"/>
 								</td>
 								<td>${notice.noticeHit}</td>
 							</tr>
