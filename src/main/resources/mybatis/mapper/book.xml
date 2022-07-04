@@ -6,14 +6,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.goodee.gdlibrary.mapper.BookMapper">
 
 	
-	<insert id="getBooksInfo" parameterType="BookDTO">
-		<foreach collection="list" open="DECLARE BEGIN" close="; END;" separator=";" item="book">
+	<insert id="insertBook" parameterType="BookDTO">
 		INSERT INTO BOOK
-			(BOOK_NO, BOOK_ISBN ,BOOK_TITLE, BOOK_AUTHOR, BOOK_PUBLISHER, BOOK_PUBDATE, BOOK_DESCRIPTION, BOOK_IMAGE, BOOK_FIELD)
+			(BOOK_ISBN ,BOOK_TITLE, BOOK_AUTHOR, BOOK_PUBLISHER, BOOK_PUBDATETIME, BOOK_DESCRIPTION, BOOK_IMAGE, BOOK_TYPE)
 		 VALUES
-		 	(BOOK_SEQ.NEXTVAL, #{book.bookIsbn}, #{book.bookTitle}, #{book.bookAuthor}, #{book.bookPublisher}, #{book.bookPubdate}, #{book.bookDescription}, #{book.bookImage}, #{book.bookField})
-		</foreach>
-	
+		 	(#{bookIsbn}, #{bookTitle}, #{bookAuthor}, #{bookPublisher}, #{bookPubdateTime}, #{bookDescription}, #{bookImage}, #{bookType})
 	</insert>
 	
 	<select id="selectBookCount" resultType="Integer">
@@ -22,14 +19,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="selectBookList" parameterType="Map" resultType="BookDTO">
-		SELECT A.BOOK_NO, A.BOOK_ISBN , A.BOOK_TITLE, A.BOOK_AUTHOR, A.BOOK_PUBLISHER, A.BOOK_PUBDATE, A.BOOK_DESCRIPTION, A.BOOK_IMAGE, A.BOOK_FIELD 
-		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY BOOK_NO) AS RN, BOOK_NO, BOOK_ISBN ,BOOK_TITLE, BOOK_AUTHOR, BOOK_PUBLISHER, BOOK_PUBDATE, BOOK_DESCRIPTION, BOOK_IMAGE, BOOK_FIELD
-                  FROM BOOK)A
-		 WHERE A.RN BETWEEN #{beginRecord} AND #{endRecord} 
+		SELECT BOOK_NO, BOOK_ISBN ,BOOK_TITLE, BOOK_AUTHOR, BOOK_PUBLISHER, BOOK_PUBDATETIME, BOOK_DESCRIPTION, BOOK_IMAGE, BOOK_TYPE
+          FROM BOOK
+         ORDER BY BOOK_NO DESC
+		 LIMIT #{beginRecord}, #{recordPerPage}
 	</select>
 	
 	<select id="detailBook" parameterType="Long" resultType="BookDTO">
-		SELECT BOOK_NO, BOOK_ISBN ,BOOK_TITLE, BOOK_AUTHOR, BOOK_PUBLISHER, BOOK_PUBDATE, BOOK_DESCRIPTION, BOOK_IMAGE, BOOK_FIELD
+		SELECT BOOK_NO, BOOK_ISBN ,BOOK_TITLE, BOOK_AUTHOR, BOOK_PUBLISHER, BOOK_PUBDATETIME, BOOK_DESCRIPTION, BOOK_IMAGE, BOOK_TYPE
 		  FROM BOOK
 		 WHERE BOOK_NO = #{bookNo}
 	</select>
@@ -37,15 +34,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="searchBookCount" parameterType="Map" resultType="Integer">
 		SELECT COUNT(BOOK_TITLE)
 		  FROM BOOK
-		 WHERE ${column} LIKE '%' || #{query} || '%'
+		 WHERE ${column} LIKE CONCAT('%', CONCAT(IFNULL(#{query}, ''), '%'))
+		 
 	</select>
 	
 	<select id="searchBook" parameterType="Map" resultType="BookDTO">
-		SELECT A.BOOK_NO, A.BOOK_ISBN , A.BOOK_TITLE, A.BOOK_AUTHOR, A.BOOK_PUBLISHER, A.BOOK_PUBDATE, A.BOOK_DESCRIPTION, A.BOOK_IMAGE, A.BOOK_FIELD
-		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY BOOK_NO) AS RN, BOOK_NO, BOOK_ISBN ,BOOK_TITLE, BOOK_AUTHOR, BOOK_PUBLISHER, BOOK_PUBDATE, BOOK_DESCRIPTION, BOOK_IMAGE, BOOK_FIELD
-                  FROM BOOK
-                 WHERE ${column} LIKE '%' || #{query} || '%')A
-		 WHERE A.RN BETWEEN #{beginRecord} AND #{endRecord}
+		SELECT BOOK_NO, BOOK_ISBN ,BOOK_TITLE, BOOK_AUTHOR, BOOK_PUBLISHER, BOOK_PUBDATETIME, BOOK_DESCRIPTION, BOOK_IMAGE, BOOK_TYPE
+          FROM BOOK
+         WHERE ${column} LIKE CONCAT('%', CONCAT(IFNULL(#{query}, ''), '%'))
+         ORDER BY BOOK_NO DESC
+		 LIMIT #{beginRecord}, #{recordPerPage}
 	</select>
 
 	

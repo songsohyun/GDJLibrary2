@@ -1124,10 +1124,10 @@ public class ManageServiceImpl implements ManageService {
 				.bookTitle(title)
 				.bookAuthor(author)
 				.bookPublisher(publisher)
-				.bookPubdate(pubdate)
+				.bookPubdateTime(pubdate)
 				.bookDescription(description)
 				.bookImage(image)
-				.bookField(field)
+				.bookType(field)
 				.build();
 			
 		
@@ -1251,11 +1251,10 @@ public class ManageServiceImpl implements ManageService {
 				.bookTitle(bookTitle)
 				.bookAuthor(bookAuthor)
 				.bookPublisher(bookPublisher)
-				.bookPubdate(bookPubdate)
+				.bookPubdateTime(bookPubdate)
 				.bookDescription(bookDescription)
 				.bookImage(bookImage)
-				.bookField(bookField)
-				.bookField(bookField)
+				.bookType(bookField)
 				.build();
 	
 		
@@ -1392,4 +1391,3 @@ public class ManageServiceImpl implements ManageService {
 	
 	
 }
-

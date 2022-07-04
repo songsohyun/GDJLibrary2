@@ -18,6 +18,7 @@ import org.json.JSONObject;
 import org.json.XML;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import com.goodee.gdlibrary.domain.BookDTO;
@@ -30,6 +31,7 @@ public class BookServiceImpl implements BookService {
 	@Autowired
 	private BookMapper bookMapper;
 
+	@Transactional
 	@Override
 	public void getBooksInfo(HttpServletRequest request) {
 
@@ -68,7 +70,6 @@ public class BookServiceImpl implements BookService {
 		} catch(IOException e) {
 			e.printStackTrace();  // API 응답 실패
 		}
-		List<BookDTO> list = new ArrayList<BookDTO>();
 		JSONObject books = XML.toJSONObject(sb.toString());
 		JSONObject items = books.getJSONObject("channel");
 		JSONArray item = items.getJSONArray("list");
@@ -80,19 +81,16 @@ public class BookServiceImpl implements BookService {
 			book.setBookTitle(b.getString("recomtitle"));
 			book.setBookAuthor(b.getString("recomauthor"));
 			book.setBookPublisher(b.getString("recompublisher"));
-			book.setBookPubdate(b.getString("regdate"));
+			book.setBookPubdateTime(b.getString("regdate"));
 			if(b.getString("recomcontens").length() > 3000) {
 				book.setBookDescription(b.getString("recomcontens").substring(0, 3000));
 			}else {
 				book.setBookDescription(b.getString("recomcontens"));
 			}
 			book.setBookImage(b.getString("recomfilepath"));
-			book.setBookField(b.getString("drCodeName"));
-			
-			list.add(book);
+			book.setBookType(b.getString("drCodeName"));
+			bookMapper.insertBook(book);
 		}
-			
-		bookMapper.getBooksInfo(list);
 		
 	}
 	
@@ -107,8 +105,8 @@ public class BookServiceImpl implements BookService {
 		
 		// 목록은 beginRecord ~ endRecord 사이값을 가져온다.
 		Map<String, Object> m = new HashMap<String, Object>();
-		m.put("beginRecord", p.getBeginRecord());
-		m.put("endRecord", p.getEndRecord());
+		m.put("beginRecord", p.getBeginRecord()-1);
+		m.put("recordPerPage", p.getRecordPerPage());
 		
 		// 목록과 paging 정보를 반환
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -134,15 +132,15 @@ public class BookServiceImpl implements BookService {
 		PageUtils1 p = new PageUtils1();
 		p.setPageEntity(totalRecord, page);
 		
-		map.put("beginRecord", p.getBeginRecord());
-		map.put("endRecord", p.getEndRecord());
+		map.put("beginRecord", p.getBeginRecord()-1);
+		map.put("recordPerPage", p.getRecordPerPage());
 		
-
 		
 		List<BookDTO> books = bookMapper.searchBook(map);
 		Map<String, Object> resMap = new HashMap<>();
 		resMap.put("books", books);
 		resMap.put("p", p);
+		
 		return resMap;
 		
 	}

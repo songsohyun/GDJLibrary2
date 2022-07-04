@@ -1,6 +1,7 @@
 package com.goodee.gdlibrary.domain;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,7 +16,7 @@ public class SeatDTO {
    private Long seatNo;   
    private Long memberNo;
    private Integer seatStatus;         
-   private Date seatDate;      
+   private Date seatDate;   
    private String memberId;
    private String memberName;
    private Long seatCode;

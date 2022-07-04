@@ -44,14 +44,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          ]]>
 	</update>
 	
-	<insert id="insertSeatInfo" parameterType="Long">
-		INSERT INTO SEAT_INFO
-		  	(SEAT_INFO_NO, MEMBER_NO, SEAT_NO)
-		 VALUES
-		 	(SEAT_INFO_SEQ.NEXTVAL, NULL, #{seatNo})
-		
-	</insert>
-	
 	<update id="updateRandomCode" parameterType="SeatDTO">
 		UPDATE SEAT
 		   SET SEAT_CODE = #{seatCode}

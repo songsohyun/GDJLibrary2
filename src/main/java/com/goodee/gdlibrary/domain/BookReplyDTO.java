@@ -1,12 +1,19 @@
 package com.goodee.gdlibrary.domain;
 
-import java.sql.Date;
+
+
+import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-@Data
+import lombok.Setter;
+import lombok.ToString;
+@Getter
+@Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
