@@ -69,7 +69,7 @@
 			tr += '<td><img src="' + book.bookImage + '"width=100px height=120px></td>';
 			tr += '<td><a href="${contextPath}/book/detail?bookNo=' + book.bookNo + '">' + book.bookTitle + '</a></td>';
 			tr += '<td>' + book.bookAuthor + '</td>';
-			tr += '<td>' + book.bookField + '</td>';
+			tr += '<td>' + book.bookType + '</td>';
 			tr += '</tr>';
 			$('#bookInfo').append(tr);
 			})
@@ -131,6 +131,7 @@
 			
 		}
 	
+			
 			var page = 1; 
 			function fnSearch(){
 			$('#btnSearch').on('click', function(){
@@ -140,7 +141,7 @@
 					data: 'page=' + page + '&column=' + $('#column').val() + '&query=' + $('#query').val(),
 					dataType: 'json',
 					success: function(obj){
-						fnPrintBookList(obj.books);
+						fnPrintBookList(obj.books, obj.p);
 						fnPrintPaging(obj.p);
 					}
 				})
@@ -201,7 +202,7 @@
 					<option value="">:::선택:::</option>
 					<option value="BOOK_TITLE">제목</option>
 					<option value="BOOK_AUTHOR">저자</option>
-					<option value="BOOK_FIELD">분야</option>
+					<option value="BOOK_TYPE">분야</option>
 				</select>
 				<input type="text" id="query" name="query" onkeypress="if(event.keyCode == 13){enterKey()}" placeholder="검색어를 입력하세요"/>
 				<input type="text" style="display: none;" />

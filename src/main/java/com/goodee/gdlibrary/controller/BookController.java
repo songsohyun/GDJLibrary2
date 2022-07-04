@@ -42,7 +42,7 @@ public class BookController {
 	@GetMapping("book/insertApi")
 	public String getBookInfo(HttpServletRequest request, Model model) {
 		bookService.getBooksInfo(request);
-		return "redirect:list";
+		return "redirect:listPage";
 	}
 	
 	@ResponseBody

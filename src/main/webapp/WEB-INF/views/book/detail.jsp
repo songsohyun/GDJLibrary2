@@ -265,7 +265,7 @@
 				<p>제목 : ${book.bookTitle}</p>
 				<p>저자 : ${book.bookAuthor}</p>
 				<p>출판사 : ${book.bookPublisher}</p>
-				<p>분야 : ${book.bookField}</p>
+				<p>분야 : ${book.bookType}</p>
 				<p>isbn : ${book.bookIsbn}</p>
 				
 				<input type="button" value="대여하기" onclick="location.href='${contextPath}/book/detail?bookNo=${book.bookNo}'">
@@ -291,7 +291,7 @@
 			            <div>별점을 선택해 주세요.</div>
 			            <div class="ratingStar">
 			                <fieldset>
-			               	    <input type="hidden" id="bookNo" name="bookNo" value="${book.bookNo}">
+			               	    <input type="hidden" id="bookNo" name="bookNo" value="${bookNo}">
 								<input type="radio" name="bookRating" value="5" id="rate1"><label
 									for="rate1">★</label>
 								<input type="radio" name="bookRating" value="4" id="rate2"><label

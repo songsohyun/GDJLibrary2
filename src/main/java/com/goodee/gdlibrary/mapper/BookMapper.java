@@ -14,7 +14,7 @@ public interface BookMapper {
 		
 		public List<BookDTO> selectBookList(Map<String, Object> m);
 		
-		public void getBooksInfo(List<BookDTO> list);
+		public int insertBook(BookDTO book);
 		
 		public int searchBookCount(Map<String, Object> map);
 		public List<BookDTO> searchBook(Map<String, Object> map);
