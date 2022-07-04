@@ -32,8 +32,10 @@ public class FnqServiceImpl implements FnqService {
 		
 		// 목록은 beginRecord~endRecord 사이값을 가져온다.
 		Map<String, Object> m = new HashMap<>();
-		m.put("beginRecord", p.getBeginRecord());
-		m.put("endRecord", p.getEndRecord());
+		// m.put("beginRecord", p.getBeginRecord());
+		// m.put("endRecord", p.getEndRecord());
+		m.put("beginRecord", p.getBeginRecord() - 1);
+		m.put("recordPerPage", p.getRecordPerPage());
 		
 		// 목록과 페이징 정보를 반환한다.
 		Map<String, Object> map = new HashMap<>();
@@ -70,8 +72,10 @@ public class FnqServiceImpl implements FnqService {
 		pageUtils.setPageEntity(findRecord, page);
 		
 		// beginRecord + endRecord => Map
-		map.put("beginRecord", pageUtils.getBeginRecord());
-		map.put("endRecord", pageUtils.getEndRecord());
+		// map.put("beginRecord", pageUtils.getBeginRecord());
+		// map.put("endRecord", pageUtils.getEndRecord());
+		map.put("beginRecord", pageUtils.getBeginRecord() - 1);
+		map.put("recordPerPage", pageUtils.getRecordPerPage());
 		
 		// beginRecord ~ endRecord 사이 검색된 목록 가져오기
 		List<FnqDTO> fnqList = fnqMapper.selectFindList(map);

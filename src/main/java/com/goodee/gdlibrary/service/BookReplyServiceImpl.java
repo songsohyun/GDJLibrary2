@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.goodee.gdlibrary.domain.BookReplyDTO;
+import com.goodee.gdlibrary.domain.MemberDTO;
 import com.goodee.gdlibrary.mapper.BookReplyMapper;
 import com.goodee.gdlibrary.util.PageUtils1;
 
@@ -18,8 +19,23 @@ public class BookReplyServiceImpl implements BookReplyService {
 	private BookReplyMapper bookReplyMapper;
 	
 	@Override
-	public Map<String, Object> addReview(BookReplyDTO reply) {
+	public Map<String, Object> addReview(HttpServletRequest request) {
+		
+		MemberDTO loginMember = (MemberDTO) request.getSession().getAttribute("loginMember");
+
+	      String memberId = loginMember.getMemberId();
+	      Long bookNO = Long.parseLong(request.getParameter("bookNo"));
+	      String bookReplyContent = request.getParameter("bookReplyContent");
+	      Integer bookRating = Integer.parseInt(request.getParameter("bookRating")); 
+	      
+	      BookReplyDTO reply = BookReplyDTO.builder()
+	    		  				.bookNo(bookNO)
+	    		  				.bookReplyContent(bookReplyContent)
+	    		  				.bookRating(bookRating)
+	    		  				.memberId(memberId).build();
+	      
 		Map<String, Object> map = new HashMap<>();
+
 		map.put("res", bookReplyMapper.insertReview(reply));
 		return map;
 	}
@@ -35,8 +51,8 @@ public class BookReplyServiceImpl implements BookReplyService {
 		
 		
 		Map<String, Object> map = new HashMap<>();
-		map.put("beginRecord", p.getBeginRecord());
-		map.put("endRecord", p.getEndRecord());
+		map.put("beginRecord", p.getBeginRecord()-1);
+		map.put("recordPerPage", p.getRecordPerPage());
 
 		List<BookReplyDTO> replies = bookReplyMapper.selectReplyList(map);
 		

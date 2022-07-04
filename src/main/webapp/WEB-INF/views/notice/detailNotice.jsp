@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
 <!DOCTYPE html>
@@ -166,7 +167,7 @@
 			<div class="created_hit_wrap">
 				<div>
 					<%-- 작성일 ${notice.noticeCreated}	 --%>	
-					<span>작성일ㅣ </span><span>${notice.noticeCreated}</span>	
+					<span>작성일ㅣ </span><span><fmt:formatDate value="${notice.noticeCreated}" pattern="yyyy-MM-dd"/></span>	
 				</div>
 				<div class="hit_wrap">
 					<span>조회수ㅣ </span> ${notice.noticeHit}			

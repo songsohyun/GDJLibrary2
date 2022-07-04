@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.goodee.gdlibrary.domain.MemberDTO;
 import com.goodee.gdlibrary.domain.QaaDTO;
 import com.goodee.gdlibrary.service.QaaService;
 
