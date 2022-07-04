@@ -34,9 +34,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 회원가입 -->
 	<insert id="insertMemberSignIn" parameterType="MemberDTO">
 		INSERT INTO MEMBER
-			(MEMBER_NO, MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_PHONE, MEMBER_EMAIL, MEMBER_POSTCODE, MEMBER_ROAD_ADDRESS, MEMBER_DETAIL_ADDRESS, MEMBER_AGREE_STATE, MEMBER_SIGN_UP)
+			(MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_PHONE, MEMBER_EMAIL, MEMBER_POSTCODE, MEMBER_ROAD_ADDRESS, MEMBER_DETAIL_ADDRESS, MEMBER_AGREE_STATE, MEMBER_SIGN_UP)
 		VALUES
-			(MEMBER_SEQ.NEXTVAL, #{memberId}, #{memberPw}, #{memberName}, #{memberPhone}, #{memberEmail}, #{memberPostcode}, #{memberRoadAddress}, #{memberDetailAddress}, #{memberAgreeState}, SYSDATE)
+			(#{memberId}, #{memberPw}, #{memberName}, #{memberPhone}, #{memberEmail}, #{memberPostcode}, #{memberRoadAddress}, #{memberDetailAddress}, #{memberAgreeState}, SYSDATE)
 	</insert>
 
 	<!-- 로그인 id/pw 검사 -->
@@ -50,9 +50,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 로그인 기록 -->
 	<insert id="insertMemberLog" parameterType="String">
 		INSERT INTO MEMBER_LOG
-			(MEMBER_LOG_NO, MEMBER_ID, MEMBER_LOG_SIGN_IN)
+			(MEMBER_ID, MEMBER_LOG_SIGN_IN)
 		VALUES
-			(MEMBER_LOG_SEQ.NEXTVAL, #{memberId}, TO_DATE(SYSDATE, 'yyyy-mm-dd hh24:mi:ss'))
+			(#{memberId}, TO_DATE(now(), '%Y%m%d%H%i%s'))
 	</insert>
 	
 	<!-- 로그인 유지 회원 sesseion update -->
@@ -129,9 +129,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 탈퇴회원 탈퇴 테이블로 삽입 -->
 	<insert id="insertSignOut" parameterType="MemberDTO">
 		INSERT INTO SIGN_OUT_MEMBER
-			(SIGN_OUT_NO, MEMBER_NO, MEMBER_ID, MEMBER_NAME, MEMBER_PHONE, MEMBER_EMAIL, MEMBER_POSTCODE, MEMBER_ROAD_ADDRESS, MEMBER_DETAIL_ADDRESS, MEMBER_AGREE_STATE, MEMBER_SIGN_UP)
+			(MEMBER_NO, MEMBER_ID, MEMBER_NAME, MEMBER_PHONE, MEMBER_EMAIL, MEMBER_POSTCODE, MEMBER_ROAD_ADDRESS, MEMBER_DETAIL_ADDRESS, MEMBER_AGREE_STATE, MEMBER_SIGN_UP)
 		VALUES
-			(SIGN_OUT_MEMBER_SEQ.NEXTVAL, #{memberNo}, #{memberId}, #{memberName}, #{memberPhone}, #{memberEmail}, #{memberPostcode}, #{memberRoadAddress}, #{memberDetailAddress}, #{memberAgreeState}, #{memberSignUp})
+			(#{memberNo}, #{memberId}, #{memberName}, #{memberPhone}, #{memberEmail}, #{memberPostcode}, #{memberRoadAddress}, #{memberDetailAddress}, #{memberAgreeState}, #{memberSignUp})
 	</insert>
 	
 	
@@ -153,9 +153,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 해당하는 회원 휴면테이블로 추가 -->
 	<insert id="insertDormant" parameterType="MemberDTO">
 		INSERT INTO DORMANT_MEMBER
-			(DORMANT_NO, MEMBER_NO, MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_PHONE, MEMBER_EMAIL, MEMBER_POSTCODE, MEMBER_ROAD_ADDRESS, MEMBER_DETAIL_ADDRESS, MEMBER_AGREE_STATE, MEMBER_SIGN_UP, MEMBER_PW_MODIFIED, MEMBER_INFO_MODIFIED)
+			(MEMBER_NO, MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_PHONE, MEMBER_EMAIL, MEMBER_POSTCODE, MEMBER_ROAD_ADDRESS, MEMBER_DETAIL_ADDRESS, MEMBER_AGREE_STATE, MEMBER_SIGN_UP, MEMBER_PW_MODIFIED, MEMBER_INFO_MODIFIED)
 		VALUES
-			(DORMANT_MEMBER_SEQ.NEXTVAL, #{memberNo}, #{memberId}, #{memberPw}, #{memberName}, #{memberPhone}, #{memberEmail}, #{memberPostcode}, #{memberRoadAddress}, #{memberDetailAddress}, #{memberAgreeState}, #{memberSignUp}, #{memberPwModified}, #{memberInfoModified})
+			(#{memberNo}, #{memberId}, #{memberPw}, #{memberName}, #{memberPhone}, #{memberEmail}, #{memberPostcode}, #{memberRoadAddress}, #{memberDetailAddress}, #{memberAgreeState}, #{memberSignUp}, #{memberPwModified}, #{memberInfoModified})
 	</insert>
 	
 	
@@ -183,9 +183,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 네아로 로그인 회원가입 -->
 	<insert id="insertNaverLogin" parameterType="MemberDTO">
 		INSERT INTO MEMBER
-			(MEMBER_NO, MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_PHONE, MEMBER_EMAIL, MEMBER_SIGN_UP)
+			(MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_PHONE, MEMBER_EMAIL, MEMBER_SIGN_UP)
 		VALUES
-			(MEMBER_SEQ.NEXTVAL, #{memberId}, 'naver', #{memberName}, #{memberPhone}, #{memberEmail}, SYSDATE)
+			(#{memberId}, 'naver', #{memberName}, #{memberPhone}, #{memberEmail}, SYSDATE)
 	</insert>
 	
 	<!-- 네아로로 회원가입한 회원인지 확인 -->
