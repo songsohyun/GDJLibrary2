@@ -56,6 +56,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<!-- 로그인 유지 회원 sesseion update -->
+	
 	<update id="updateSessionInfo" parameterType="MemberDTO">
 		UPDATE MEMBER
 		   SET MEMBER_SESSION_ID = #{memberSessionId}
