@@ -9,9 +9,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="getBooksInfo" parameterType="BookDTO">
 		<foreach collection="list" open="DECLARE BEGIN" close="; END;" separator=";" item="book">
 		INSERT INTO BOOK
-			(BOOK_NO, BOOK_ISBN ,BOOK_TITLE, BOOK_AUTHOR, BOOK_PUBLISHER, BOOK_PUBDATE, BOOK_DESCRIPTION, BOOK_IMAGE, BOOK_FIELD)
+			(BOOK_ISBN ,BOOK_TITLE, BOOK_AUTHOR, BOOK_PUBLISHER, BOOK_PUBDATE, BOOK_DESCRIPTION, BOOK_IMAGE, BOOK_FIELD)
 		 VALUES
-		 	(BOOK_SEQ.NEXTVAL, #{book.bookIsbn}, #{book.bookTitle}, #{book.bookAuthor}, #{book.bookPublisher}, #{book.bookPubdate}, #{book.bookDescription}, #{book.bookImage}, #{book.bookField})
+		 	(#{book.bookIsbn}, #{book.bookTitle}, #{book.bookAuthor}, #{book.bookPublisher}, #{book.bookPubdate}, #{book.bookDescription}, #{book.bookImage}, #{book.bookField})
 		</foreach>
 	
 	</insert>
