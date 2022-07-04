@@ -235,9 +235,13 @@
 						</tr>
 					</c:if>
 					<c:if test="${not empty noticeList}">
-						<c:forEach items="${noticeList}" var="notice">
+						<c:forEach items="${noticeList}" var="notice" varStatus="vs">
 							<tr class="content_wrap">
+							
+								<!--  
 								<td>${totalRecord - notice.rowNum + 1}</td>
+								-->
+								<td>${startNo - vs.index}</td>
 								<td><a class="a_style" href="${contextPath}/notice/detailNotice?noticeNo=${notice.noticeNo}">${notice.noticeTitle}</a></td>
 								<td>
 									<fmt:formatDate value="${notice.noticeCreated}" pattern="yyyy.MM.dd"/>

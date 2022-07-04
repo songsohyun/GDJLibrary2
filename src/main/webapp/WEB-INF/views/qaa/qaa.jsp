@@ -321,9 +321,12 @@
 					</tr>
 				</c:if>
 				<c:if test="${not empty qaaList}">
-					<c:forEach var="qaa" items="${qaaList}">
+					<c:forEach var="qaa" items="${qaaList}" varStatus="vs">
 						<tr>
+							<!--  
 							<td>${totalRecord - qaa.rowNum + 1}</td>
+							-->
+							<td>${startNo - vs.index}</td>
 							<td>${qaa.memberId}</td>
 							<td>
 								<!-- Depth만큼 들여쓰기(Depth 1 == Space 2) -->

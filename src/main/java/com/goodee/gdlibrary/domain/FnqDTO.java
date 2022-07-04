@@ -13,5 +13,4 @@ public class FnqDTO {
 	   private Long fnqNo;
 	   private String fnqTitle;
 	   private String fnqContent;
-
 }
