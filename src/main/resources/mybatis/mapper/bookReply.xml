@@ -7,9 +7,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<insert id="insertReview" parameterType="BookReplyDTO">
 		INSERT INTO BOOK_REPLY
-			(BOOK_REPLY_NO, BOOK_NO, MEMBER_ID, BOOK_REPLY_CONTENT, BOOK_REPLY_CREATED, BOOK_RATING)
+			(BOOK_NO, MEMBER_ID, BOOK_REPLY_CONTENT, BOOK_REPLY_CREATED, BOOK_RATING)
 		  VALUES
-		    (BOOK_REPLY_SEQ.NEXTVAL, #{bookNo}, 'ADMIN', #{bookReplyContent}, SYSDATE, #{bookRating})	
+		    (#{bookNo}, 'ADMIN', #{bookReplyContent}, SYSDATE, #{bookRating})	
 	</insert>
 	
 	<!-- 해당 게시글에 달린 댓글의 갯수 -->
