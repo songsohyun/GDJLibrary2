@@ -1255,7 +1255,6 @@ public class ManageServiceImpl implements ManageService {
 				.bookDescription(bookDescription)
 				.bookImage(bookImage)
 				.bookField(bookField)
-				.bookField(bookField)
 				.build();
 	
 		
