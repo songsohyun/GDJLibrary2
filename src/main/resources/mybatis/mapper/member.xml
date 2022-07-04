@@ -34,9 +34,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 회원가입 -->
 	<insert id="insertMemberSignIn" parameterType="MemberDTO">
 		INSERT INTO MEMBER
-			(MEMBER_NO, MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_PHONE, MEMBER_EMAIL, MEMBER_POSTCODE, MEMBER_ROAD_ADDRESS, MEMBER_DETAIL_ADDRESS, MEMBER_AGREE_STATE, MEMBER_SIGN_UP)
+			(MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_PHONE, MEMBER_EMAIL, MEMBER_POSTCODE, MEMBER_ROAD_ADDRESS, MEMBER_DETAIL_ADDRESS, MEMBER_AGREE_STATE, MEMBER_SIGN_UP)
 		VALUES
-			(MEMBER_SEQ.NEXTVAL, #{memberId}, #{memberPw}, #{memberName}, #{memberPhone}, #{memberEmail}, #{memberPostcode}, #{memberRoadAddress}, #{memberDetailAddress}, #{memberAgreeState}, SYSDATE)
+			(#{memberId}, #{memberPw}, #{memberName}, #{memberPhone}, #{memberEmail}, #{memberPostcode}, #{memberRoadAddress}, #{memberDetailAddress}, #{memberAgreeState}, NOW())
 	</insert>
 
 	<!-- 로그인 id/pw 검사 -->
@@ -50,12 +50,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 로그인 기록 -->
 	<insert id="insertMemberLog" parameterType="String">
 		INSERT INTO MEMBER_LOG
-			(MEMBER_LOG_NO, MEMBER_ID, MEMBER_LOG_SIGN_IN)
+			(MEMBER_ID, MEMBER_LOG_SIGN_IN)
 		VALUES
-			(MEMBER_LOG_SEQ.NEXTVAL, #{memberId}, TO_DATE(SYSDATE, 'yyyy-mm-dd hh24:mi:ss'))
+			(#{memberId}, NOW())
 	</insert>
 	
 	<!-- 로그인 유지 회원 sesseion update -->
+	
 	<update id="updateSessionInfo" parameterType="MemberDTO">
 		UPDATE MEMBER
 		   SET MEMBER_SESSION_ID = #{memberSessionId}
@@ -104,7 +105,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateMemberChangePw" parameterType="MemberDTO">
 		UPDATE MEMBER
 		   SET MEMBER_PW = #{memberPw}
-		 	 , MEMBER_PW_MODIFIED = SYSDATE
+		 	 , MEMBER_PW_MODIFIED = NOW()
 		 WHERE MEMBER_ID = #{memberId}
 	</update>
 	<!-- 비밀번호 변경(휴면 테이블) -->
@@ -122,16 +123,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		     , MEMBER_ROAD_ADDRESS = #{memberRoadAddress}
 		     , MEMBER_DETAIL_ADDRESS = #{memberDetailAddress}
 		     , MEMBER_PHONE = #{memberPhone}
-		     , MEMBER_INFO_MODIFIED = SYSDATE
+		     , MEMBER_INFO_MODIFIED = NOW()
 		 WHERE MEMBER_ID = #{memberId}
 	</update>
 	
 	<!-- 탈퇴회원 탈퇴 테이블로 삽입 -->
 	<insert id="insertSignOut" parameterType="MemberDTO">
 		INSERT INTO SIGN_OUT_MEMBER
-			(SIGN_OUT_NO, MEMBER_NO, MEMBER_ID, MEMBER_NAME, MEMBER_PHONE, MEMBER_EMAIL, MEMBER_POSTCODE, MEMBER_ROAD_ADDRESS, MEMBER_DETAIL_ADDRESS, MEMBER_AGREE_STATE, MEMBER_SIGN_UP)
+			(MEMBER_NO, MEMBER_ID, MEMBER_NAME, MEMBER_PHONE, MEMBER_EMAIL, MEMBER_POSTCODE, MEMBER_ROAD_ADDRESS, MEMBER_DETAIL_ADDRESS, MEMBER_AGREE_STATE, MEMBER_SIGN_UP)
 		VALUES
-			(SIGN_OUT_MEMBER_SEQ.NEXTVAL, #{memberNo}, #{memberId}, #{memberName}, #{memberPhone}, #{memberEmail}, #{memberPostcode}, #{memberRoadAddress}, #{memberDetailAddress}, #{memberAgreeState}, #{memberSignUp})
+			(#{memberNo}, #{memberId}, #{memberName}, #{memberPhone}, #{memberEmail}, #{memberPostcode}, #{memberRoadAddress}, #{memberDetailAddress}, #{memberAgreeState}, #{memberSignUp})
 	</insert>
 	
 	
@@ -144,18 +145,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 1년전이 마지막 로그인인지 조회 -->
 	<select id="selectMemberLogSignIn" resultType="MemberDTO">
+		<![CDATA[
 		SELECT M.MEMBER_NO, M.MEMBER_ID, M.MEMBER_PW, M.MEMBER_NAME, M.MEMBER_PHONE, M.MEMBER_EMAIL, M.MEMBER_POSTCODE, M.MEMBER_ROAD_ADDRESS, M.MEMBER_DETAIL_ADDRESS, M.MEMBER_AGREE_STATE, M.MEMBER_SIGN_UP, M.MEMBER_PW_MODIFIED, M.MEMBER_INFO_MODIFIED, M.MEMBER_SESSION_ID, M.MEMBER_SESSION_LIMIT
           FROM MEMBER M, MEMBER_LOG L
          WHERE M.MEMBER_ID = L.MEMBER_ID
-           AND TO_CHAR(L.MEMBER_LOG_SIGN_IN, 'YYMMDD') <![CDATA[<]]> TO_CHAR(SYSDATE - (INTERVAL '1' YEAR), 'YYMMDD')	
+         AND DATEDIFF(NOW(), L.MEMBER_LOG_SIGN_IN) > 365
+        ]]>
 	</select>
 	
 	<!-- 해당하는 회원 휴면테이블로 추가 -->
 	<insert id="insertDormant" parameterType="MemberDTO">
 		INSERT INTO DORMANT_MEMBER
-			(DORMANT_NO, MEMBER_NO, MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_PHONE, MEMBER_EMAIL, MEMBER_POSTCODE, MEMBER_ROAD_ADDRESS, MEMBER_DETAIL_ADDRESS, MEMBER_AGREE_STATE, MEMBER_SIGN_UP, MEMBER_PW_MODIFIED, MEMBER_INFO_MODIFIED)
+			(MEMBER_NO, MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_PHONE, MEMBER_EMAIL, MEMBER_POSTCODE, MEMBER_ROAD_ADDRESS, MEMBER_DETAIL_ADDRESS, MEMBER_AGREE_STATE, MEMBER_SIGN_UP, MEMBER_PW_MODIFIED, MEMBER_INFO_MODIFIED)
 		VALUES
-			(DORMANT_MEMBER_SEQ.NEXTVAL, #{memberNo}, #{memberId}, #{memberPw}, #{memberName}, #{memberPhone}, #{memberEmail}, #{memberPostcode}, #{memberRoadAddress}, #{memberDetailAddress}, #{memberAgreeState}, #{memberSignUp}, #{memberPwModified}, #{memberInfoModified})
+			(#{memberNo}, #{memberId}, #{memberPw}, #{memberName}, #{memberPhone}, #{memberEmail}, #{memberPostcode}, #{memberRoadAddress}, #{memberDetailAddress}, #{memberAgreeState}, #{memberSignUp}, #{memberPwModified}, #{memberInfoModified})
 	</insert>
 	
 	
@@ -183,9 +186,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 네아로 로그인 회원가입 -->
 	<insert id="insertNaverLogin" parameterType="MemberDTO">
 		INSERT INTO MEMBER
-			(MEMBER_NO, MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_PHONE, MEMBER_EMAIL, MEMBER_SIGN_UP)
+			(MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_PHONE, MEMBER_EMAIL, MEMBER_SIGN_UP)
 		VALUES
-			(MEMBER_SEQ.NEXTVAL, #{memberId}, 'naver', #{memberName}, #{memberPhone}, #{memberEmail}, SYSDATE)
+			(#{memberId}, 'naver', #{memberName}, #{memberPhone}, #{memberEmail}, NOW())
 	</insert>
 	
 	<!-- 네아로로 회원가입한 회원인지 확인 -->
@@ -200,19 +203,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 소현언니꺼에서 가져다 쓸거임 나중에 수정해야함 임시로 사용중 -->
 	<!-- 사용자가 대여중인 책 목록(조인) -->
 	<select id="selectRentBookList" parameterType="String" resultType="Map">
-		SELECT R.RENT_NO, B.BOOK_IMAGE, B.BOOK_TITLE, TO_CHAR(R.RENT_DATE, 'YYYY-MM-DD') AS RENT_DATE, TO_CHAR(R.RENT_EXPIRATION_DATE, 'YYYY-MM-DD') AS RENT_EXPIRATION_DATE
-		  FROM BOOK B, RENT R
-		 WHERE B.BOOK_NO = R.BOOK_NO
-		   AND R.MEMBER_ID = #{memberId}
-	</select>
+		SELECT R.RENT_NO, B.BOOK_IMAGE, B.BOOK_TITLE, DATE_FORMAT(R.RENT_DATE, '%Y-%m-%d') AS RENT_DATE, DATE_FORMAT(R.RENT_EXPIRATION_DATE, '%Y-%m-%d') AS RENT_EXPIRATION_DATE
+          FROM BOOK B, RENT R
+         WHERE B.BOOK_NO = R.BOOK_NO
+           AND R.MEMBER_ID = #{memberId}
+   </select>
 	
 	<!-- 사용자가 연체중인 책 목록(조인) -->
 	<select id="selectOverdueBookList" parameterType="String" resultType="Map">
-		SELECT O.OVERDUE_NO, B.BOOK_IMAGE, B.BOOK_TITLE, TO_CHAR(O.RENT_EXPIRATION_DATE, 'YYYY-MM-DD') AS RENT_EXPIRATION_DATE
-		  FROM BOOK B, OVERDUE O
-		 WHERE B.BOOK_NO = O.BOOK_NO
-		   AND O.MEMBER_ID = #{memberId}
-	</select>
+		SELECT O.OVERDUE_NO, B.BOOK_IMAGE, B.BOOK_TITLE, DATE_FORMAT(O.RENT_EXPIRATION_DATE, '%Y-%m-%d') AS RENT_EXPIRATION_DATE
+          FROM BOOK B, OVERDUE O
+         WHERE B.BOOK_NO = O.BOOK_NO
+           AND O.MEMBER_ID = #{memberId}
+   </select>
 	
 	<!-- 예약한 좌석 -->
 	<select id="selectReservationSeatNo" parameterType="String"  resultType="SeatDTO">
