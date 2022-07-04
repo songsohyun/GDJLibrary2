@@ -476,8 +476,7 @@
 		    				<div class="divButton">
 								퇴실하기
 								<form id="formCheckOut" class="divForm">
-									<input type="hidden" name="" id="" value="">
-									<input type="text" name="memberNo" id="memberNo1" placeholder="회원번호를 입력하세요.">
+									<input type="text" name="seatCode" placeholder="좌석코드를 입력하세요.">
 									<input type="button" id="btnCheckOut" class="formBtn">
 									<label for="btnCheckOut">&nbsp;<i class="fa-solid fa-magnifying-glass bt"></i>&nbsp;</label>
 								</form>

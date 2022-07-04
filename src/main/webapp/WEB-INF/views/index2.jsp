@@ -15,6 +15,7 @@
 	body {
 		background-color: #fbfbf2;
 	}
+	
 	#divImg {
 		background: url("https://cdn.pixabay.com/photo/2016/03/26/22/21/books-1281581_1280.jpg");
 		background-repeat: no-repeat;
@@ -32,13 +33,16 @@
 	#divTop {
 		background-color: 
 	}
+	
 	#divButton {
 		text-align: right;
 	}
+	
 	#divTopMenu {
 		background-color: beige;
 		text-align: center;
 	}
+	
 	.divTopMenu {
 		display: inline-block;
 		font-size: 30px;
@@ -60,10 +64,12 @@
 		color: black;
 		font-size: 31px;
 	}
+	
 	#divBottomMenu {
 		background-color: beige;
 		text-align: center;
 	}
+	
 	.divBottomMenu {
 		display: inline-block;
 		font-size: 20px;
@@ -170,11 +176,11 @@
 		</div>
 	</div>
 	<div id="divBottomMenu">
-		<div class="divBottomMenu"><a href="${contextPath}/rent/rentBook?bookNo=1">대여하기</a></div>
+		<div class="divBottomMenu"><a href="${contextPath}/book/listPage">도서관리</a></div>
 		<div class="divBottomMenu"><a href="${contextPath}/returned/returnedBookPage">반납하기</a></div>
 		<div class="divBottomMenu"><a href="${contextPath}/notice/noticePage">공지사항</a></div>
 		<div class="divBottomMenu"><a href="${contextPath}/qaa/qaaPage">질문과답변</a></div>
-		<div class="divBottomMenu"><a href="${contextPath}/seat/seatAgreePage">열람실이용</a></div>
+		<div class="divBottomMenu"><a href="${contextPath}/admin/manageMain">관리자페이지</a></div>
 		<div class="divBottomMenu"><a href="${contextPath}/member/map">찾아오시는 길</a></div>
 	</div>
 	<div id="divBottomText">

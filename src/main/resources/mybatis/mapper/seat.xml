@@ -19,14 +19,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<update id="updateUpSeatStatus" parameterType="Long">
 		UPDATE SEAT
-		   SET SEAT_STATUS = 2, SEAT_DATE = SYSTIMESTAMP
+		   SET SEAT_STATUS = 2, SEAT_DATE = CURRENT_TIMESTAMP()
 		 WHERE SEAT_NO = #{seatNo}
 	</update>
 	
 	<update id="updateDownSeatStatus" parameterType="Long">
 		UPDATE SEAT
-		   SET SEAT_STATUS = 1, MEMBER_NO = NULL, SEAT_DATE = NULL
-		 WHERE MEMBER_NO = #{memberNo}
+		   SET SEAT_STATUS = 1, MEMBER_NO = NULL, SEAT_DATE = NULL, SEAT_CODE = NULL
+		 WHERE SEAT_CODE = #{seatCode}
 	</update>
 	
 	<select id="selectSeatById" parameterType="String" resultType="SeatDTO">
@@ -40,9 +40,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 <![CDATA[
 			UPDATE SEAT
 	           SET MEMBER_NO = NULL, SEAT_STATUS = 1, SEAT_DATE = NULL
-	         WHERE SEAT_DATE + (INTERVAL '2' hour) < SYSTIMESTAMP
+	         WHERE TIMEDIFF(NOW(), SEAT_DATE) > 2;
          ]]>
 	</update>
+	
 	
 	<update id="updateRandomCode" parameterType="SeatDTO">
 		UPDATE SEAT

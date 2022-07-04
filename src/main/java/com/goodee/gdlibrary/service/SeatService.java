@@ -9,10 +9,9 @@ public interface SeatService {
 	public List<SeatDTO> findSeatList();
 	public SeatDTO findSeat(Long seatNo);
 	public void upSeatStatus(Long seatNo);
-	public Map<String, Object> seatCheckOut(Long memberNo);
+	public Map<String, Object> seatCheckOut(Long seatCode);
 	public Map<String, Object> seatConfirm(String memberId);
 	public void downSeatStatusByScheduled();
 	public Map<String, Object> seatRenew();
-	public void addSeatInfo(Long seatNo);
 	public Long randomSeatCode(Long seatNo);
 }

@@ -36,9 +36,9 @@ public class SeatServiceImpl implements SeatService {
 	
 	
 	@Override
-	public Map<String, Object> seatCheckOut(Long memberNo) {
+	public Map<String, Object> seatCheckOut(Long seatCode) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("res", seatMapper.updateDownSeatStatus(memberNo));
+		map.put("res", seatMapper.updateDownSeatStatus(seatCode));
 		return map;
 	}
 	
@@ -62,11 +62,6 @@ public class SeatServiceImpl implements SeatService {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("seats", seatMapper.selectSeatList());
 		return map;
-	}
-	
-	@Override
-	public void addSeatInfo(Long seatNo) {
-		seatMapper.insertSeatInfo(seatNo);
 	}
 	
 	@Override

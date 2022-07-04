@@ -39,7 +39,6 @@ public class SeatController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("seats", seatService.findSeat(seatNo));
 		map.put("code", seatService.randomSeatCode(seatNo));
-		seatService.addSeatInfo(seatNo);
 		return map;
 	}
 	
@@ -56,8 +55,8 @@ public class SeatController {
 	
 	@ResponseBody
 	@GetMapping(value="/seat/seatCheckOut", produces="application/json; charset=UTF-8")
-	public Map<String, Object> seatCheckOut(@RequestParam Long memberNo) {
-		return seatService.seatCheckOut(memberNo);
+	public Map<String, Object> seatCheckOut(@RequestParam Long seatCode) {
+		return seatService.seatCheckOut(seatCode);
 	}
 
 	
