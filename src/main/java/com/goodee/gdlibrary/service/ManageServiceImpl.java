@@ -1127,7 +1127,7 @@ public class ManageServiceImpl implements ManageService {
 				.bookPubdate(pubdate)
 				.bookDescription(description)
 				.bookImage(image)
-				.bookField(field)
+				.bookType(field)
 				.build();
 			
 		
@@ -1254,8 +1254,7 @@ public class ManageServiceImpl implements ManageService {
 				.bookPubdate(bookPubdate)
 				.bookDescription(bookDescription)
 				.bookImage(bookImage)
-				.bookField(bookField)
-				.bookField(bookField)
+				.bookType(bookField)
 				.build();
 	
 		
