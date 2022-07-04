@@ -35,6 +35,7 @@ public interface MemberMapper {
 	public int updateMemberChangePw(MemberDTO member);
 	public int updateDormantMemberChangePw(MemberDTO member);
 	
+	
 	//정보 수정
 	public int updateMemberInfo(MemberDTO member);
 	

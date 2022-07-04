@@ -73,29 +73,111 @@
 	.dont {
 		color: #666b7d;
 	}
+	
+	* {
+        padding: 0;
+        margin: 0;
+    }
+
+    .findPw_wrap {
+        width: 500px;
+        margin: 150px auto 0;
+    }
+
+    .findPw_wrap table {
+        margin: 0 auto;
+        
+    }
+    
+
+    .findPw > h3 {
+        display: block;
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 15px;
+        color: #4e4c4c;
+    }
+
+    .findPw_wrap tr td:nth-of-type(1) {
+        font-size: 13px;
+        padding: 0 10px 0 5px;
+        width: 120px;
+    }
+    
+    .findPw_wrap tr td:nth-of-type(3) {
+    	font-size: 13px;
+        padding: 0 10px 0 5px;
+        width: 500px;
+    }
+
+    .findPw_wrap tr td:nth-of-type(2) {
+        display: block;
+        height: 35px;
+        margin-bottom: 3px;
+        border: 1px solid #d7d7d7;
+        position: relative;
+        padding-right: 5px;
+    }
+
+    .findPw_wrap input[type="password"] {
+        width: 180px;
+        height: 10px;
+        padding: 12px 10px 12px;
+        font-size: 14px;
+        font-weight: bold;
+        color: #635f5f;
+        outline-style: none;
+        border: none;
+    }
+
+    .btn_findPw {
+       display: block;
+       text-align: center;
+       margin: 10px auto 0;
+       background-color: #f5e0c1;
+       width: 150px;
+       border-color: #f5d7ac;
+       padding: 3px 5px;
+       font-size: 12px;
+    }
+    .findMsg td{
+        font-size: 12px;
+        padding: 0 10px 0 5px;
+    }
 </style>
 
 </head>
 <body>
-	<form id="f" action="${contextPath}/member/changePw" method="post">
-		<div>
-			<input type="hidden" name="memberId" id="memberId" value="${memberId}">
-			<label for="memberPw">
-				변경할 비밀번호
-				<input type="password" name="memberPw" id="memberPw">
-				<span id="pwMsg"></span>
-			</label>
-		</div>
-	
-		<div>
-			<label for="memberPwConfirm">
-				비밀번호 확인
-				<input type="password" id="memberPwConfirm">
-				<span id="pwConfirmMsg"></span>
-			</label>
-		</div>
-		<button>비밀번호 변경</button>
-		
-	</form>
+	<div class="findPw_wrap">
+        <div class="findPw">
+            <h3>비밀번호 변경</h3>
+            <form id="f" action="${contextPath}/member/changePw" method="post">
+                <input type="hidden" name="memberId" id="memberId" value="${memberId}">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td><label for="memberPw">변경할 비밀번호</label></td>
+                            <td><input type="password" name="memberPw" id="memberPw"></td>
+                            
+                        </tr>
+                        <tr class="findMsg">
+                            <td colspan="2"><span id="pwMsg"></span></td>
+                        </tr>
+                        <tr>
+                            <td><label for="memberPwConfirm">비밀번호 확인</label></td>
+                            <td>
+                                <input type="password" id="memberPwConfirm">
+                                
+                            </td>
+                        </tr>
+                        <tr class="findMsg">
+                            <td colspan="2"><span id="pwConfirmMsg"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="btn_findPw">비밀번호 변경</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
