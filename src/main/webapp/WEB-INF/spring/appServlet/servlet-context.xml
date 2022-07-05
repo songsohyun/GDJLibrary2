@@ -71,6 +71,7 @@
 			<mapping path="/rent/rentBook"/>
 			<mapping path="/returned/returnedBookPage"/>
 			<mapping path="/qaa/addQaaPage"/>
+			<mapping path="/seat/seatAgreePage"/>
 			<beans:ref bean="requiredLoginInterceptor"/>
 		</interceptor>
 	</interceptors>	

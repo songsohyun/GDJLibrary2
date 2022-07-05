@@ -11,6 +11,7 @@ import com.goodee.gdlibrary.domain.QaaDTO;
 public interface QaaMapper {
 	
 	public int insertQaa(QaaDTO qaa);
+	public int updateQaaGroupNo(QaaDTO qaa);
 	public int selectQaaCount();
 	public List<QaaDTO> selectQaaList(Map<String, Object> map);
 	public int updatePreviousReply(QaaDTO qaa);
