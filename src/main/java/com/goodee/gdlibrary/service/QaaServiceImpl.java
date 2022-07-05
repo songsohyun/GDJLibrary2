@@ -27,6 +27,7 @@ public class QaaServiceImpl implements QaaService {
 	
 
 	// qaa 게시판에 작성한 글 qaa 테이블에 넣기
+	@Transactional
 	@Override
 	public void addQaa(HttpServletRequest request, HttpServletResponse response) {
 		
@@ -40,11 +41,13 @@ public class QaaServiceImpl implements QaaService {
 				.qaaContent(content)
 				.build();
 		
-		int res = qaaMapper.insertQaa(qaa);
+		int res1 = qaaMapper.insertQaa(qaa);
+		int res2 = qaaMapper.updateQaaGroupNo(qaa);
+		
 		try {
 			response.setContentType("text/html");
 			PrintWriter out = response.getWriter();
-			if(res > 0) {
+			if(res1 > 0 && res2 > 0) {
 				out.println("<script>");
 				out.println("alert('게시글이 등록되었습니다.')");
 				out.println("location.href='" + request.getContextPath() + "/qaa/qaaPage'");

@@ -261,7 +261,7 @@
 				<p>분야 : ${book.bookType}</p>
 				<p>isbn : ${book.bookIsbn}</p>
 				
-				<input type="button" value="대여하기" onclick="location.href='${contextPath}/book/detail?bookNo=${book.bookNo}'">
+				<input type="button" value="대여하기" onclick="location.href='${contextPath}/rent/rentBook?bookNo=${book.bookNo}'">
 				<input type="button" id="btnSearchAll" value="목록가기" onclick="location.href='${contextPath}/book/listPage'"/>
 				<br>
 					

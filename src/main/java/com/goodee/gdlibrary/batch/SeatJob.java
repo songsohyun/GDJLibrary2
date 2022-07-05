@@ -14,11 +14,10 @@ public class SeatJob {
 	@Autowired
 	private SeatService seatService;
 
-	/*
+	
 	@Scheduled(cron="0 0/1 * * * ?")
 		public void execute() {
-		System.out.println("1분마다 쿼츠 동작중");
 		seatService.downSeatStatusByScheduled();
 	}
-	*/
+	
 }
