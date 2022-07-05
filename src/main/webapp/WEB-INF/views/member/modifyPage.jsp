@@ -16,6 +16,7 @@
 	$(function(){
 		fnPhoneCheck();
 		fnModify();
+		fnMemberDelete();
 	})
 	
 	/* 함수 */
@@ -81,6 +82,14 @@
 	function fnCancel(){
 		location.href='${contextPath}/member/myPage';
 	}
+	
+	function fnMemberDelete() {
+		$('#f2').on('submit', function(){
+			if(confirm('탈퇴하시겠습니까?')) {
+				return true;
+			}
+		})
+	}
 </script>
 <style>
 	.ok {
@@ -126,6 +135,11 @@
 		
 		<button>수정하기</button>
 		<input type="button" value="취소하기" onclick="fnCancel();">
+	</form>
+	
+	<form id="f2" action="${contextPath}/member/memberDelete" method="post">
+		<input type="hidden" name="memberId" id="memberId" value="${member.memberId}">
+		<button>회원탈퇴</button>
 	</form>
 </body>
 </html>

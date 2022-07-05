@@ -95,9 +95,9 @@
 	
 	<div class="deleteConfirm_wrap">
         <div class="deleteConfirm">
-            <h3>회원 탈퇴를 위한 인증 절차</h3>
+            <h3>회원 정보 수정을 위한 인증 절차</h3>
 
-			<form id="f" action="${contextPath}/member/deletePwCheck" method="post">
+			<form id="f" action="${contextPath}/member/modifyPwCheck" method="post">
 				<input type="hidden" name="memberId" id="memberId" value="${loginMember.memberId}">
 				<table>
 					<tbody>

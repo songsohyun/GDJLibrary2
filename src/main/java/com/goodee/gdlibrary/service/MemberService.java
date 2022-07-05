@@ -31,16 +31,21 @@ public interface MemberService {
 	public Map<String, Object> findPwCheckIdEmail(HttpServletRequest request);
 	public void changePw(HttpServletRequest request, HttpServletResponse response);
 	
+	//회원 정보 수정 체크
+	public void modifyPwCheck(HttpSession session, HttpServletRequest request, HttpServletResponse response);
+		
 	//회원정보 수정
 	public void modifyPage(String memberId, Model model);
 	public void modify(HttpServletRequest request, HttpServletResponse response);
+	
+	//회원 탈퇴
+	public void memberDelete(String memberId, HttpSession session, HttpServletRequest request, HttpServletResponse response);
 	
 	//회원 비밀번호 변경
 	public void pwChangePwCheck(HttpServletRequest request, HttpServletResponse response);
 	public void pwModify(HttpServletRequest request, HttpServletResponse response);
 	
-	//회원 탈퇴 체크
-	public void deletePwCheck(HttpSession session, HttpServletRequest request, HttpServletResponse response);
+	
 	
 	//네아로
 	public String getNaverURL(HttpServletRequest request);

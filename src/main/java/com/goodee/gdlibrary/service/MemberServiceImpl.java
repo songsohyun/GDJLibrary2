@@ -115,7 +115,7 @@ public class MemberServiceImpl implements MemberService {
 		return map;
 	}
 
-	//로그인
+	//회원가입
 	@Override
 	public void signIn(HttpServletRequest request, HttpServletResponse response) {
 
@@ -148,11 +148,12 @@ public class MemberServiceImpl implements MemberService {
 				.build();
 
 		int res = memberMapper.insertMemberSignIn(member);
-
+		MemberDTO loginMember = member;
 		try {
 			response.setContentType("text/html");
 			PrintWriter out = response.getWriter();
 			if (res == 1) {
+				request.getSession().setAttribute("loginMember", loginMember);
 				out.println("<script>");
 				out.println("alert('회원 가입되었습니다.')");
 				out.println("location.href='" + request.getContextPath() + "'");
@@ -317,9 +318,6 @@ public class MemberServiceImpl implements MemberService {
 				e.printStackTrace();
 			}
 		}
-		
-		
-
 	}
 
 	//회원 정보 수정 페이지 
@@ -372,6 +370,53 @@ public class MemberServiceImpl implements MemberService {
 			e.printStackTrace();
 		}
 
+	}
+	
+	//회원 탈퇴
+	@Transactional
+	@Override
+	public void memberDelete(String memberId, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+
+		MemberDTO member = memberMapper.selectMemberById(memberId);
+
+		response.setContentType("text/html; charset=UTF-8");
+		try {
+			PrintWriter out = response.getWriter();
+			if (member != null) {
+				int res1 = memberMapper.insertSignOut(member);
+				int res2 = memberMapper.deleteMember(memberId);
+				if (res1 == 1 && res2 == 1) {
+					MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
+					if (loginMember != null) {
+						session.removeAttribute("loginMember");
+						session.invalidate();
+					}
+					out.println("<script>");
+					out.println("alert('탈퇴되었습니다.')");
+					out.println("location.href='" + request.getContextPath() + "'");
+					out.println("</script>");
+					out.close();
+
+				} else {
+					out.println("<script>");
+					out.println("alert('탈퇴 실패했습니다.')");
+					out.println("history.back()");
+					out.println("</script>");
+					out.close();
+				}
+
+			} else {
+				out.println("<script>");
+				out.println("alert('비밀번호가 틀렸습니다.')");
+				out.println("history.back()");
+				out.println("</script>");
+				out.close();
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	//회원 비밀번호 변경을 위한 비밀번호 확인
@@ -443,12 +488,9 @@ public class MemberServiceImpl implements MemberService {
 		}
 	}
 	
-	
-	//회원 탈퇴를 위한 비밀번호 확인
-	@Transactional
+	//수정전 비밀번호 확인
 	@Override
-	public void deletePwCheck(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
-		// String memberId = request.getParameter("memberId");
+	public void modifyPwCheck(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
 		String memberId = SecurityUtils.xss(request.getParameter("memberId"));
 		String memberPw = SecurityUtils.sha256(request.getParameter("memberPw"));
 
@@ -458,33 +500,16 @@ public class MemberServiceImpl implements MemberService {
 				.build();
 
 		MemberDTO member = memberMapper.selectMemberByIdPw(m);
-
+		
 		response.setContentType("text/html; charset=UTF-8");
 		try {
 			PrintWriter out = response.getWriter();
-			if (member != null) {
-				int res1 = memberMapper.insertSignOut(member);
-				int res2 = memberMapper.deleteMember(memberId);
-				if (res1 == 1 && res2 == 1) {
-					MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
-					if (loginMember != null) {
-						session.removeAttribute("loginMember");
-						session.invalidate();
-					}
-					out.println("<script>");
-					out.println("alert('탈퇴되었습니다.')");
-					out.println("location.href='" + request.getContextPath() + "'");
-					out.println("</script>");
-					out.close();
-
-				} else {
-					out.println("<script>");
-					out.println("alert('탈퇴 실패했습니다.')");
-					out.println("history.back()");
-					out.println("</script>");
-					out.close();
-				}
-
+			if(member != null) {
+				out.println("<script>");
+				out.println("alert('확인되었습니다.')");
+				out.println("location.href='" + request.getContextPath() + "/member/modifyPage?memberId=" + memberId + "'");
+				out.println("</script>");
+				out.close();
 			} else {
 				out.println("<script>");
 				out.println("alert('비밀번호가 틀렸습니다.')");
@@ -492,11 +517,10 @@ public class MemberServiceImpl implements MemberService {
 				out.println("</script>");
 				out.close();
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		
 	}
 
 	
@@ -521,24 +545,6 @@ public class MemberServiceImpl implements MemberService {
 		return apiURL;
 	}
 	
-//	@Override
-//	public String getDeleteNaverAccessToken(HttpServletRequest request, String accessToken) {
-//		String clientId = "72gskAJwbB1EXRAVmpJS";
-//		String clientSecret = "57g5sjb0L5";
-//		String apiURL = "";
-//		
-//		try {
-//			apiURL += "https://nid.naver.com/oauth2.0/token?grant_type=delete&";
-//			apiURL += "client_id=" + clientId;
-//			apiURL += "&client_secret=" + clientSecret;
-//			apiURL += "&access_token=" + accessToken;
-//			apiURL += "&service_provider=NAVER";
-//		} catch (Exception e) {
-//
-//		}
-//		
-//		return null;
-//	}
 
 	//네아로 토큰 반환
 	@Override
@@ -582,8 +588,6 @@ public class MemberServiceImpl implements MemberService {
 				accessToken = result.getString("access_token");
 				br.close();
 
-//				if (responseCode == 200) {
-//				}
 
 			} catch (Exception e) {
 				e.printStackTrace();
