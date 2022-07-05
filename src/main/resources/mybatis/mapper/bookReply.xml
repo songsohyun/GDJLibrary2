@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.goodee.gdlibrary.mapper.BookReplyMapper">
 
-	<insert id="insertReview" parameterType="BookReplyDTO">
+	<insert id="insertReply" parameterType="BookReplyDTO">
 		INSERT INTO BOOK_REPLY
 			(BOOK_NO, MEMBER_ID, BOOK_REPLY_CONTENT, BOOK_REPLY_CREATED, BOOK_RATING)
 		  VALUES
@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectReplyList" parameterType="Map" resultType="BookReplyDTO">
 		SELECT BOOK_REPLY_NO, BOOK_NO, MEMBER_ID, BOOK_REPLY_CONTENT, BOOK_REPLY_CREATED, BOOK_RATING
 		  FROM BOOK_REPLY
-         ORDER BY BOOK_REPLY_NO 
+		 WHERE BOOK_NO = #{bookNo} 
 		 LIMIT #{beginRecord}, #{recordPerPage} 
 	</select>
 	

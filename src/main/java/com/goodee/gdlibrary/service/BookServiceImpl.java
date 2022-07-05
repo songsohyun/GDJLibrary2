@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,12 +27,13 @@ import com.goodee.gdlibrary.util.PageUtils1;
 @Service
 public class BookServiceImpl implements BookService {
 
-	@Autowired
-	private BookMapper bookMapper;
-
-	@Transactional
-	@Override
-	public void getBooksInfo(HttpServletRequest request) {
+		@Autowired
+		private BookMapper bookMapper;
+	
+		@Transactional
+		@Override
+		// api정보 받아오기
+		public void getBooksInfo(HttpServletRequest request) {
 
 		// API URL with Parameter
 		String key = "d99cfc0bc8e22bb018dd441c09f57af2624e907b48a7135e2bce67d44b6a0db3";
@@ -90,13 +90,14 @@ public class BookServiceImpl implements BookService {
 			book.setBookImage(b.getString("recomfilepath"));
 			book.setBookType(b.getString("drCodeName"));
 			bookMapper.insertBook(book);
-		}
+			}
 		
-	}
+		}
 	
-	
-	@Override
-	public Map<String, Object> bookList(int page) {
+		
+		@Override
+		// 책목록 출력
+		public Map<String, Object> bookList(int page) {
 		
 		// page, totalRecord를 이용해서 페이징
 		Integer totalRecord = bookMapper.selectBookCount();
@@ -115,10 +116,11 @@ public class BookServiceImpl implements BookService {
 	
 		return map;
 		
-	}
+		}
 	
-	@Override
-	public Map<String, Object> searchBook(HttpServletRequest request) {
+		@Override
+		// 책검색하기
+		public Map<String, Object> searchBook(HttpServletRequest request) {
 
 		String column = request.getParameter("column");
 		String query = request.getParameter("query");
@@ -143,20 +145,22 @@ public class BookServiceImpl implements BookService {
 		
 		return resMap;
 		
-	}
+		}
 	
 	
 	
-	@Override
-	public void detailBook(HttpServletRequest request, Model model) {
+		@Override
+		// 책 상세보기
+		public void detailBook(HttpServletRequest request, Model model) {
 		Long bookNo = Long.parseLong(request.getParameter("bookNo"));
 		model.addAttribute("book", bookMapper.detailBook(bookNo));
 		
-	}
+		}
 	
 
-	@Override
-	public Map<String, Object> recomBook(Model model) {
+		@Override
+		// 평점순 추천도서
+		public Map<String, Object> recomBook(Model model) {
 		
 		List<BookDTO> list = bookMapper.recomBook();
 		
@@ -167,10 +171,8 @@ public class BookServiceImpl implements BookService {
 		
 
 		return map;
-	}
+		}
 	
-	
-	
-	
+
 }	
 	

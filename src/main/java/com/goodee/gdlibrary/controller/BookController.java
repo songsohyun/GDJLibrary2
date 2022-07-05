@@ -17,15 +17,11 @@ public class BookController {
 	
 	@Autowired
 	private BookService bookService;
+	
 
 	@GetMapping("/book/listPage")
 	public String bookListPage() {
 		return "book/list";
-	}
-	
-	@GetMapping("book/indexPage")
-	public String indexPage() {
-		return "book/aa";
 	}
 	
 	@ResponseBody

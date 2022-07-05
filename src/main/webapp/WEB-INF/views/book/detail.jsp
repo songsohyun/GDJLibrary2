@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -66,18 +66,17 @@
 					$('#replyRatingAverage').text(obj.replyRatingAverage);
 					fnPrintReplyList(obj.replies, obj.p);
 					fnPrintPaging(obj.p);
-					
 				}
 			})
 		}
+		
 		// 1-1 목록출력
 		function fnPrintReplyList(replies, p){
 			$('#reviewList').empty();
-			console.log(p);
 			$.each(replies, function(i, reply){
 				var tr = '<tr>'
 				var userRating = reply.bookRating
-				
+				var created = new Date(reply.bookReplyCreated).toISOString().substring(0,10);				
 				tr += '<td>' + p.beginRecord++ + '</td>';
 					switch(userRating){
 					case 1 : tr += '<td class="userRating">★</td>'; break;
@@ -88,7 +87,8 @@
 					}
 				tr += '<td>' + reply.memberId + '</td>';
 				tr += '<td>' + reply.bookReplyContent + '</td>';
-				tr += '<td>' + reply.bookReplyCreated + '</td>';
+				tr += '<td>' + created + '</td>';
+				
 				tr += '</tr>';
 				$('#reviewList').append(tr);
 				
@@ -152,19 +152,12 @@
 		}
 		
 		// 2. 감상평등록
-			function fnSaveReply(){
+		function fnSaveReply(){
 			$('#btnReg').on('click', function(){
-				
-				var review = JSON.stringify({
-					bookNo:$('#bookNo').val(),
-					bookReplyContent:$('#bookReplyContent').val(),
-					bookRating: $(':radio[name="bookRating"]:checked').val()
-				});
 				$.ajax({
 					url: '${contextPath}/reply/save',
-					type: 'post',
-					data: review,
-					contentType: 'application/json',
+					type: 'get',
+					data: $('#contentReg').serialize(),
 					dataType: 'json',
 					success: function(obj){
 							if(obj.res > 0){
@@ -269,7 +262,7 @@
 				<p>isbn : ${book.bookIsbn}</p>
 				
 				<input type="button" value="대여하기" onclick="location.href='${contextPath}/book/detail?bookNo=${book.bookNo}'">
-
+				<input type="button" id="btnSearchAll" value="목록가기" onclick="location.href='${contextPath}/book/listPage'"/>
 				<br>
 					
 			<h3>책소개</h3>
@@ -291,7 +284,7 @@
 			            <div>별점을 선택해 주세요.</div>
 			            <div class="ratingStar">
 			                <fieldset>
-			               	    <input type="hidden" id="bookNo" name="bookNo" value="${bookNo}">
+			               	    <input type="hidden" id="bookNo" name="bookNo" value="${book.bookNo}">
 								<input type="radio" name="bookRating" value="5" id="rate1"><label
 									for="rate1">★</label>
 								<input type="radio" name="bookRating" value="4" id="rate2"><label
@@ -318,10 +311,7 @@
 			<h3>감상평</h3>
 			
 			<div id="replyInfo">
-				<c:forEach items="${employees}" var="emp" varStatus="vs">
 				<em>감상평 <span id="replyCount"></span>개 평균평점 <span id="replyRatingAverage"></span>점</em>
-				</c:forEach>
-				<input type="button" id="btnSearchAll" value="목록가기" onclick="location.href='${contextPath}/book/listPage'"/>
 		   </div>
 			
 			<table class="replyList">
@@ -336,8 +326,8 @@
 					</tr>
 				</thead>
 				<tbody id="reviewList">
-				
-				</tbody>
+
+				</tbody>	
 				<tfoot>
 					<tr>
 						<td colspan="5">
