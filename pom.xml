@@ -26,10 +26,6 @@
           <version>8.0.29</version>
       </dependency>
 	
-<<<<<<< HEAD
-	
-=======
->>>>>>> main
 	<!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-dbcp -->
 		<dependency>
 		    <groupId>org.apache.tomcat</groupId>
