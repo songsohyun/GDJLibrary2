@@ -1,6 +1,6 @@
 package com.goodee.gdlibrary.domain;
 
-import java.sql.Date;
+import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,7 +15,7 @@ public class QaaDTO {
 	   // 받아줄 변수가 필요해서
 	   // private Long rowNum; 추가함!
 	   // Qaa 테이블에 칼럼은 추가하지 않음! 추가할 필요도 없고
-	   private Long rowNum;  
+	   // private Long rowNum;  
 	   private Long qaaNo;
 	   private String memberId;
 	   private String qaaTitle;

@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.goodee.gdlibrary.domain.DormantMemberDTO;
 import com.goodee.gdlibrary.domain.MemberDTO;
+import com.goodee.gdlibrary.domain.MemberLogDTO;
 import com.goodee.gdlibrary.domain.SeatDTO;
 
 @Mapper
@@ -21,7 +22,9 @@ public interface MemberMapper {
 	
 	//로그인
 	public MemberDTO selectMemberByIdPw(MemberDTO member);
+	public MemberLogDTO selectMemberLog(String memberID);
 	public int insertMemberLog(String memberId);
+	public int updateMemberLog(String memberId);
 	
 	//로그인 세션
 	public int updateSessionInfo(MemberDTO member);

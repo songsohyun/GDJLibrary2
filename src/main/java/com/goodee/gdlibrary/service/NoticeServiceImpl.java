@@ -56,15 +56,18 @@ public class NoticeServiceImpl implements NoticeService {
 		
 		// Map
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("beginRecord", pageUtils.getBeginRecord());
-		map.put("endRecord", pageUtils.getEndRecord());
+		// map.put("beginRecord", pageUtils.getBeginRecord());
+		// map.put("endRecord", pageUtils.getEndRecord());
+		map.put("beginRecord", pageUtils.getBeginRecord() - 1);
+		map.put("recordPerPage", pageUtils.getRecordPerPage());
 		
 		// 목록 가져오기
 		List<NoticeDTO> noticeList = noticeMapper.selectNotices(map);
 		
 		// notice/notice.jsp로 전달할 데이터
 		model.addAttribute("noticeList", noticeList);
-		model.addAttribute("totalRecord", totalRecord);
+		// model.addAttribute("totalRecord", totalRecord);
+		model.addAttribute("startNo", totalRecord - (page - 1) * pageUtils.getRecordPerPage());
 		model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/notice/noticePage"));
 		
 	}
@@ -490,15 +493,18 @@ public class NoticeServiceImpl implements NoticeService {
 		pageUtils.setPageEntity(findRecord, page);
 		
 		// beginRecord + endRecord => Map
-		map.put("beginRecord", pageUtils.getBeginRecord());
-		map.put("endRecord", pageUtils.getEndRecord());
+		// map.put("beginRecord", pageUtils.getBeginRecord());
+		// map.put("endRecord", pageUtils.getEndRecord());
+		map.put("beginRecord", pageUtils.getBeginRecord() - 1);
+		map.put("recordPerPage", pageUtils.getRecordPerPage());
 		
 		// beginRecord ~ endRecord 사이 검색된 목록 가져오기
 		List<NoticeDTO> noticeList = noticeMapper.selectFindList(map);
 		
 		// notice/notice.jsp로 전달할 데이터
 		model.addAttribute("noticeList", noticeList);
-		model.addAttribute("totalRecord", findRecord);
+		// model.addAttribute("totalRecord", findRecord);
+		model.addAttribute("startNo", findRecord - (page - 1) * pageUtils.getRecordPerPage());
 		model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/notice/search"));
 		model.addAttribute("query", query);
 		

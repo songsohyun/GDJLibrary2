@@ -11,20 +11,43 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  FROM QAA
 	</select>
 	
-	<!-- qaa 목록 가져오기 -->
+	<!-- 
+		qaa 목록 가져오기(오라클) 
 	<select id="selectQaaList" parameterType="Map" resultType="QaaDTO">
 		SELECT Q.ROW_NUM, Q.QAA_NO, Q.MEMBER_ID, Q.QAA_TITLE, Q.QAA_CONTENT, Q.QAA_CREATED, Q.QAA_MODIFIED, Q.QAA_DEPTH, Q.QAA_GROUP_NO, Q.QAA_GROUP_ORD
 		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY QAA_GROUP_NO DESC, QAA_GROUP_ORD) AS ROW_NUM, QAA_NO, MEMBER_ID, QAA_TITLE, QAA_CONTENT, QAA_CREATED, QAA_MODIFIED, QAA_DEPTH, QAA_GROUP_NO, QAA_GROUP_ORD
 		          FROM QAA) Q
 		 WHERE Q.ROW_NUM BETWEEN #{beginRecord} AND #{endRecord}
 	</select>
+	-->
+	
+	<!-- qaa 목록 가져오기(MySQL) -->
+	<select id="selectQaaList" parameterType="Map" resultType="QaaDTO">
+		SELECT QAA_NO, MEMBER_ID, QAA_TITLE, QAA_CONTENT, QAA_CREATED, QAA_MODIFIED, QAA_DEPTH, QAA_GROUP_NO, QAA_GROUP_ORD
+		  FROM QAA
+		 ORDER BY QAA_GROUP_NO DESC, QAA_GROUP_ORD
+		 LIMIT #{beginRecord}, #{recordPerPage}
+	</select>
 
-	<!-- qaa 작성한 게시글 내용 넣기(원글 삽입) -->
+	<!-- 
+		qaa 작성한 게시글 내용 넣기(원글 삽입)(오라클) 
 	<insert id="insertQaa" parameterType="QaaDTO">
 		INSERT INTO QAA
 			(QAA_NO, MEMBER_ID, QAA_TITLE, QAA_CONTENT, QAA_MODIFIED, QAA_DEPTH, QAA_GROUP_NO, QAA_GROUP_ORD)
 		VALUES
 			(QAA_SEQ.NEXTVAL, #{memberId}, #{qaaTitle}, #{qaaContent}, SYSDATE, 0, QAA_SEQ.CURRVAL, 0)
+	</insert>
+	-->
+	
+	<!-- qaa 작성한 게시글 내용 넣기(원글 삽입)(MySQL) -->
+	<insert id="insertQaa" parameterType="QaaDTO">
+		<selectKey keyProperty="qaaNo" order="BEFORE" resultType="Long">
+			SELECT LAST_INSERT_ID() + 1
+		</selectKey>
+		INSERT INTO QAA
+			(MEMBER_ID, QAA_TITLE, QAA_CONTENT, QAA_MODIFIED, QAA_DEPTH, QAA_GROUP_NO, QAA_GROUP_ORD)
+		VALUES
+			(#{memberId}, #{qaaTitle}, #{qaaContent}, NOW(), 0, #{qaaNo}, 0)
 	</insert>
 	
 	<!-- 댓글 삽입 전에 처리 -->
@@ -38,12 +61,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	
-	<!-- 댓글 삽입 -->
+	<!-- 
+		댓글 삽입(오라클) 
 	<insert id="insertReply" parameterType="QaaDTO">
 		INSERT INTO QAA
 			(QAA_NO, MEMBER_ID, QAA_TITLE, QAA_CONTENT, QAA_MODIFIED, QAA_DEPTH, QAA_GROUP_NO, QAA_GROUP_ORD)
 		VALUES
 			(QAA_SEQ.NEXTVAL, #{memberId}, '댓글 작성', #{qaaContent}, SYSDATE, #{qaaDepth}, #{qaaGroupNo}, #{qaaGroupOrd})
+	</insert>
+	-->
+	
+	<!-- 댓글 삽입(MySQL) -->
+	<insert id="insertReply" parameterType="QaaDTO">
+		INSERT INTO QAA
+			(MEMBER_ID, QAA_TITLE, QAA_CONTENT, QAA_MODIFIED, QAA_DEPTH, QAA_GROUP_NO, QAA_GROUP_ORD)
+		VALUES
+			(#{memberId}, '댓글 작성', #{qaaContent}, NOW(), #{qaaDepth}, #{qaaGroupNo}, #{qaaGroupOrd})
 	</insert>
 	
 	<!-- 원글 상세보기 -->
@@ -53,12 +86,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE QAA_NO = #{qaaNo}
 	</select>
 	
-	<!-- 원글 수정하기 -->
+	<!-- 
+		원글 수정하기(오라클) 
 	<update id="updateQaa" parameterType="QaaDTO">
 		UPDATE QAA
 		   SET QAA_TITLE = #{qaaTitle}
 		     , QAA_CONTENT = #{qaaContent}
 		     , QAA_MODIFIED = SYSDATE
+		 WHERE QAA_NO = #{qaaNo}
+	</update>
+	-->
+	
+	<!-- 원글 수정하기(MySQL) -->
+	<update id="updateQaa" parameterType="QaaDTO">
+		UPDATE QAA
+		   SET QAA_TITLE = #{qaaTitle}
+		     , QAA_CONTENT = #{qaaContent}
+		     , QAA_MODIFIED = NOW()
 		 WHERE QAA_NO = #{qaaNo}
 	</update>
 	
@@ -126,13 +170,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	
-	<!-- 검색 -->
+	<!-- 
+		검색(오라클) 
 	<select id="selectFindList" parameterType="Map" resultType="QaaDTO">
 		SELECT Q.ROW_NUM, Q.QAA_NO, Q.MEMBER_ID, Q.QAA_TITLE, Q.QAA_CONTENT, Q.QAA_CREATED, Q.QAA_MODIFIED, Q.QAA_DEPTH, Q.QAA_GROUP_NO, Q.QAA_GROUP_ORD
 		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY QAA_GROUP_NO DESC, QAA_GROUP_ORD) AS ROW_NUM, QAA_NO, MEMBER_ID, QAA_TITLE, QAA_CONTENT, QAA_CREATED, QAA_MODIFIED, QAA_DEPTH, QAA_GROUP_NO, QAA_GROUP_ORD
 		          FROM QAA
 				 WHERE ${column} = TRIM(#{query})) Q
 		 WHERE Q.ROW_NUM BETWEEN #{beginRecord} AND #{endRecord}
+	</select>
+	-->
+	
+	<!-- 검색(MySQL) -->
+	<select id="selectFindList" parameterType="Map" resultType="QaaDTO">
+		SELECT QAA_NO, MEMBER_ID, QAA_TITLE, QAA_CONTENT, QAA_CREATED, QAA_MODIFIED, QAA_DEPTH, QAA_GROUP_NO, QAA_GROUP_ORD
+		  FROM QAA
+		 WHERE ${column} = TRIM(#{query})
+		 ORDER BY QAA_GROUP_NO DESC, QAA_GROUP_ORD
+		 LIMIT #{beginRecord}, #{recordPerPage}
 	</select>
 	
 	

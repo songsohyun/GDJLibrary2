@@ -1,7 +1,10 @@
 package com.goodee.gdlibrary.batch;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -12,6 +15,7 @@ import com.goodee.gdlibrary.domain.NoticeFileAttachDTO;
 import com.goodee.gdlibrary.domain.RentDTO;
 import com.goodee.gdlibrary.mapper.BookManageMapper;
 import com.goodee.gdlibrary.mapper.NoticeMapper;
+import com.goodee.gdlibrary.util.MyFileUtils;
 
 
 @Component  // 안녕. 난 bean이야.
@@ -75,24 +79,32 @@ public class OverdueJob {
 		}
 		
 		
-		// noticeFileAttach 테이블의 첨부 파일 정보대로
-		// 실제 첨부 파일이 존재하지 않으면 
-		// 해당 첨부 파일 정보를 테이블에서 삭제하기
-		List<NoticeFileAttachDTO> fileAttaches = noticeMapper.selectAllFileAttaches();
-		if(fileAttaches.isEmpty() == false) {
-			for(int i = 0; i < fileAttaches.size(); i++) {
-				
-				// fileAttaches 에서 하나씩 꺼내서 file 만들기
-				File file = new File(fileAttaches.get(i).getNoticeFileAttachPath(), fileAttaches.get(i).getNoticeFileAttachSaved());
-				
-				// file이 존재하지 않으면 테이블에서 정보 삭제
-				if(file.exists() == false) {
-					noticeMapper.deleteFileAttach(fileAttaches.get(i).getNoticeFileAttachNo());
-
-				} 
-				
+		// 어제 첨부된 파일 중 잘못된 파일들을 찾아서 제거
+		
+		// 어제 경로를 알아내기
+		String yesterdayPath = MyFileUtils.getYesterdayPath();
+		
+		// DB에서 가져온 어제 저장된 첨부 파일 목록
+		List<NoticeFileAttachDTO> fileAttaches = noticeMapper.selectFileAttachListAtYesterday();
+		
+		// DB에서 가져온 어제 저장된 첨부 파일들을 Path 객체(경로 + 파일명)로 List에 저장
+		List<Path> yesterdayPathes = fileAttaches.stream()
+				.map(fileAttach -> Paths.get(yesterdayPath, fileAttach.getNoticeFileAttachSaved()))
+				.collect(Collectors.toList());
+		
+		// 어제 경로 디렉터리에 실제로 저장된 파일들과
+		// DB에서 가져온 어제 저장된 첨부 파일 내역을 비교해서 일치하지 않는 파일을 제거
+		File dir = new File(yesterdayPath);
+		if(dir.exists()) {
+			// 어제 경로 디렉터리에 실제로 저장된 파일들 중에서
+			// DB에서 가져온 내역과 다른 파일들만 files에 저장(지워야 할 파일들)
+			File[] files = dir.listFiles(file -> yesterdayPathes.contains(file.toPath()) == false);
+			for(File removeFile : files) {
+				removeFile.delete();
 			}
 		}
+		
+		
 		
 		
 	}

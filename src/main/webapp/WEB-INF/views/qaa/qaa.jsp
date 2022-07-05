@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
 <!DOCTYPE html>
@@ -49,16 +50,6 @@
 	}
 	
 	
-	
-
-	/*
-	function fnBlind(){
-		$('.reply_link').on('click', function(){
-			$('.reply_form').addClass('blind');
-	    	$(this).parent().parent().next().removeClass('blind');
-		});
-	}
-	*/
 	
 	function fnBlind(){
 		$('.reply_link').on('click', function(){
@@ -148,7 +139,7 @@
 		padding-left: 20px;
 	}
 	.qaa_top_wrap {
-		width: 1040px;
+		width: 1065px;
 		padding-left: 20px;
 		margin-bottom: 20px;
 	}
@@ -159,7 +150,7 @@
 		background-color: #e0e2ef;
 	}
 	#btnWrite {
-		margin-left: 780px;
+		margin-left: 820px;
 	}
 	.search_column {
 		background-color: white;
@@ -185,7 +176,7 @@
 		text-align: center;
 	}
 	td:nth-of-type(1) { width: 80px; }
-	td:nth-of-type(2) { width: 100px; }
+	td:nth-of-type(2) { width: 125px; }
 	td:nth-of-type(3) { 
 		width: 500px; 
 		text-align: left;
@@ -215,7 +206,7 @@
 	}
 	input[name="memberId"], input[name="content"] {
 		height: 35px;
-		padding-left: 15px;
+		padding-left: 5px;
 		border-radius: 10px;
 	}
 
@@ -223,7 +214,7 @@
 		margin-top: 30px;
 	}
 	#qaa_search {
-		width: 1040px; 
+		width: 1065px; 
 		margin-top: 40px;
 		text-align: center;
 	}
@@ -331,25 +322,15 @@
 					</tr>
 				</c:if>
 				<c:if test="${not empty qaaList}">
-					<c:forEach var="qaa" items="${qaaList}">
+					<c:forEach var="qaa" items="${qaaList}" varStatus="vs">
 						<tr>
-							<td>${totalRecord - qaa.rowNum + 1}</td>
+							<td>${startNo - vs.index}</td>
 							<td>${qaa.memberId}</td>
 							<td>
 								<!-- Depth만큼 들여쓰기(Depth 1 == Space 2) -->
 								<c:forEach begin="1" end="${qaa.qaaDepth}" step="1">&nbsp;&nbsp;</c:forEach>
 								<!-- 댓글은 아이콘 표시 -->
 								<c:if test="${qaa.qaaDepth gt 0}"><i class="fa-solid fa-reply deg"></i></c:if>
-								
-								<!--  
-								제목
-								<c:if test="${qaa.qaaTitle.length() gt 20}">								
-									${qaa.qaaTitle.substring(0, 20)}
-								</c:if>
-								<c:if test="${qaa.qaaTitle.length() le 20}">								
-										${qaa.qaaTitle}
-								</c:if>
-								-->
 								
 								<!-- 
 									게시글인 경우 : 회원(제목)
@@ -363,18 +344,6 @@
 										${qaa.qaaContent}
 									</c:if>
 								</c:if>
-								
-								<!--  
-								<c:if test="${qaa.memberId ne 'admin'}">
-									<c:if test="${qaa.qaaTitle.length() gt 20}">								
-										${qaa.qaaTitle.substring(0, 20)}
-									</c:if>
-									<c:if test="${qaa.qaaTitle.length() le 20}">								
-											${qaa.qaaTitle}
-									</c:if>
-								</c:if>
-								-->
-								
 								
 								<c:if test="${qaa.memberId ne 'admin' && qaa.qaaTitle eq '댓글 작성'}">
 									<c:if test="${qaa.qaaContent.length() gt 20}">								
@@ -394,21 +363,15 @@
 									</c:if>
 								</c:if>
 								
-								
-								
-								
-								<!-- 관리자만 답글 등록할 수 있게함. -->
-								<!--  
-								<c:if test="${loginMember.memberId eq 'admin'}">
+								<c:if test="${loginMember ne null}">
 									<a class="reply_link">답글</a>
 								</c:if>
-								-->
-								<a class="reply_link">답글</a>
-								
 								
 								
 							</td>
-							<td>${qaa.qaaCreated}</td>
+							<td>
+								<fmt:formatDate value="${qaa.qaaCreated}" pattern="yyyy-MM-dd"/>
+							</td>
 							<td>
 								<c:if test="${(loginMember.memberId eq 'admin' && qaa.qaaTitle ne '댓글 작성') || (loginMember.memberId eq qaa.memberId && qaa.qaaTitle ne '댓글 작성')}">
 									<!-- 
@@ -429,7 +392,7 @@
 						<tr class="reply_form blind">
 							<td colspan="5">
 								<form class="f" action="${contextPath}/qaa/saveReply" method="post">
-									<input type="text" name="memberId" value="${loginMember.memberId}" readonly size="4">
+									<input type="text" name="memberId" value="${loginMember.memberId}" readonly size="10">
 									<input type="text" name="content" class="writeReply" placeholder="내용" size="80">
 									<!-- 원글의 Depth, GroupNo, GroupOrd -->
 									<input type="hidden" name="depth" value="${qaa.qaaDepth}">
