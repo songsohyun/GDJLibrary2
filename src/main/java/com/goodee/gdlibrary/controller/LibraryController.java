@@ -15,6 +15,6 @@ public class LibraryController {
 		
 		
 		
-		return "index2";
+		return "index";
 	}
 }
