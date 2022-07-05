@@ -3,6 +3,7 @@
     
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     
 <!DOCTYPE html>
 <html>
@@ -27,7 +28,7 @@
 	// 함수
 	function fnInsert(){
 		$('#btnInsert').on('click', function(){
-			location.href='${contextPath}/admin/memberSavePage?value=' + ${value};
+			location.href='${contextPath}/admin/saveDormantMemberPage?value=' + ${value};
 		})
 	}
 	// 삭제
@@ -37,11 +38,8 @@
 	
 	function fnlistCountChange(){
 		$('#pageUnit').change(function(){
-			location.href="${contextPath}/admin/memberList?value=" + $("#pageUnit option:selected").val();
-			switch($("#pageUnit option:selected").val()){
-			case '30':
-				$('#pageUnit').val('30').prop("selected",true);
-			}
+			location.href="${contextPath}/admin/listDormantMember?value=" + $("#pageUnit option:selected").val();
+			
 		})
 	}
 	
@@ -52,7 +50,7 @@
 		$('#query').on('keyup', function(){
 			$('#autoComplete').empty();
 			$.ajax({  // DB에서 입력한 값으로 시작하는 값을 가져와서 보여 줌
-				url: '${contextPath}/admin/memberAutoComplete',
+				url: '${contextPath}/admin/autoCompleteDormantMember',
 				type: 'get',
 				data: 'column=' + $('#column').val() + '&query=' + $('#query').val(),
 				dataType: 'json',
@@ -88,15 +86,15 @@
 			}
 			
 			// 전화번호 검색
-			var regMemberPhone = /[0-9]/;      // 숫자만가능.
+			var regMemberPhone = /^[0-9]{3}-[0-9]{4}-[0-9]{4}$/;      // 숫자만가능.
 			if( column.val() == 'MEMBER_PHONE' && regMemberPhone.test(query.val()) == false ) {
-				alert('전화번호가 올바르지 않습니다.');
+				alert('휴대전화 형식 예) 010-1234-5678');
 				return;
 			}
 			
 			// 주소 검색
 			var regMemberRoadAddress = /^[가-힣\s]+$/;      // (한글 + 띄어쓰기)가능.
-			if( column.val() == 'MEMBER_ROAD_ADDRESS' && regMemberRoadAddress.test(query.val()) == false ) {
+			if( column.val() == 'MEMBER_R OAD_ADDRESS' && regMemberRoadAddress.test(query.val()) == false ) {
 				alert('주소가 올바르지 않습니다.');
 				return;
 			}
@@ -104,7 +102,7 @@
 			// 가입일자 검색
 			var regMemberSingUp = /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/;  // 2022-05-25
 			if( column.val() == 'MEMBER_SIGN_UP' && (!regMemberSingUp.test(begin.val()) || !regMemberSingUp.test(end.val())) ){
-				alert('가입일자가 올바르지 않습니다.');
+				alert('가입일자 형식 예) 2022-05-25');
 				return;
 			}
 			
@@ -112,9 +110,9 @@
 			// equalArea 작업은 column, query 파라미터 전송
 			// rangeArea 작업은 column, begin, end 파라미터 전송
 			if( column.val() == 'MEMBER_NAME' || column.val() == 'MEMBER_PHONE' || column.val() == 'MEMBER_ROAD_ADDRESS') {
-				location.href="${contextPath}/admin/memberSearch?column=" + column.val() + "&query=" + query.val() + "&value=" + ${value};
+				location.href="${contextPath}/admin/searchDormantMember?column=" + column.val() + "&query=" + query.val() + "&value=" + ${value};
 			} else {
-				location.href="${contextPath}/admin/memberSearch?column=" + column.val() + "&begin=" + begin.val() + "&end=" + end.val() + "&value=" + ${value};
+				location.href="${contextPath}/admin/searchDormantMember?column=" + column.val() + "&begin=" + begin.val() + "&end=" + end.val() + "&value=" + ${value};
 			}
 			
 		})
@@ -123,7 +121,7 @@
 	
 	function fnSearchAll(){
 		$('#btnSearchAll').on('click', function(){
-			location.href="${contextPath}/admin/memberList?value=${value}";
+			location.href="${contextPath}/admin/listDormantMember?value=${value}";
 		})
 	}
 	
@@ -170,7 +168,7 @@
 		$('.checkOne').on('click', function(){
 		
 			let checkAll = true;                           // 전체 선택하는 거다.
-			
+
 			// 개별 선택이 하나라도 un-checked 상태이면, 전체 선택도 un-checked
 			$.each($('.checkOne'), function(i, checkOne){
 				if($(checkOne).is(':checked') == false){   // 개별 선택 하나라도 해제되어 있으면,
@@ -260,7 +258,7 @@
 </head>
 <body>
 	
-	<input type="button" value="회원추가" id="btnInsert">
+	
 	
 	<div class="form-group">
     <select id="pageUnit" name="pageUnit" onchange="Change(1)">
@@ -273,15 +271,15 @@
     &nbsp;&nbsp;&nbsp;&nbsp;
     페이지별검색수: ${value}        
 	&nbsp;&nbsp;
-	활동회원수: ${totalRecord}명
-	<input type="button" value="전체활동회원조회" id="btnSearchAll">
+	휴면회원수: ${totalRecord}명
+	<input type="button" value="전체휴면회원조회" id="btnSearchAll">
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	<input type="button" value="관리자메인페이지" id="btnManageMain">
 	</div>
 	
 	<br>	
 				
-	<form id="f" action="${contextPath}/admin/signOutMemberCheckRemove" method="post">
+	<form id="f" action="${contextPath}/admin/removeCheckDormantMember" method="post">
 		<table border="1" class="table">
 			<thead>
 				<tr>
@@ -300,12 +298,12 @@
 					<tr>
 						<td><input type="checkbox" name="check" class="blind checkOne" value="${member.memberNo}"></td>
 						<td>${beginNo - vs.index}</td>
-						<td><a href="${contextPath}/admin/signOutMemberDetail?memberNo=${member.memberNo}&value=${value}">${member.memberName}</a></td>
+						<td><a href="${contextPath}/admin/detailDormantMember?memberNo=${member.memberNo}&value=${value}">${member.memberName}</a></td>
 						<td>${member.memberPhone}</td>
 						<td>${member.memberEmail}</td>
 						<td>${member.memberRoadAddress}</td>
-						<td>${member.memberSignUp}</td>					
-						<td><a href="${contextPath}/admin/signOutMemberRemove?memberNo=${member.memberNo}&value=${value}" onclick="return confirm('정말 삭제하시겠습니까?')"><i class="fa-solid fa-circle-xmark"></i></a></td>					
+						<td><fmt:formatDate value="${member.memberSignUp}" pattern="yyyy-MM-dd" /></td>					
+						<td><a href="${contextPath}/admin/removeDormantMember?memberNo=${member.memberNo}&value=${value}" onclick="return confirm('정말 삭제하시겠습니까?')"><i class="fa-solid fa-circle-xmark"></i></a></td>					
 						<input type="hidden" name="value" value="${value}">
 					</tr>
 				</c:forEach>

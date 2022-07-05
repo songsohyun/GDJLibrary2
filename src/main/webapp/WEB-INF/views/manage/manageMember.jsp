@@ -3,6 +3,7 @@
     
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     
 <!DOCTYPE html>
 <html>
@@ -21,22 +22,24 @@
 		fnAutoComplete();
 		fnlistCountChange();
 		fnMoveManageMain();
-	
+		fnInsert();
 	})
 	
-	
-	
+	// 함수
+	function fnInsert(){
+		$('#btnInsert').on('click', function(){
+			location.href='${contextPath}/admin/saveMemberPage?value=' + ${value};
+		})
+	}
+	// 삭제
 		
 
 	
 	
 	function fnlistCountChange(){
 		$('#pageUnit').change(function(){
-			location.href="${contextPath}/admin/signOutMemberList?value=" + $("#pageUnit option:selected").val();
-			switch($("#pageUnit option:selected").val()){
-			case '30':
-				$('#pageUnit').val('30').prop("selected",true);
-			}
+			location.href="${contextPath}/admin/listMember?value=" + $("#pageUnit option:selected").val();
+			
 		})
 	}
 	
@@ -47,7 +50,7 @@
 		$('#query').on('keyup', function(){
 			$('#autoComplete').empty();
 			$.ajax({  // DB에서 입력한 값으로 시작하는 값을 가져와서 보여 줌
-				url: '${contextPath}/admin/signOutMemberAutoComplete',
+				url: '${contextPath}/admin/autoCompleteMember',
 				type: 'get',
 				data: 'column=' + $('#column').val() + '&query=' + $('#query').val(),
 				dataType: 'json',
@@ -83,9 +86,9 @@
 			}
 			
 			// 전화번호 검색
-			var regMemberPhone = /[0-9]/;      // 숫자만가능.
+			var regMemberPhone = /^[0-9]{3}-[0-9]{4}-[0-9]{4}$/;     
 			if( column.val() == 'MEMBER_PHONE' && regMemberPhone.test(query.val()) == false ) {
-				alert('전화번호가 올바르지 않습니다.');
+				alert('휴대전화 형식 예) 010-1234-5678');
 				return;
 			}
 			
@@ -99,7 +102,7 @@
 			// 가입일자 검색
 			var regMemberSingUp = /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/;  // 2022-05-25
 			if( column.val() == 'MEMBER_SIGN_UP' && (!regMemberSingUp.test(begin.val()) || !regMemberSingUp.test(end.val())) ){
-				alert('가입일자가 올바르지 않습니다.');
+				alert('가입일자 형식 예) 2022-05-25');
 				return;
 			}
 			
@@ -107,9 +110,9 @@
 			// equalArea 작업은 column, query 파라미터 전송
 			// rangeArea 작업은 column, begin, end 파라미터 전송
 			if( column.val() == 'MEMBER_NAME' || column.val() == 'MEMBER_PHONE' || column.val() == 'MEMBER_ROAD_ADDRESS') {
-				location.href="${contextPath}/admin/signOutMemberSearch?column=" + column.val() + "&query=" + query.val() + "&value=" + ${value};
+				location.href="${contextPath}/admin/searchMember?column=" + column.val() + "&query=" + query.val() + "&value=" + ${value};
 			} else {
-				location.href="${contextPath}/admin/signOutMemberSearch?column=" + column.val() + "&begin=" + begin.val() + "&end=" + end.val() + "&value=" + ${value};
+				location.href="${contextPath}/admin/searchMember?column=" + column.val() + "&begin=" + begin.val() + "&end=" + end.val() + "&value=" + ${value};
 			}
 			
 		})
@@ -118,7 +121,7 @@
 	
 	function fnSearchAll(){
 		$('#btnSearchAll').on('click', function(){
-			location.href="${contextPath}/admin/signOutMemberList?value=${value}";
+			location.href="${contextPath}/admin/listMember?value=${value}";
 		})
 	}
 	
@@ -276,7 +279,7 @@
 	
 	<br>	
 				
-	<form id="f" action="${contextPath}/admin/signOutMemberCheckRemove" method="post">
+	<form id="f" action="${contextPath}/admin/removeCheckMember" method="post">
 		<table border="1" class="table">
 			<thead>
 				<tr>
@@ -295,12 +298,12 @@
 					<tr>
 						<td><input type="checkbox" name="check" class="blind checkOne" value="${member.memberNo}"></td>
 						<td>${beginNo - vs.index}</td>
-						<td><a href="${contextPath}/admin/signOutMemberDetail?memberNo=${member.memberNo}&value=${value}">${member.memberName}</a></td>
+						<td><a href="${contextPath}/admin/detailMember?memberNo=${member.memberNo}&value=${value}">${member.memberName}</a></td>
 						<td>${member.memberPhone}</td>
 						<td>${member.memberEmail}</td>
 						<td>${member.memberRoadAddress}</td>
-						<td>${member.memberSignUp}</td>					
-						<td><a href="${contextPath}/admin/signOutMemberRemove?memberNo=${member.memberNo}&value=${value}" onclick="return confirm('정말 삭제하시겠습니까?')"><i class="fa-solid fa-circle-xmark"></i></a></td>					
+						<td><fmt:formatDate value="${member.memberSignUp}" pattern="yyyy-MM-dd" /></td>					
+						<td><a href="${contextPath}/admin/removeMember?memberNo=${member.memberNo}&value=${value}" onclick="return confirm('정말 삭제하시겠습니까?')"><i class="fa-solid fa-circle-xmark"></i></a></td>					
 						<input type="hidden" name="value" value="${value}">
 					</tr>
 				</c:forEach>
@@ -346,10 +349,3 @@
 	</div>
 </body>
 </html>
-
-
-
-
-
-
-

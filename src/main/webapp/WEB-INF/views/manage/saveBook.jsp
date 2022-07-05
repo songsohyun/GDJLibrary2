@@ -57,7 +57,7 @@
 	function fnIsbnCheck(){
 		$('#isbn').on('keyup', function(){
 			// 정규식 체크하기
-			let regIsbn = /^[0-9]{1,10}$/;  // 소문자 1~32자 사이(실제 서비스는 바꿔야 함)
+			let regIsbn = /^[0-9]{1,10}$/;  
 			if(regIsbn.test($('#isbn').val())==false){
 				$('#isbnMsg').text('ISBN은 숫자 1~10자입니다.').addClass('dont').removeClass('ok');
 				isbnPass = false;
@@ -65,7 +65,7 @@
 			}
 			// isbn 중복 체크
 			$.ajax({
-				url: '${contextPath}/admin/bookIsbnCheck',
+				url: '${contextPath}/admin/checkBookIsbn',
 				type: 'get',
 				data: 'isbn=' + $('#isbn').val(),
 				dataType: 'json',
@@ -98,7 +98,7 @@
 	
 	<h1>책추가화면</h1>
 	
-	<form id="f" action="${contextPath}/admin/bookSave?value=${value}" method="post">
+	<form id="f" action="${contextPath}/admin/saveBook?value=${value}" method="post">
 		<label for="isbn">
 			ISBN<br>
 			<input type="text" name="isbn" id="isbn"><br>

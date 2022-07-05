@@ -16,13 +16,13 @@
 		
 		// 목록
 		$('#btnList').on('click', function(){
-			location.href='${contextPath}/admin/dormantMemberList?value=${value}';
+			location.href='${contextPath}/admin/listDormantMember?value=${value}';
 		})
 		
 		// 활동회원전환
 		$('#f').on('submit', function(){
 			if(confirm('정말 활동회원으로 전환시키겠습니까?')) {
-				location.href="${contextPath}/admin/dormantToMemberSave?memberNo=${member.memberNo}&value=${value}";				
+				location.href="${contextPath}/admin/saveDormantToMember?memberNo=${member.memberNo}&value=${value}";				
 				return true;
 			} else {
 				return false;
@@ -50,19 +50,7 @@
 	상세주소 ${member.memberDetailAddress}<br>
 	
 	
-	<form id="f" action="${contextPath}/admin/dormantToMemberSave?memberNo=${member.memberNo}&value=${value}&agreeState=${member.memberAgreeState}&signUp=${member.memberSignUp}" method="post">
-		<input type="hidden" value="${member.memberNo}" name="memberNo">
-		<input type="hidden" value="${member.memberId}" name="id">
-		<input type="hidden" value="${member.memberPw}" name="pw">
-		<input type="hidden" value="${member.memberName}" name="name">
-		<input type="hidden" value="${member.memberPhone}" name="phone">
-		<input type="hidden" value="${member.memberEmail}" name="email">
-		<input type="hidden" value="${member.memberPostcode}" name="postcode">
-		<input type="hidden" value="${member.memberRoadAddress}" name="roadAddress">
-		<input type="hidden" value="${member.memberDetailAddress}" name="detailAddress">
-		<input type="hidden" value="${member.memberSignUp}" name="signUp">
-		<input type="hidden" value="${member.memberPwModified}" name="pwModified">
-		<input type="hidden" value="${member.memberInfoModified}" name="infoModified">
+	<form id="f" action="${contextPath}/admin/saveDormantToMember?memberNo=${member.memberNo}" method="post">
 		<input type="hidden" value="${value}" name="value">
 		<input type="button" value="수정페이지" id="btnChangePage">
 	    <input type="button" value="목록" id="btnList">

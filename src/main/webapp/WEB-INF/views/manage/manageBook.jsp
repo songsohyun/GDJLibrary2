@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="../resources/js/jquery-3.6.0.js"></script>
-<script type="text/javascript">
+<script>
 	
 	// 페이지 로드 이벤트
 	$(function(){
@@ -22,26 +22,22 @@
 		fnlistCountChange();
 		fnMoveManageMain();
 		fnInsert();
+		
 	})
 	
 	// 함수
+	
 	function fnInsert(){
 		$('#btnInsert').on('click', function(){
-			location.href='${contextPath}/admin/dormantMemberSavePage?value=' + ${value};
+			location.href='${contextPath}/admin/saveBookPage?value=' + ${value};
 		})
 	}
-	// 삭제
-		
-
 	
 	
 	function fnlistCountChange(){
 		$('#pageUnit').change(function(){
-			location.href="${contextPath}/admin/dormantMemberList?value=" + $("#pageUnit option:selected").val();
-			switch($("#pageUnit option:selected").val()){
-			case '30':
-				$('#pageUnit').val('30').prop("selected",true);
-			}
+			location.href="${contextPath}/admin/listBook?value=" + $("#pageUnit option:selected").val();
+			
 		})
 	}
 	
@@ -52,7 +48,7 @@
 		$('#query').on('keyup', function(){
 			$('#autoComplete').empty();
 			$.ajax({  // DB에서 입력한 값으로 시작하는 값을 가져와서 보여 줌
-				url: '${contextPath}/admin/dormantMemberAutoComplete',
+				url: '${contextPath}/admin/autoCompleteBook',
 				type: 'get',
 				data: 'column=' + $('#column').val() + '&query=' + $('#query').val(),
 				dataType: 'json',
@@ -79,43 +75,40 @@
 		
 		$('#btnSearch').on('click', function(){
 			
-			// 사원이름 검색
-			var regMemberName = /^[가-힣]+$/;  // 한글만가능.
-			if( column.val() == 'MEMBER_NAME' && regMemberName.test(query.val()) == false) {
-				alert('회원이름이 올바르지 않습니다.');
+			// 책ISBN고유번호 검색
+			var regBookIsbn = /^[0-9]{1,10}$/;   
+			if( column.val() == 'BOOK_ISBN' && regBookIsbn.test(query.val()) == false) {
+				alert('ISBN은 숫자 1~10자입니다.');
 				query.focus();
 				return;
 			}
 			
-			// 전화번호 검색
-			var regMemberPhone = /[0-9]/;      // 숫자만가능.
-			if( column.val() == 'MEMBER_PHONE' && regMemberPhone.test(query.val()) == false ) {
-				alert('전화번호가 올바르지 않습니다.');
+			// 책제목 검색
+			var regBookTitle = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]*$/; // 한글 + 영어 + 숫자 + 공백 가능
+			if( column.val() == 'BOOK_TITLE' && regBookTitle.test(query.val()) == false ) {
+				alert('제목이 올바르지 않습니다.');
 				return;
 			}
 			
-			// 주소 검색
-			var regMemberRoadAddress = /^[가-힣\s]+$/;      // (한글 + 띄어쓰기)가능.
-			if( column.val() == 'MEMBER_ROAD_ADDRESS' && regMemberRoadAddress.test(query.val()) == false ) {
-				alert('주소가 올바르지 않습니다.');
+			// 책작가 검색
+			var regBookAuthor = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]*$/; // 한글 + 영어 + 숫자 + 공백 가능
+			if( column.val() == 'BOOK_AUTHOR' && regBookAuthor.test(query.val()) == false ) {
+				alert('작가 이름이 올바르지 않습니다.');
 				return;
 			}
 			
-			// 가입일자 검색
-			var regMemberSingUp = /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/;  // 2022-05-25
-			if( column.val() == 'MEMBER_SIGN_UP' && (!regMemberSingUp.test(begin.val()) || !regMemberSingUp.test(end.val())) ){
-				alert('가입일자가 올바르지 않습니다.');
+			// 출판사 검색
+			var regBookPublisher = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]*$/; // 한글 + 영어 + 숫자 + 공백 가능
+			if( column.val() == 'BOOK_PUBLISHER' && regBookPublisher.test(query.val()) == false ) {
+				alert('출판사 이름이 올바르지 않습니다.');
 				return;
 			}
 			
 			// 검색 실행
 			// equalArea 작업은 column, query 파라미터 전송
-			// rangeArea 작업은 column, begin, end 파라미터 전송
-			if( column.val() == 'MEMBER_NAME' || column.val() == 'MEMBER_PHONE' || column.val() == 'MEMBER_ROAD_ADDRESS') {
-				location.href="${contextPath}/admin/dormantMemberSearch?column=" + column.val() + "&query=" + query.val() + "&value=" + ${value};
-			} else {
-				location.href="${contextPath}/admin/dormantMemberSearch?column=" + column.val() + "&begin=" + begin.val() + "&end=" + end.val() + "&value=" + ${value};
-			}
+			
+			location.href="${contextPath}/admin/searchBook?column=" + column.val() + "&query=" + query.val() + "&value=" + ${value};
+			
 			
 		})
 		
@@ -123,7 +116,7 @@
 	
 	function fnSearchAll(){
 		$('#btnSearchAll').on('click', function(){
-			location.href="${contextPath}/admin/dormantMemberList?value=${value}";
+			location.href="${contextPath}/admin/listBook?value=${value}";
 		})
 	}
 	
@@ -137,14 +130,10 @@
 		$('#column').on('change', function(){
 			if( $(this).val() == '' ) {
 				$('#equalArea, #rangeArea').css('display', 'none');
-			} else if( $(this).val() == 'MEMBER_NAME' || $(this).val() == 'MEMBER_PHONE' || $(this).val() == 'MEMBER_ROAD_ADDRESS' ) {
+			} else if( $(this).val() == 'BOOK_ISBN' || $(this).val() == 'BOOK_TITLE' || $(this).val() == 'BOOK_AUTHOR' || $(this).val() == 'BOOK_PUBLISHER') {
 				$('#equalArea').css('display', 'inline');
 				$('#rangeArea').css('display', 'none');
 				$('#selectSection').css('padding-left', '94px');
-			} else {
-				$('#equalArea').css('display', 'none');
-				$('#rangeArea').css('display', 'inline');
-				$('#btnSearchSection').css('padding-right', '92px');
 			}
 		})
 		
@@ -170,7 +159,7 @@
 		$('.checkOne').on('click', function(){
 		
 			let checkAll = true;                           // 전체 선택하는 거다.
-
+			
 			// 개별 선택이 하나라도 un-checked 상태이면, 전체 선택도 un-checked
 			$.each($('.checkOne'), function(i, checkOne){
 				if($(checkOne).is(':checked') == false){   // 개별 선택 하나라도 해제되어 있으면,
@@ -260,59 +249,61 @@
 </head>
 <body>
 	
-	
+	<input type="button" value="책추가" id="btnInsert">
 	
 	<div class="form-group">
-    <select id="pageUnit" name="pageUnit" onchange="Change(1)">
+    <select id="pageUnit" name="pageUnit">
         <option value="">:::선택:::</option>
-        <option value="10">10명씩 보기</option>			
-        <option value="20">20명씩 보기</option>
-        <option value="30">30명씩 보기</option>
-        <option value="40">40명씩 보기</option>
+        <option value="10">10권씩 보기</option>
+        <option value="20">20권씩 보기</option>
+        <option value="30">30권씩 보기</option>
+        <option value="40">40권씩 보기</option>
     </select>
     &nbsp;&nbsp;&nbsp;&nbsp;
     페이지별검색수: ${value}        
 	&nbsp;&nbsp;
-	휴면회원수: ${totalRecord}명
-	<input type="button" value="전체휴면회원조회" id="btnSearchAll">
+	책수: ${totalRecord}명
+	<input type="button" value="전체책조회" id="btnSearchAll">
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	<input type="button" value="관리자메인페이지" id="btnManageMain">
 	</div>
 	
 	<br>	
 				
-	<form id="f" action="${contextPath}/admin/dormantMemberCheckRemove" method="post">
+	<form id="f" action="${contextPath}/admin/removeCheckBook" method="post">
 		<table border="1" class="table">
 			<thead>
 				<tr>
 					<th width="1%" height="50%"><input type="checkbox" name="checkAll" class="blind checkAll" id="checkAll"></th>
-					<th width="5%">번호</th>
-					<th width="6%">이름</th>
-					<th width="15%">전화번호</th>
-					<th width="20%">이메일</th>
-					<th width="30%">주소</th>
-					<th width="">회원가입일</th>
-					<th width="8%">회원추방</th>
+					<th width="7%">번호</th>
+					<th width="5%">이미지</th>
+					<th width="13%">ISBN</th>
+					<th width="15%">제목</th>
+					<th width="15%">작가</th>
+					<th width="10%">출판사</th>
+					<th width="10%">출판날짜</th>
+					<th width="7%">책삭제</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${members}" var="member" varStatus="vs">
+				<c:forEach items="${books}" var="book" varStatus="vs">
 					<tr>
-						<td><input type="checkbox" name="check" class="blind checkOne" value="${member.memberNo}"></td>
+						<td><input type="checkbox" name="check" class="blind checkOne" value="${book.bookNo}"></td>
 						<td>${beginNo - vs.index}</td>
-						<td><a href="${contextPath}/admin/dormantMemberDetail?memberNo=${member.memberNo}&value=${value}">${member.memberName}</a></td>
-						<td>${member.memberPhone}</td>
-						<td>${member.memberEmail}</td>
-						<td>${member.memberRoadAddress}</td>
-						<td>${member.memberSignUp}</td>					
-						<td><a href="${contextPath}/admin/dormantMemberRemove?memberNo=${member.memberNo}&value=${value}" onclick="return confirm('정말 삭제하시겠습니까?')"><i class="fa-solid fa-circle-xmark"></i></a></td>					
+						<td><img alt="" src="${book.bookImage}" width="50px"></td>
+						<td><a href="${contextPath}/admin/detailBook?bookNo=${book.bookNo}&value=${value}">${book.bookIsbn}</a></td>
+						<td>${book.bookTitle}</td>
+						<td>${book.bookAuthor}</td>
+						<td>${book.bookPublisher}</td>
+						<td>${book.bookPubdate}</td>					
+						<td><a href="${contextPath}/admin/removeBook?bookNo=${book.bookNo}&value=${value}" onclick="return confirm('정말 삭제하시겠습니까?')"><i class="fa-solid fa-circle-xmark"></i></a></td>					
 						<input type="hidden" name="value" value="${value}">
 					</tr>
 				</c:forEach>
 			</tbody>
 			<tfoot>
 				<tr class="tfoot">
-					<td colspan="8" id="tfoot">
+					<td colspan="9" id="tfoot">
 						${paging}
 					</td>
 				</tr>
@@ -328,10 +319,10 @@
 				<span id="selectSection">
 					<select name="column" id="column">
 						<option value="">:::선택:::</option>
-						<option value="MEMBER_NAME">이름</option>
-						<option value="MEMBER_PHONE">전화번호</option>
-						<option value="MEMBER_ROAD_ADDRESS">주소</option>
-						<option value="MEMBER_SIGN_UP">가입일자</option>
+						<option value="BOOK_ISBN">고유번호</option>
+						<option value="BOOK_TITLE">제목</option>
+						<option value="BOOK_AUTHOR">작가</option>
+						<option value="BOOK_PUBLISHER">출판사</option>
 					</select>
 				</span>
 				<span id="equalArea">

@@ -18,6 +18,7 @@
 		fnMemberChange();
 		fnList();
 		fnEmailCheck();
+		fnPhoneCheck();
 	})
 
 
@@ -31,7 +32,11 @@
 				alert('변경된 내용이 없습니다.');
 				event.preventDefault();
 				return false;
-			}  else if(pwPass == false || rePwPass == false){
+			} else if($('#pw').val() == '' || $('#name').val() == '' || $('#phone').val() == '' || $('#email').val() == '' || $('#postcode').val() == '' || $('#roadAddress').val() == '' || $('#detailAddress').val() == ''){
+		        alert('내용을 모두 입력해주세요.');
+		        event.preventDefault();
+				return false;
+			} else if(pwPass == false || rePwPass == false){
 				alert('비밀번호를 확인하세요.');
 				event.preventDefault();
 				return false;
@@ -43,14 +48,26 @@
 				alert('이미 사용중인 이메일입니다.');
 				event.preventDefault();
 				return false;
-			} else if($('#pw').val() == '' || $('#name').val() == '' || $('#phone').val() == '' || $('#email').val() == '' || $('#postcode').val() == '' || $('#roadAddress').val() == '' || $('#detailAddress').val() == ''){
-		        alert('내용을 모두 입력해주세요.');
-		        event.preventDefault();
-				return false;
 			}
 			return true;
 		})
 	}
+	
+	// 5. 휴대전화 확인
+	let PhonePass = false;
+	function fnPhoneCheck(){
+		$('#phone').on('keyup', function(){
+			let regPhone = /^[0-9]{3}-[0-9]{4}-[0-9]{4}$/;
+			if(regPhone.test($('#phone').val()) == false) {
+				$('#phoneMsg').text('휴대전화 형식 예) 010-1234-5678');
+				PhonePass = false;
+			} else {
+				$('#phoneMsg').text('');
+				PhonePass = true;
+			}
+		})
+	}
+	
 	
 
 	
@@ -60,15 +77,15 @@
 	function fnEmailCheck(){
 		$('#email').on('keyup', function(){
 			// 정규식 체크하기
-			let regEmail = /^[a-zA-Z0-9-_]+@[a-zA-Z0-9]+(\.[a-zA-Z]{2,}){1,2}$/;  // 소문자 1~32자 사이(실제 서비스는 바꿔야 함)
+			let regEmail = /^[a-zA-Z0-9-_]+@[a-zA-Z0-9]+(\.[a-zA-Z]{2,}){1,2}$/;  
 			if(regEmail.test($('#email').val())==false){
-				$('#emailMsg').text('이메일은 어쩌구 저쩌구 입니다.').addClass('dont').removeClass('ok');
+				$('#emailMsg').text('이메일 형식이 올바르지 않습니다.').addClass('dont').removeClass('ok');
 				emailPass = false;
 				return;
 			}
 			// 이메일 중복 체크
 			$.ajax({
-				url: '${contextPath}/admin/memberEmailCheck',
+				url: '${contextPath}/admin/checkMemberEmail',
 				type: 'get',
 				data: 'email=' + $('#email').val(),
 				dataType: 'json',
@@ -78,7 +95,7 @@
 						emailPass = true;
 						emailOverlapPass = true;
 					} else {
-						$('#emailMsg').text('이미 사용중이거나 탈퇴한 아이디입니다.').addClass('dont').removeClass('ok');
+						$('#emailMsg').text('이미 사용 중인 이메일입니다.').addClass('dont').removeClass('ok');
 						emailPass = true;
 						emailOverlapPass = false;
 					}
@@ -100,7 +117,7 @@
 	function fnPwConfirm(){
 		$('#pwConfirm').on('keyup', function(){
 			if($('#pwConfirm').val() != '' && $('#pw').val() != $('#pwConfirm').val()){
-				$('#pwConfirmMsg').text('비밀번호를 확인하세요.').addClass('dont').removeClass('ok');
+				$('#pwConfirmMsg').text('비밀번호가 일치하지 않습니다').addClass('dont').removeClass('ok');
 				rePwPass = false;
 			} else {
 				$('#pwConfirmMsg').text('');
@@ -115,13 +132,18 @@
 		pwPass = false;
 		// 비밀번호 정규식 검사
 		$('#pw').on('keyup', function(){
-			let regPw = /^[0-9]{1,4}$/;  // 숫자 1~4자
-			if(regPw.test($('#pw').val())==false){
-				$('#pwMsg').text('8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.').addClass('dont').removeClass('ok');
-				pwPass = false;
+			
+			let regPw = /^[a-zA-Z0-9!@#$%^&*]{8,20}$/;
+			let pwValid = /[a-z]/.test($('#pw').val()) +  // 소문자 포함이면 1
+		  				  /[A-Z]/.test($('#pw').val()) +  // 대문자 포함이면 1
+		   				  /[0-9]/.test($('#pw').val()) +  // 숫자 포함이면 1
+		  				  /[!@#$%^&*]/.test($('#pw').val());  // 특수문자 포함이면 1
+			if(regPw.test($('#pw').val()) && pwValid >= 3){
+			   $('#pwMsg').text('사용 가능한 비밀번호 입니다.').addClass('ok').removeClass('dont');
+			   pwPass = true;
 			} else {
-				$('#pwMsg').text('사용 가능한 비밀번호입니다.').addClass('ok').removeClass('dont');
-				pwPass = true;
+				$('#pwMsg').text('8~20자 영문 대 소문자, 숫자, 특수문자 중 3개 이상을 사용하세요.').addClass('dont').removeClass('ok');
+				pwPass = false;
 			}
 		})
 	}
@@ -131,7 +153,7 @@
 	// 목록
 	function fnList(){
 		$('#btnList').on('click', function(){
-			location.href='${contextPath}/admin/memberList?value=${value}';
+			location.href='${contextPath}/admin/listMember?value=${value}';
 		})
 	}
 </script>
@@ -139,7 +161,7 @@
 <body>
 	<h1>회원 수정 화면</h1>
 	
-	<form id="f" action="${contextPath}/admin/memberChange?value=${value}" method="post">
+	<form id="f" action="${contextPath}/admin/changeMember?value=${value}" method="post">
 	
 		회원번호 ${member.memberNo}<br>
 		아이디 ${member.memberId}<br>
@@ -156,8 +178,9 @@
 			<span id="pwConfirmMsg"></span>
 		</label><br><br>
 		이름 <input type="text" name="name" id="name" value="${member.memberName}"><br>
-		전화번호 <input type="text" name="phone" id="phone" value="${member.memberPhone}"><br>
-		<label for="email">
+		전화번호 <input type="text" name="phone" id="phone" value="${member.memberPhone}">
+		<span id="phoneMsg"></span><br><br>
+		<label for="emailMsg">	
 			이메일<br>
 			<input type="text" name="email" id="email"><br>
 			<span id="emailMsg"></span><br>

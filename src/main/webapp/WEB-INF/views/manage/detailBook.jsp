@@ -14,12 +14,12 @@
 	$(function(){
 		// 수정페이지
 		$('#btnChangePage').on('click', function(){
-			location.href='${contextPath}/admin/bookChangePage?bookNo=${book.bookNo}&value=${value}';
+			location.href='${contextPath}/admin/changeBookPage?bookNo=${book.bookNo}&value=${value}';
 		})
 		
 		// 목록
 		$('#btnList').on('click', function(){
-			location.href='${contextPath}/admin/bookList?value=${value}';
+			location.href='${contextPath}/admin/listBook?value=${value}';
 		})
 		
 		
