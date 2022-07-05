@@ -18,17 +18,21 @@
 		display: flex;
 		justify-content: center;
 	}
+	
 	#paging div {
 		width: 32px;
 		height: 20px;
 		text-align: center;
 	}
+	
 	.disable_link {
 		color: lightgray;
 	}
+	
 	.enable_link {
 		cursor: pointer;
 	}
+	
 	.now_page {
 		border: 1px solid gray;
 		color: limegreen;
