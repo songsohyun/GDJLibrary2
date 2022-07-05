@@ -11,7 +11,7 @@ public interface SeatMapper {
 	
 	public List<SeatDTO> selectSeatList();
 	public SeatDTO selectSeatByNo(Long seatNo);
-	public int updateUpSeatStatus(Long seatNo);
+	public int updateUpSeatStatus(SeatDTO seat);
 	public int updateDownSeatStatus(Long seatCode);
 	public SeatDTO selectSeatById(String memberId);
 	public int updateDownSeatStatusByScheduled();

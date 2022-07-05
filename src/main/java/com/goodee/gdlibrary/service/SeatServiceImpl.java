@@ -4,9 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.goodee.gdlibrary.domain.MemberDTO;
 import com.goodee.gdlibrary.domain.SeatDTO;
 import com.goodee.gdlibrary.mapper.SeatMapper;
 
@@ -30,8 +33,17 @@ public class SeatServiceImpl implements SeatService {
 	
 	
 	@Override
-	public void upSeatStatus(Long seatNo) {
-		seatMapper.updateUpSeatStatus(seatNo);
+	public void upSeatStatus(Long seatNo, HttpServletRequest request) {
+		MemberDTO loginMember = (MemberDTO) request.getSession().getAttribute("loginMember");
+	      Long memberNo = loginMember.getMemberNo();
+	      SeatDTO seat = SeatDTO.builder()
+	    		  .memberNo(memberNo)
+	    		  .seatNo(seatNo)
+	    		  .build();
+	      
+	      System.out.println(memberNo);
+		seatMapper.updateUpSeatStatus(seat);
+		System.out.println(memberNo);
 	}
 	
 	

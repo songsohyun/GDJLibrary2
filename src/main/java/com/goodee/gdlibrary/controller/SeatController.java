@@ -3,6 +3,8 @@ package com.goodee.gdlibrary.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,8 +47,8 @@ public class SeatController {
 	
 	@Transactional
 	@GetMapping("/seat/upSeatStatus")
-	public String upSeatStatus(@RequestParam Long seatNo, Model model) {
-		seatService.upSeatStatus(seatNo);
+	public String upSeatStatus(@RequestParam Long seatNo, HttpServletRequest request ,Model model) {
+		seatService.upSeatStatus(seatNo, request);
 		model.addAttribute("seats", seatService.findSeatList());
 
 		return "seat/seat"; 
@@ -73,7 +75,7 @@ public class SeatController {
 		return seatService.seatRenew();
 	}
 	
-
+	
 	
 	
 	
