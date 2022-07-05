@@ -1,7 +1,7 @@
 package com.goodee.gdlibrary.service;
 
 import java.io.PrintWriter;
-import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -51,17 +51,19 @@ public class ManageServiceImpl implements ManageService {
 		
 		// beginRecord + endRecord => Map
 		Map<String, Object> map = new HashMap<>();
-		map.put("beginRecord", pageUtils.getBeginRecord());
-		map.put("endRecord", pageUtils.getEndRecord());
+		map.put("beginRecord", pageUtils.getBeginRecord() - 1);
+		map.put("recordPerPage", pageUtils.getRecordPerPage());
 		
 		// beginRecord ~ endRecord 목록
 		List<MemberDTO> members = manageMapper.selectMemberList(map);
+		
+		
 		
 		// memberManage.jsp로 보낼 데이터
 		model.addAttribute("totalRecord", totalRecord);
 		model.addAttribute("members", members);
 		model.addAttribute("beginNo", totalRecord - (page - 1) * pageUtils.getRecordPerPage());
-		model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/memberList", value));	
+		model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/listMember", value));	
 		model.addAttribute("value", pageUtils.getRecordPerPage());
 	}
 	// 회원 상세 보기
@@ -118,7 +120,7 @@ public class ManageServiceImpl implements ManageService {
 			if(memberResult == 1) {
 				out.println("<script>");
 				out.println("alert('회원이 추가되었습니다.')");
-				out.println("location.href='" + request.getContextPath() + "/admin/memberList?value=" + value + "'");
+				out.println("location.href='" + request.getContextPath() + "/admin/listMember?value=" + value + "'");
 				out.println("</script>");
 				out.close();
 			} else {
@@ -137,14 +139,14 @@ public class ManageServiceImpl implements ManageService {
 
 	
 	@Override
-	public Map<String, Object> memberIdCheck(String id) {
+	public Map<String, Object> checkMemberId(String id) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("res", manageMapper.selectMemberById(id));
 		return map;
 	}
 	
 	@Override
-	public Map<String, Object> memberEmailCheck(String email) {
+	public Map<String, Object> checkMemberEmail(String email) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("res", manageMapper.selectMemberByEmail(email));
 		return map;
@@ -188,13 +190,13 @@ public class ManageServiceImpl implements ManageService {
 			PrintWriter out = response.getWriter();
 			if(res == size && res1 == size) {
 				out.println("<script>");
-				out.println("alert('회원이 삭제되었습니다.')");
-				out.println("location.href='" + request.getContextPath() + "/admin/memberList?value=" + value + "'");
+				out.println("alert('회원이 추방되었습니다.')");
+				out.println("location.href='" + request.getContextPath() + "/admin/listMember?value=" + value + "'");
 				out.println("</script>");
 				out.close();
 			} else {
 				out.println("<script>");
-				out.println("alert('회원이 삭제되지 않았습니다.')");
+				out.println("alert('회원이 추방되지 않았습니다.')");
 				out.println("history.back()");
 				out.println("</script>");
 				out.close();
@@ -240,13 +242,13 @@ public class ManageServiceImpl implements ManageService {
 			PrintWriter out = response.getWriter();
 			if(res == 1 && res1 == 1) {
 				out.println("<script>");
-				out.println("alert('회원이 삭제되었습니다.')");
-				out.println("location.href='" + request.getContextPath() + "/admin/memberList?value=" + value + "'");
+				out.println("alert('회원이 추방되었습니다.')");
+				out.println("location.href='" + request.getContextPath() + "/admin/listMember?value=" + value + "'");
 				out.println("</script>");
 				out.close();
 			} else {
 				out.println("<script>");
-				out.println("alert('회원이 삭제되지 않았습니다.')");
+				out.println("alert('회원이 추방되지 않았습니다.')");
 				out.println("history.back()");
 				out.println("</script>");
 				out.close();
@@ -297,7 +299,7 @@ public class ManageServiceImpl implements ManageService {
 			if(memberResult == 1) {
 				out.println("<script>");
 				out.println("alert('회원정보가 수정되었습니다.')");
-				out.println("location.href='" + request.getContextPath() + "/admin/memberDetail?memberNo=" + memberNo + "&value=" + value + "'");
+				out.println("location.href='" + request.getContextPath() + "/admin/detailMember?memberNo=" + memberNo + "&value=" + value + "'");
 				out.println("</script>");
 				out.close();
 			} else {
@@ -347,8 +349,8 @@ public class ManageServiceImpl implements ManageService {
 		pageUtils.setPageEntity(findRecord, page, value);
 		
 		// beginRecord + endRecord => Map
-		map.put("beginRecord", pageUtils.getBeginRecord());
-		map.put("endRecord", pageUtils.getEndRecord());
+		map.put("beginRecord", pageUtils.getBeginRecord() - 1);
+		map.put("recordPerPage", pageUtils.getRecordPerPage());
 		
 		// beginRecord ~ endRecord 사이 검색된 목록 가져오기
 		List<MemberDTO> members = manageMapper.selectFindMemberList(map);
@@ -357,28 +359,28 @@ public class ManageServiceImpl implements ManageService {
 		model.addAttribute("totalRecord", totalRecord);
 		model.addAttribute("members", members);
 		model.addAttribute("beginNo", totalRecord - (page - 1) * pageUtils.getRecordPerPage());
-		model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/memberList?value=" + value + "'", value));	
+		model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/listMember?value=" + value + "'", value));	
 		model.addAttribute("value", pageUtils.getRecordPerPage());
 		
 		// 검색 카테고리에 따라서 전달되는 파라미터가 다름
 		switch(column) {
 		case "MEMBER_NAME":
-			model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/memberSearch?column=" + column + "&query=" + query, value));
+			model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/searchMember?column=" + column + "&query=" + query, value));
 			break;
 		case "MEMBER_PHONE":
-			model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/memberSearch?column=" + column + "&query=" + query, value));
+			model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/searchMember?column=" + column + "&query=" + query, value));
 			break;
 		case "MEMBER_ROAD_ADDRESS":
-			model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/memberSearch?column=" + column + "&query=" + query, value));
+			model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/searchMember?column=" + column + "&query=" + query, value));
 			break;
 		case "MEMBER_SIGN_UP":
-			model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/memberSearch?column=" + column + "&begin=" + begin + "&end=" + end, value));
+			model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/searchMember?column=" + column + "&begin=" + begin + "&end=" + end, value));
 			break;
 		}
 	}
 	// 회원 자동검색
 	@Override
-	public Map<String, Object> memberAutoComplete(HttpServletRequest request) {
+	public Map<String, Object> autoCompleteMember(HttpServletRequest request) {
 
 		String column = request.getParameter("column");
 		String query = request.getParameter("query");
@@ -387,7 +389,7 @@ public class ManageServiceImpl implements ManageService {
 		map.put("column", column);
 		map.put("query", query);
 		
-		List<MemberDTO> list = manageMapper.memberAutoComplete(map);
+		List<MemberDTO> list = manageMapper.autoCompleteMember(map);
 		
 		Map<String, Object> result = new HashMap<>();
 		if(list.size() == 0) {
@@ -438,8 +440,8 @@ public class ManageServiceImpl implements ManageService {
 			
 			// beginRecord + endRecord => Map
 			Map<String, Object> map = new HashMap<>();
-			map.put("beginRecord", pageUtils.getBeginRecord());
-			map.put("endRecord", pageUtils.getEndRecord());
+			map.put("beginRecord", pageUtils.getBeginRecord() - 1);
+			map.put("recordPerPage", pageUtils.getRecordPerPage());
 			
 			// beginRecord ~ endRecord 목록
 			List<DormantMemberDTO> dormantMembers = manageMapper.selectDormantMemberList(map);
@@ -448,7 +450,7 @@ public class ManageServiceImpl implements ManageService {
 			model.addAttribute("totalRecord", totalRecord);
 			model.addAttribute("members", dormantMembers);
 			model.addAttribute("beginNo", totalRecord - (page - 1) * pageUtils.getRecordPerPage());
-			model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/dormantMemberList", value));	
+			model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/listDormantMember", value));	
 			model.addAttribute("value", pageUtils.getRecordPerPage());
 		}
 		// 회원 상세 보기
@@ -468,50 +470,26 @@ public class ManageServiceImpl implements ManageService {
 		public void saveDormantMember(HttpServletRequest request, HttpServletResponse response, Model model) {
 			
 			// 전달된 파라미터
-			Long memberNo = Long.parseLong(request.getParameter("memberNo"));
-			String id = request.getParameter("id");
-			String pw = request.getParameter("pw");
-			String name = request.getParameter("name");
-			String phone = request.getParameter("phone");
-			String email = request.getParameter("email");
-			String postcode = request.getParameter("postcode");
-			String roadAddress = request.getParameter("roadAddress");
-			String detailAddress = request.getParameter("detailAddress");
-			int agreeState = Integer.parseInt(request.getParameter("agreeState"));
-			Date signUp = java.sql.Date.valueOf(request.getParameter("signUp"));
-			Date pwModified;
-			try {
-				pwModified = java.sql.Date.valueOf(request.getParameter("pwModified"));
-			} catch (Exception e) {
-				pwModified = null;
-			}
-			Date infoModified;
-			try {
-				infoModified = java.sql.Date.valueOf(request.getParameter("pwModified"));
-			} catch (Exception e) {
-				infoModified = null;
-			}
+			MemberDTO member = manageMapper.selectMemberByNo(Long.parseLong(request.getParameter("memberNo")));
 			
-		
-		
 			
 			
 			// DormantMemberDTO
 			
 			DormantMemberDTO dormantMember = DormantMemberDTO.builder()
-					.memberNo(memberNo)
-					.memberId(id)
-					.memberPw(pw)
-					.memberName(name)
-					.memberPhone(phone)
-					.memberEmail(email)
-					.memberPostcode(postcode)
-					.memberRoadAddress(roadAddress)
-					.memberDetailAddress(detailAddress)
-					.memberAgreeState(agreeState)
-					.memberSignUp(signUp)
-					.memberPwModified(pwModified)
-					.memberInfoModified(infoModified)
+					.memberNo(member.getMemberNo())
+					.memberId(member.getMemberId())
+					.memberPw(member.getMemberPw())
+					.memberName(member.getMemberName())
+					.memberPhone(member.getMemberPhone())
+					.memberEmail(member.getMemberEmail())
+					.memberPostcode(member.getMemberPostcode())
+					.memberRoadAddress(member.getMemberRoadAddress())
+					.memberDetailAddress(member.getMemberDetailAddress())
+					.memberAgreeState(member.getMemberAgreeState())
+					.memberSignUp(member.getMemberSignUp())
+					.memberPwModified(member.getMemberPwModified())
+					.memberInfoModified(member.getMemberInfoModified())
 					.build();
 			
 			// DORMANTMEMBER INSERT 수행
@@ -528,13 +506,13 @@ public class ManageServiceImpl implements ManageService {
 				PrintWriter out = response.getWriter();
 				if(dormantMemberResult == 1) {
 					out.println("<script>");
-					out.println("alert('휴면회원이 등록되었습니다.')");
-					out.println("location.href='" + request.getContextPath() + "/admin/memberList?value=" + value + "'");
+					out.println("alert('휴면회원으로 전환되었습니다.')");
+					out.println("location.href='" + request.getContextPath() + "/admin/listMember?value=" + value + "'");
 					out.println("</script>");
 					out.close();
 				} else {
 					out.println("<script>");
-					out.println("alert('휴면회원이 등록되지 않았습니다.')");
+					out.println("alert('휴면회원으로 전환되지 않았습니다.')");
 					out.println("history.back()");
 					out.println("</script>");
 					out.close();
@@ -547,7 +525,7 @@ public class ManageServiceImpl implements ManageService {
 		
 		// 휴면회원 ID체크
 		@Override
-		public Map<String, Object> dormantMemberIdCheck(String id) {
+		public Map<String, Object> checkDormantMemberId(String id) {
 			Map<String, Object> map = new HashMap<>();
 			map.put("res", manageMapper.selectMemberById(id));
 			return map;
@@ -558,43 +536,23 @@ public class ManageServiceImpl implements ManageService {
 			
 			// 전달된 파라미터
 			Long memberNo = Long.parseLong(request.getParameter("memberNo"));
-			String id = request.getParameter("id");
-			String pw = request.getParameter("pw");
-			String name = request.getParameter("name");
-			String phone = request.getParameter("phone");
-			String email = request.getParameter("email");
-			String postcode = request.getParameter("postcode");
-			String roadAddress = request.getParameter("roadAddress");
-			String detailAddress = request.getParameter("detailAddress");
-			int agreeState = Integer.parseInt(request.getParameter("agreeState"));
-			Date signUp = java.sql.Date.valueOf(request.getParameter("signUp"));
-			Date pwModified;
-			try {
-				pwModified = java.sql.Date.valueOf(request.getParameter("pwModified"));
-			} catch (Exception e) {
-				pwModified = null;
-			}
-			Date infoModified;
-			try {
-				infoModified = java.sql.Date.valueOf(request.getParameter("pwModified"));
-			} catch (Exception e) {
-				infoModified = null;
-			}
+			DormantMemberDTO dormantMember = manageMapper.selectDormantMemberByNo(memberNo);
+			
 			// MemberDTO
 			MemberDTO member = MemberDTO.builder()
 					.memberNo(memberNo)
-					.memberId(id)
-					.memberPw(pw)
-					.memberName(name)
-					.memberPhone(phone)
-					.memberEmail(email)
-					.memberPostcode(postcode)
-					.memberRoadAddress(roadAddress)
-					.memberDetailAddress(detailAddress)
-					.memberAgreeState(agreeState)
-					.memberSignUp(signUp)
-					.memberPwModified(pwModified)
-					.memberInfoModified(infoModified)
+					.memberId(dormantMember.getMemberId())
+					.memberPw(dormantMember.getMemberPw())
+					.memberName(dormantMember.getMemberName())
+					.memberPhone(dormantMember.getMemberPhone())
+					.memberEmail(dormantMember.getMemberEmail())
+					.memberPostcode(dormantMember.getMemberPostcode())
+					.memberRoadAddress(dormantMember.getMemberRoadAddress())
+					.memberDetailAddress(dormantMember.getMemberDetailAddress())
+					.memberAgreeState(dormantMember.getMemberAgreeState())
+					.memberSignUp(dormantMember.getMemberSignUp())
+					.memberPwModified(dormantMember.getMemberPwModified())
+					.memberInfoModified(dormantMember.getMemberInfoModified())
 					.build();
 			
 			// DORMANTTOMEMBER INSERT 수행
@@ -611,7 +569,7 @@ public class ManageServiceImpl implements ManageService {
 				if(memberResult == 1) {
 					out.println("<script>");
 					out.println("alert('휴면회원이 활동회원으로 전환되었습니다.')");
-					out.println("location.href='" + request.getContextPath() + "/admin/dormantMemberList?value=" + value + "'");
+					out.println("location.href='" + request.getContextPath() + "/admin/listDormantMember?value=" + value + "'");
 					out.println("</script>");
 					out.close();
 				} else {
@@ -631,7 +589,7 @@ public class ManageServiceImpl implements ManageService {
 		
 		// 휴면회원 EMAIL체크
 		@Override
-		public Map<String, Object> dormantMemberEmailCheck(String email) {
+		public Map<String, Object> checkDormantMemberEmail(String email) {
 			Map<String, Object> map = new HashMap<>();
 			map.put("res", manageMapper.selectMemberByEmail(email));
 			return map;
@@ -643,21 +601,43 @@ public class ManageServiceImpl implements ManageService {
 			List<String> list = Arrays.asList(check);
 			int size = list.size();
 			int res = 0;
+			int res1 = 0;
+			
+			for(int i = 0; i < size; i++) {
+				DormantMemberDTO member = manageMapper.selectDormantMemberByNo(Long.parseLong(list.get(i)));
+				
+				SignOutMemberDTO signOutMember = SignOutMemberDTO.builder()
+						.memberNo(Long.parseLong(list.get(i)))
+						.memberId(member.getMemberId())
+						.memberName(member.getMemberName())
+						.memberPhone(member.getMemberPhone())
+						.memberEmail(member.getMemberEmail())
+						.memberPostcode(member.getMemberPostcode())
+						.memberRoadAddress(member.getMemberRoadAddress())
+						.memberDetailAddress(member.getMemberDetailAddress())
+						.memberAgreeState(member.getMemberAgreeState())
+						.memberSignUp(member.getMemberSignUp())
+						.build();
+				
+				res1 += manageMapper.insertSignOutMember(signOutMember);
+				
+			}
+			
 			res += manageMapper.deleteCheckDormantMember(list);
 			int value = Integer.parseInt(request.getParameter("value"));
 			// 응답
 			try {
 				response.setContentType("text/html");
 				PrintWriter out = response.getWriter();
-				if(res == size) {
+				if(res == size && res1 == size) {
 					out.println("<script>");
-					out.println("alert('휴면회원이 삭제되었습니다.')");
-					out.println("location.href='" + request.getContextPath() + "/admin/dormantMemberList?value=" + value + "'");
+					out.println("alert('휴면회원이 추방되었습니다.')");
+					out.println("location.href='" + request.getContextPath() + "/admin/listDormantMember?value=" + value + "'");
 					out.println("</script>");
 					out.close();
 				} else {
 					out.println("<script>");
-					out.println("alert('휴면회원이 삭제되지 않았습니다.')");
+					out.println("alert('휴면회원이 추방되지 않았습니다.')");
 					out.println("history.back()");
 					out.println("</script>");
 					out.close();
@@ -673,21 +653,40 @@ public class ManageServiceImpl implements ManageService {
 		@Override
 		public void removeDormantMember(HttpServletRequest request, HttpServletResponse response) {
 			Long memberNo = Long.parseLong(request.getParameter("memberNo"));
-			int res = manageMapper.deleteDormantMember(memberNo);
+			
 			int value = Integer.parseInt(request.getParameter("value"));
+			
+			DormantMemberDTO member = manageMapper.selectDormantMemberByNo(memberNo);
+			
+			SignOutMemberDTO signOutMember = SignOutMemberDTO.builder()
+					.memberNo(memberNo)
+					.memberId(member.getMemberId())
+					.memberName(member.getMemberName())
+					.memberPhone(member.getMemberPhone())
+					.memberEmail(member.getMemberEmail())
+					.memberPostcode(member.getMemberPostcode())
+					.memberRoadAddress(member.getMemberRoadAddress())
+					.memberDetailAddress(member.getMemberDetailAddress())
+					.memberAgreeState(member.getMemberAgreeState())
+					.memberSignUp(member.getMemberSignUp())
+					.build();
+			
+			int res1 = manageMapper.insertSignOutMember(signOutMember);
+			int res = manageMapper.deleteDormantMember(memberNo);
+			
 			// 응답
 				try {
 					response.setContentType("text/html");
 					PrintWriter out = response.getWriter();
-					if(res == 1) {
+					if(res == 1 && res1 == 1) {
 						out.println("<script>");
-						out.println("alert('휴면회원이 삭제되었습니다.')");
-						out.println("location.href='" + request.getContextPath() + "/admin/dormantMemberList?value=" + value + "'");
+						out.println("alert('휴면회원이 추방되었습니다.')");
+						out.println("location.href='" + request.getContextPath() + "/admin/listDormantMember?value=" + value + "'");
 						out.println("</script>");
 						out.close();
 					} else {
 						out.println("<script>");
-						out.println("alert('휴면회원이 삭제되지 않았습니다.')");
+						out.println("alert('휴면회원이 추방되지 않았습니다.')");
 						out.println("history.back()");
 						out.println("</script>");
 						out.close();
@@ -732,8 +731,8 @@ public class ManageServiceImpl implements ManageService {
 			pageUtils.setPageEntity(findRecord, page, value);
 			
 			// beginRecord + endRecord => Map
-			map.put("beginRecord", pageUtils.getBeginRecord());
-			map.put("endRecord", pageUtils.getEndRecord());
+			map.put("beginRecord", pageUtils.getBeginRecord() - 1);
+			map.put("recordPerPage", pageUtils.getRecordPerPage());
 			
 			// beginRecord ~ endRecord 사이 검색된 목록 가져오기
 			List<DormantMemberDTO> dormantMembers = manageMapper.selectFindDormantMemberList(map);
@@ -742,28 +741,28 @@ public class ManageServiceImpl implements ManageService {
 			model.addAttribute("totalRecord", totalRecord);
 			model.addAttribute("members", dormantMembers);
 			model.addAttribute("beginNo", totalRecord - (page - 1) * pageUtils.getRecordPerPage());
-			model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/dormantMemberList?value=" + value + "'", value));	
+			model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/listDormantMember?value=" + value + "'", value));	
 			model.addAttribute("value", pageUtils.getRecordPerPage());
 			
 			// 검색 카테고리에 따라서 전달되는 파라미터가 다름
 			switch(column) {
 			case "MEMBER_NAME":
-				model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/memberSearch?column=" + column + "&query=" + query, value));
+				model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/searchDormantMember?column=" + column + "&query=" + query, value));
 				break;
 			case "MEMBER_PHONE":
-				model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/memberSearch?column=" + column + "&query=" + query, value));
+				model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/searchDormantMember?column=" + column + "&query=" + query, value));
 				break;
 			case "MEMBER_ROAD_ADDRESS":
-				model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/memberSearch?column=" + column + "&query=" + query, value));
+				model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/searchDormantMember?column=" + column + "&query=" + query, value));
 				break;
 			case "MEMBER_SIGN_UP":
-				model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/memberSearch?column=" + column + "&begin=" + begin + "&end=" + end, value));
+				model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/searchDormantMember?column=" + column + "&begin=" + begin + "&end=" + end, value));
 				break;
 			}
 		}
 		// 회원 자동검색
 		@Override
-		public Map<String, Object> dormantMemberAutoComplete(HttpServletRequest request) {
+		public Map<String, Object> autoCompleteDormantMember(HttpServletRequest request) {
 
 			String column = request.getParameter("column");
 			String query = request.getParameter("query");
@@ -772,7 +771,7 @@ public class ManageServiceImpl implements ManageService {
 			map.put("column", column);
 			map.put("query", query);
 			
-			List<DormantMemberDTO> list = manageMapper.dormantMemberAutoComplete(map);
+			List<DormantMemberDTO> list = manageMapper.autoCompleteDormantMember(map);
 			
 			Map<String, Object> result = new HashMap<>();
 			if(list.size() == 0) {
@@ -806,7 +805,7 @@ public class ManageServiceImpl implements ManageService {
 			int page = Integer.parseInt(opt.orElse("1"));
 			
 			// 전체 회원 갯수
-			int totalRecord = manageMapper.selectMemberCount();
+			int totalRecord = manageMapper.selectSignOutMemberCount();
 			
 			// PageEntity 계산
 			PageUtils3 pageUtils = new PageUtils3();
@@ -820,17 +819,17 @@ public class ManageServiceImpl implements ManageService {
 			
 			// beginRecord + endRecord => Map
 			Map<String, Object> map = new HashMap<>();
-			map.put("beginRecord", pageUtils.getBeginRecord());
-			map.put("endRecord", pageUtils.getEndRecord());
+			map.put("beginRecord", pageUtils.getBeginRecord() - 1);
+			map.put("recordPerPage", pageUtils.getRecordPerPage());
 			
 			// beginRecord ~ endRecord 목록
-			List<MemberDTO> members = manageMapper.selectMemberList(map);
+			List<SignOutMemberDTO> members = manageMapper.selectSignOutMemberList(map);
 			
 			// memberManage.jsp로 보낼 데이터
 			model.addAttribute("totalRecord", totalRecord);
 			model.addAttribute("members", members);
 			model.addAttribute("beginNo", totalRecord - (page - 1) * pageUtils.getRecordPerPage());
-			model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/memberList", value));	
+			model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/listSignOutMember", value));	
 			model.addAttribute("value", pageUtils.getRecordPerPage());
 		}
 		// 회원 상세 보기
@@ -842,7 +841,7 @@ public class ManageServiceImpl implements ManageService {
 			
 		
 			// 갤러리 정보 가져와서 model에 저장하기
-			model.addAttribute("member", manageMapper.selectMemberByNo(memberNo));
+			model.addAttribute("member", manageMapper.selectSignOutMemberByNo(memberNo));
 			model.addAttribute("value", Integer.parseInt(request.getParameter("value")));
 		}	
 		
@@ -853,45 +852,24 @@ public class ManageServiceImpl implements ManageService {
 			List<String> list = Arrays.asList(check);
 			int size = list.size();
 			int res = 0;
-			int res1 = 0;
-			for(int i = 0; i < size; i++) {
-				MemberDTO member = manageMapper.selectMemberByNo(Long.parseLong(list.get(i)));
-				
-				SignOutMemberDTO signOutMember = SignOutMemberDTO.builder()
-						.memberNo(Long.parseLong(list.get(i)))
-						.memberId(member.getMemberId())
-						.memberName(member.getMemberName())
-						.memberPhone(member.getMemberPhone())
-						.memberEmail(member.getMemberEmail())
-						.memberPostcode(member.getMemberPostcode())
-						.memberRoadAddress(member.getMemberRoadAddress())
-						.memberDetailAddress(member.getMemberDetailAddress())
-						.memberAgreeState(member.getMemberAgreeState())
-						.memberSignUp(member.getMemberSignUp())
-						.build();
-				
-				res1 += manageMapper.insertSignOutMember(signOutMember);
-				
-			}
 			
+
 			
-			
-			
-			res += manageMapper.deleteCheckMember(list);
+			res += manageMapper.deleteCheckSignOutMember(list);
 			int value = Integer.parseInt(request.getParameter("value"));
 			// 응답
 			try {
 				response.setContentType("text/html");
 				PrintWriter out = response.getWriter();
-				if(res == size && res1 == size) {
+				if(res == size) {
 					out.println("<script>");
-					out.println("alert('회원이 삭제되었습니다.')");
-					out.println("location.href='" + request.getContextPath() + "/admin/memberList?value=" + value + "'");
+					out.println("alert('탈퇴회원이 삭제되었습니다.')");
+					out.println("location.href='" + request.getContextPath() + "/admin/listMember?value=" + value + "'");
 					out.println("</script>");
 					out.close();
 				} else {
 					out.println("<script>");
-					out.println("alert('회원이 삭제되지 않았습니다.')");
+					out.println("alert('탈퇴회원이 삭제되지 않았습니다.')");
 					out.println("history.back()");
 					out.println("</script>");
 					out.close();
@@ -906,44 +884,28 @@ public class ManageServiceImpl implements ManageService {
 		@Override
 		public void removeSignOutMember(HttpServletRequest request, HttpServletResponse response) {
 			Long memberNo = Long.parseLong(request.getParameter("memberNo"));
-			MemberDTO member = manageMapper.selectMemberByNo(memberNo);
-			
-			SignOutMemberDTO signOutMember = SignOutMemberDTO.builder()
-					.memberNo(memberNo)
-					.memberId(member.getMemberId())
-					.memberName(member.getMemberName())
-					.memberPhone(member.getMemberPhone())
-					.memberEmail(member.getMemberEmail())
-					.memberPostcode(member.getMemberPostcode())
-					.memberRoadAddress(member.getMemberRoadAddress())
-					.memberDetailAddress(member.getMemberDetailAddress())
-					.memberAgreeState(member.getMemberAgreeState())
-					.memberSignUp(member.getMemberSignUp())
-					.build();
-			
-			int res1 = manageMapper.insertSignOutMember(signOutMember);
 			
 			
-			int res = manageMapper.deleteMember(memberNo);
 			int value = Integer.parseInt(request.getParameter("value"));
 			
 		    
 			
 					
+			int res = manageMapper.deleteSignOutMember(memberNo);
 		    
 			// 응답
 			try {
 				response.setContentType("text/html");
 				PrintWriter out = response.getWriter();
-				if(res == 1 && res1 == 1) {
+				if(res == 1) {
 					out.println("<script>");
-					out.println("alert('회원이 삭제되었습니다.')");
-					out.println("location.href='" + request.getContextPath() + "/admin/memberList?value=" + value + "'");
+					out.println("alert('탈퇴회원이 삭제되었습니다.')");
+					out.println("location.href='" + request.getContextPath() + "/admin/listSignOutMember?value=" + value + "'");
 					out.println("</script>");
 					out.close();
 				} else {
 					out.println("<script>");
-					out.println("alert('회원이 삭제되지 않았습니다.')");
+					out.println("alert('탈퇴회원이 삭제되지 않았습니다.')");
 					out.println("history.back()");
 					out.println("</script>");
 					out.close();
@@ -975,50 +937,50 @@ public class ManageServiceImpl implements ManageService {
 			map.put("end", end);
 			
 			// 검색된 레코드 갯수 가져오기
-			int findRecord = manageMapper.selectFindMemberCount(map);
+			int findRecord = manageMapper.selectFindSignOutMemberCount(map);
 			
 			// findRecord와 page를 알면 PageEntity를 모두 계산할 수 있다.
 			
 			// 전체 회원 갯수
-			int totalRecord = manageMapper.selectMemberCount();
+			int totalRecord = manageMapper.selectSignOutMemberCount();
 			PageUtils3 pageUtils = new PageUtils3();
 			int value = Integer.parseInt(request.getParameter("value"));
 			pageUtils.setRecordPerPage(value);
 			pageUtils.setPageEntity(findRecord, page, value);
 			
 			// beginRecord + endRecord => Map
-			map.put("beginRecord", pageUtils.getBeginRecord());
-			map.put("endRecord", pageUtils.getEndRecord());
+			map.put("beginRecord", pageUtils.getBeginRecord() - 1);
+			map.put("recordPerPage", pageUtils.getRecordPerPage());
 			
 			// beginRecord ~ endRecord 사이 검색된 목록 가져오기
-			List<MemberDTO> members = manageMapper.selectFindMemberList(map);
+			List<SignOutMemberDTO> members = manageMapper.selectFindSignOutMemberList(map);
 			
 			// list.jsp로 forward할 때 가지고 갈 속성 저장하기
 			model.addAttribute("totalRecord", totalRecord);
 			model.addAttribute("members", members);
 			model.addAttribute("beginNo", totalRecord - (page - 1) * pageUtils.getRecordPerPage());
-			model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/memberList?value=" + value + "'", value));	
+			model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/listSignOutMember?value=" + value + "'", value));	
 			model.addAttribute("value", pageUtils.getRecordPerPage());
 			
 			// 검색 카테고리에 따라서 전달되는 파라미터가 다름
 			switch(column) {
 			case "MEMBER_NAME":
-				model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/memberSearch?column=" + column + "&query=" + query, value));
+				model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/searchSignOutMember?column=" + column + "&query=" + query, value));
 				break;
 			case "MEMBER_PHONE":
-				model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/memberSearch?column=" + column + "&query=" + query, value));
+				model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/searchSignOutMember?column=" + column + "&query=" + query, value));
 				break;
 			case "MEMBER_ROAD_ADDRESS":
-				model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/memberSearch?column=" + column + "&query=" + query, value));
+				model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/searchSignOutMember?column=" + column + "&query=" + query, value));
 				break;
 			case "MEMBER_SIGN_UP":
-				model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/memberSearch?column=" + column + "&begin=" + begin + "&end=" + end, value));
+				model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/searchSignOutMember?column=" + column + "&begin=" + begin + "&end=" + end, value));
 				break;
 			}
 		}
 		// 회원 자동검색
 		@Override
-		public Map<String, Object> signOutMemberAutoComplete(HttpServletRequest request) {
+		public Map<String, Object> autoCompleteSignOutMember(HttpServletRequest request) {
 
 			String column = request.getParameter("column");
 			String query = request.getParameter("query");
@@ -1027,7 +989,7 @@ public class ManageServiceImpl implements ManageService {
 			map.put("column", column);
 			map.put("query", query);
 			
-			List<MemberDTO> list = manageMapper.memberAutoComplete(map);
+			List<SignOutMemberDTO> list = manageMapper.autoCompleteSignOutMember(map);
 			
 			Map<String, Object> result = new HashMap<>();
 			if(list.size() == 0) {
@@ -1078,8 +1040,8 @@ public class ManageServiceImpl implements ManageService {
 		
 		// beginRecord + endRecord => Map
 		Map<String, Object> map = new HashMap<>();
-		map.put("beginRecord", pageUtils.getBeginRecord());
-		map.put("endRecord", pageUtils.getEndRecord());
+		map.put("beginRecord", pageUtils.getBeginRecord() - 1);
+		map.put("recordPerPage", pageUtils.getRecordPerPage());
 		
 		// beginRecord ~ endRecord 목록
 		List<BookDTO> books = manageMapper.selectBookList(map);
@@ -1088,7 +1050,7 @@ public class ManageServiceImpl implements ManageService {
 		model.addAttribute("totalRecord", totalRecord);
 		model.addAttribute("books", books);
 		model.addAttribute("beginNo", totalRecord - (page - 1) * pageUtils.getRecordPerPage());
-		model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/bookList", value));	
+		model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/listBook", value));	
 		model.addAttribute("value", pageUtils.getRecordPerPage());
 	}
 	// 책 상세 보기
@@ -1145,8 +1107,8 @@ public class ManageServiceImpl implements ManageService {
 			PrintWriter out = response.getWriter();
 			if(bookResult == 1) {
 				out.println("<script>");
-				out.println("alert('책이 추가되었습니다.')");
-				out.println("location.href='" + request.getContextPath() + "/admin/bookList?value=" + value + "'");
+				out.println("alert('책이 등록되었습니다.')");
+				out.println("location.href='" + request.getContextPath() + "/admin/listBook?value=" + value + "'");
 				out.println("</script>");
 				out.close();
 			} else {
@@ -1165,7 +1127,7 @@ public class ManageServiceImpl implements ManageService {
 	
 	// 책 isbn 중복체크
 	@Override
-	public Map<String, Object> bookIsbnCheck(String isbn) {
+	public Map<String, Object> checkBookIsbn(String isbn) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("res", manageMapper.selectBookByIsbn(isbn));
 		return map;
@@ -1188,7 +1150,7 @@ public class ManageServiceImpl implements ManageService {
 			if(res == size) {
 				out.println("<script>");
 				out.println("alert('책이 삭제되었습니다.')");
-				out.println("location.href='" + request.getContextPath() + "/admin/bookList?value=" + value + "'");
+				out.println("location.href='" + request.getContextPath() + "/admin/listBook?value=" + value + "'");
 				out.println("</script>");
 				out.close();
 			} else {
@@ -1215,7 +1177,7 @@ public class ManageServiceImpl implements ManageService {
 				if(res == 1) {
 					out.println("<script>");
 					out.println("alert('책이 삭제되었습니다.')");
-					out.println("location.href='" + request.getContextPath() + "/admin/bookList?value=" + value + "'");
+					out.println("location.href='" + request.getContextPath() + "/admin/listBook?value=" + value + "'");
 					out.println("</script>");
 					out.close();
 				} else {
@@ -1272,7 +1234,7 @@ public class ManageServiceImpl implements ManageService {
 			if(bookResult == 1) {
 				out.println("<script>");
 				out.println("alert('책정보가 수정되었습니다.')");
-				out.println("location.href='" + request.getContextPath() + "/admin/bookDetail?bookNo=" + bookNo + "&value=" + value + "'");
+				out.println("location.href='" + request.getContextPath() + "/admin/detailBook?bookNo=" + bookNo + "&value=" + value + "'");
 				out.println("</script>");
 				out.close();
 			} else {
@@ -1321,8 +1283,8 @@ public class ManageServiceImpl implements ManageService {
 		pageUtils.setPageEntity(findRecord, page, value);
 		
 		// beginRecord + endRecord => Map
-		map.put("beginRecord", pageUtils.getBeginRecord());
-		map.put("endRecord", pageUtils.getEndRecord());
+		map.put("beginRecord", pageUtils.getBeginRecord() - 1);
+		map.put("recordPerPage", pageUtils.getRecordPerPage());
 		
 		// beginRecord ~ endRecord 사이 검색된 목록 가져오기
 		List<BookDTO> books = manageMapper.selectFindBookList(map);
@@ -1331,28 +1293,28 @@ public class ManageServiceImpl implements ManageService {
 		model.addAttribute("totalRecord", totalRecord);
 		model.addAttribute("books", books);
 		model.addAttribute("beginNo", totalRecord - (page - 1) * pageUtils.getRecordPerPage());
-		model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/bookList?value=" + value + "'", value));	
+		model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/listBook?value=" + value + "'", value));	
 		model.addAttribute("value", pageUtils.getRecordPerPage());
 		
 		// 검색 카테고리에 따라서 전달되는 파라미터가 다름
 		switch(column) {
 		case "BOOK_ISBN":
-			model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/bookSearch?column=" + column + "&query=" + query, value));
+			model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/searchBook?column=" + column + "&query=" + query, value));
 			break;
 		case "BOOK_TITLE":
-			model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/bookSearch?column=" + column + "&query=" + query, value));
+			model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/searchBook?column=" + column + "&query=" + query, value));
 			break;
 		case "BOOK_AUTHOR":
-			model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/bookSearch?column=" + column + "&query=" + query, value));
+			model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/searchBook?column=" + column + "&query=" + query, value));
 			break;
 		case "BOOK_PUBLISHER":
-			model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/bookSearch?column=" + column + "&query=" + query, value));
+			model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/admin/searchBook?column=" + column + "&query=" + query, value));
 			break;
 		}
 	}
 	// 책 자동 검색
 	@Override
-	public Map<String, Object> bookAutoComplete(HttpServletRequest request) {
+	public Map<String, Object> autoCompleteBook(HttpServletRequest request) {
 
 		String column = request.getParameter("column");
 		String query = request.getParameter("query");
@@ -1361,7 +1323,7 @@ public class ManageServiceImpl implements ManageService {
 		map.put("column", column);
 		map.put("query", query);
 		
-		List<BookDTO> list = manageMapper.bookAutoComplete(map);
+		List<BookDTO> list = manageMapper.autoCompleteBook(map);
 		
 		Map<String, Object> result = new HashMap<>();
 		if(list.size() == 0) {
@@ -1391,3 +1353,4 @@ public class ManageServiceImpl implements ManageService {
 	
 	
 }
+

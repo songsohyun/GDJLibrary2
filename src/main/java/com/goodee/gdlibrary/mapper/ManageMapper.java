@@ -33,12 +33,6 @@ public interface ManageMapper {
 	
 	// 활동회원 추가
 	public int insertMember(MemberDTO member);
-
-	// 탈퇴회원 추가
-	public int insertSignOutMember(SignOutMemberDTO member);
-	
-	// 탈퇴회원들 추가
-	public int insertSignOutMembers(SignOutMemberDTO member, List<String> list);
 	
 	// 회원 삭제
 	public int deleteMember(Long memberNo);
@@ -48,7 +42,7 @@ public interface ManageMapper {
 	public List<MemberDTO> selectFindMemberList(Map<String, Object> map);
 	
 	// 회원 검색 자동완성
-	public List<MemberDTO> memberAutoComplete(Map<String, Object> map);
+	public List<MemberDTO> autoCompleteMember(Map<String, Object> map);
 	
 	
 	
@@ -81,9 +75,32 @@ public interface ManageMapper {
 	public List<DormantMemberDTO> selectFindDormantMemberList(Map<String, Object> map);
 	
 	// 휴면회원 검색 자동완성
-	public List<DormantMemberDTO> dormantMemberAutoComplete(Map<String, Object> map);
+	public List<DormantMemberDTO> autoCompleteDormantMember(Map<String, Object> map);
 	
 	
+	
+	// 회원 수, 회원 목록
+	public int selectSignOutMemberCount();
+	public List<SignOutMemberDTO> selectSignOutMemberList(Map<String, Object> map);
+
+	// 회원 상세 보기
+	public SignOutMemberDTO selectSignOutMemberByNo(Long memberNo);
+
+	// 회원 선택삭제
+	public int deleteCheckSignOutMember(List<String> list);
+	
+	// 탈퇴회원 추가
+	public int insertSignOutMember(SignOutMemberDTO member);
+
+	// 회원 삭제
+	public int deleteSignOutMember(Long memberNo);
+	
+	// 회원 검색
+	public int selectFindSignOutMemberCount(Map<String, Object> map);
+	public List<SignOutMemberDTO> selectFindSignOutMemberList(Map<String, Object> map);
+	
+	// 회원 검색 자동완성
+	public List<SignOutMemberDTO> autoCompleteSignOutMember(Map<String, Object> map);
 	
 	
 	// 책 수, 책 목록
@@ -113,5 +130,5 @@ public interface ManageMapper {
 	public List<BookDTO> selectFindBookList(Map<String, Object> map);
 	
 	// 책 검색 자동완성
-	public List<BookDTO> bookAutoComplete(Map<String, Object> map);
+	public List<BookDTO> autoCompleteBook(Map<String, Object> map);
 }
