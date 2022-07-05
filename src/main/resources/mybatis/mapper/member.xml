@@ -47,6 +47,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   AND MEMBER_PW = #{memberPw}
 	</select>
 	
+	<!-- 로그인 기록 조회 -->
+	<select id="selectMemberLog" parameterType="String" resultType="MemberLogDTO">
+		SELECT MEMBER_LOG_NO, MEMBER_ID, MEMBER_LOG_SIGN_IN
+		  FROM MEMBER_LOG
+		 WHERE MEMBER_ID = #{memberId}
+	</select>
 	<!-- 로그인 기록 -->
 	<insert id="insertMemberLog" parameterType="String">
 		INSERT INTO MEMBER_LOG
@@ -54,6 +60,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		VALUES
 			(#{memberId}, NOW())
 	</insert>
+	<!-- 로그인 갱신 -->
+	<update id="updateMemberLog" parameterType="String">
+		UPDATE MEMBER_LOG
+		   SET MEMBER_LOG_SIGN_IN = NOW()
+		 WHERE MEMBER_ID = #{memberId}
+	</update>
+	
 	
 	<!-- 로그인 유지 회원 sesseion update -->
 	
@@ -200,7 +213,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 마이페이지를 위한 sql -->
-	<!-- 소현언니꺼에서 가져다 쓸거임 나중에 수정해야함 임시로 사용중 -->
 	<!-- 사용자가 대여중인 책 목록(조인) -->
 	<select id="selectRentBookList" parameterType="String" resultType="Map">
 		SELECT R.RENT_NO, B.BOOK_IMAGE, B.BOOK_TITLE, DATE_FORMAT(R.RENT_DATE, '%Y-%m-%d') AS RENT_DATE, DATE_FORMAT(R.RENT_EXPIRATION_DATE, '%Y-%m-%d') AS RENT_EXPIRATION_DATE

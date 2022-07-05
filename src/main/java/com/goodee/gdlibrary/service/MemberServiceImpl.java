@@ -38,6 +38,7 @@ import org.springframework.ui.Model;
 
 import com.goodee.gdlibrary.domain.DormantMemberDTO;
 import com.goodee.gdlibrary.domain.MemberDTO;
+import com.goodee.gdlibrary.domain.MemberLogDTO;
 import com.goodee.gdlibrary.domain.SeatDTO;
 import com.goodee.gdlibrary.mapper.MemberMapper;
 import com.goodee.gdlibrary.util.SecurityUtils;
@@ -184,7 +185,13 @@ public class MemberServiceImpl implements MemberService {
 
 		if (loginMember != null) {
 			request.getSession().setAttribute("loginMember", loginMember);
-			memberMapper.insertMemberLog(memberId);
+			MemberLogDTO log = memberMapper.selectMemberLog(memberId);
+			if(log == null) {
+				memberMapper.insertMemberLog(memberId);
+			} else {
+				memberMapper.updateMemberLog(memberId);
+			}
+			
 		}
 
 		return loginMember;

@@ -104,6 +104,7 @@
 	    font-size: 13px;
 	    padding: 0 10px 0 5px;
 	    width: 120px;
+	    color: #4e4c4c;
 	}
 	
 	
@@ -136,6 +137,7 @@
 	   border-color: #f5d7ac;
 	   padding: 3px 5px;
 	   font-size: 12px;
+	   color: #4e4c4c;
 	}
 	
 	.findMsg td span{

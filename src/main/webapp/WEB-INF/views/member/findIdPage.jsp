@@ -110,6 +110,7 @@
      .findId_wrap tr td:nth-of-type(1) {
          font-size: 13px;
          padding: 0 10px 0 5px;
+         color: #4e4c4c;
      }
 
      .findId_wrap  input[type="text"] {

@@ -22,6 +22,7 @@ public class Dormant {
 	public void execute() throws Exception {
 
 		List<MemberDTO> member = memberMapper.selectMemberLogSignIn();
+		
 		if(member.isEmpty() == false) {
 			for(int i = 0; i < member.size(); i++) {
 				memberMapper.insertDormant(member.get(i));

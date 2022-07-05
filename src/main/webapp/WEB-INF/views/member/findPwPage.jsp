@@ -154,6 +154,7 @@
     .findPwPage_wrap tr td:nth-of-type(1) {
         font-size: 13px;
         padding: 0 10px 0 5px;
+        color: #4e4c4c;
     }
     .findPwPage_wrap tr td:nth-of-type(2) {
         display: block;
@@ -193,6 +194,7 @@
         border-color: #f5d7ac;
         padding: 3px 5px;
         font-size: 12px;
+        color: #4e4c4c;
 
     }
 
@@ -203,6 +205,7 @@
         border-color: #f5d7ac;
         padding: 3px 5px;
         font-size: 12px;
+        color: #4e4c4c;
        
     }
 
@@ -215,6 +218,7 @@
        border-color: #f5d7ac;
        padding: 3px 5px;
        font-size: 12px;
+       color: #4e4c4c;
     }
 </style>
 
