@@ -28,6 +28,7 @@
 	<a href="${contextPath}/admin/listDormantMember?value=15">휴면회원관리</a>
 	<a href="${contextPath}/admin/listSignOutMember?value=15">탈퇴회원관리</a>
 	<a href="${contextPath}/admin/listBook?value=15">도서관리</a>
+	<a href="${contextPath}/">메인홈페이지이동</a>
 	
 	
 	

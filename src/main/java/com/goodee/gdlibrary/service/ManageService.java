@@ -19,7 +19,9 @@ public interface ManageService {
 	public void findMemberByNo(HttpServletRequest request, Model model);
 	public void saveMember(HttpServletRequest request, HttpServletResponse response);
 	public void removeCheckMember(HttpServletRequest request, HttpServletResponse response);
+	public void removeTransCheckMember(HttpServletRequest request, HttpServletResponse response);
 	public void removeMember(HttpServletRequest request, HttpServletResponse response);
+	public void removeTransMember(HttpServletRequest request, HttpServletResponse response);
 	public void changeMember(HttpServletRequest request, HttpServletResponse response, Model model);
 	public void findSearchMembers(HttpServletRequest request, Model model);
 	public Map<String, Object> autoCompleteMember(HttpServletRequest request);
