@@ -171,11 +171,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE NOTICE_FILE_ATTACH_NO = #{noticeFileAttachNo}
 	</delete>
 	
-	<!-- 스케쥴러 사용을 위한 SQL -->
-	<!-- noticeFileAttach 테이블에 있는 전체 데이터 가져오기 -->
-	<select id="selectAllFileAttaches" resultType="NoticeFileAttachDTO">
+	<!-- 
+		스케쥴러 사용을 위한 SQL 
+		어제 저장된 첨부 파일 목록(오라클)
+	
+	<select id="selectFileAttachListAtYesterday" resultType="NoticeFileAttachDTO">
 		SELECT NOTICE_FILE_ATTACH_NO, NOTICE_FILE_ATTACH_PATH, NOTICE_FILE_ATTACH_ORIGIN, NOTICE_FILE_ATTACH_SAVED, NOTICE_NO
 		  FROM NOTICE_FILE_ATTACH
+		 WHERE NOTICE_FILE_ATTACH_PATH = 'C:\\upload\\' || TO_CHAR(SYSDATE - 1, 'yyyy\\fmmm\\fmdd')
+	</select>
+	-->
+	
+	<!-- 
+		스케쥴러 사용을 위한 SQL 
+		어제 저장된 첨부 파일 목록(MySQL)
+	-->
+	<select id="selectFileAttachListAtYesterday" resultType="NoticeFileAttachDTO">
+		SELECT NOTICE_FILE_ATTACH_NO, NOTICE_FILE_ATTACH_PATH, NOTICE_FILE_ATTACH_ORIGIN, NOTICE_FILE_ATTACH_SAVED, NOTICE_NO
+		  FROM NOTICE_FILE_ATTACH
+		 WHERE NOTICE_FILE_ATTACH_PATH = CONCAT('C:\\upload\\', DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 DAY), '%Y\\%c\\%e'))
 	</select>
 
 </mapper>

@@ -46,8 +46,8 @@ public interface NoticeMapper {
 	public int deleteFileAttach(Long noticeFileAttachNo);
 	
 	// 스케쥴러 사용을 위한 SQL
-	// noticeFileAttach 테이블에 있는 전체 데이터 가져오기
-	public List<NoticeFileAttachDTO> selectAllFileAttaches();
+	// 어제 저장된 첨부 파일 목록
+	public List<NoticeFileAttachDTO> selectFileAttachListAtYesterday();
 	
 
 }
