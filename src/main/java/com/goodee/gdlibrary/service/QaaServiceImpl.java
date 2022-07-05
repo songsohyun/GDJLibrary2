@@ -14,9 +14,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
-import com.goodee.gdlibrary.util.PageUtils2;
 import com.goodee.gdlibrary.domain.QaaDTO;
 import com.goodee.gdlibrary.mapper.QaaMapper;
+import com.goodee.gdlibrary.util.PageUtils2;
+import com.goodee.gdlibrary.util.SecurityUtils;
 
 @Service
 public class QaaServiceImpl implements QaaService {
@@ -29,9 +30,9 @@ public class QaaServiceImpl implements QaaService {
 	@Override
 	public void addQaa(HttpServletRequest request, HttpServletResponse response) {
 		
-		String title = request.getParameter("title");
+		String title = SecurityUtils.xss(request.getParameter("title"));
 		String memberId = request.getParameter("memberId");
-		String content = request.getParameter("content");
+		String content = SecurityUtils.xss(request.getParameter("content"));
 		
 		QaaDTO qaa = QaaDTO.builder()
 				.qaaTitle(title)
@@ -82,15 +83,18 @@ public class QaaServiceImpl implements QaaService {
 		
 		// Map
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("beginRecord", pageUtils.getBeginRecord());
-		map.put("endRecord", pageUtils.getEndRecord());
+		// map.put("beginRecord", pageUtils.getBeginRecord());
+		// map.put("endRecord", pageUtils.getEndRecord());
+		map.put("beginRecord", pageUtils.getBeginRecord() - 1);
+		map.put("recordPerPage", pageUtils.getRecordPerPage());
 		
 		// 목록 가져오기
 		List<QaaDTO> qaaList = qaaMapper.selectQaaList(map);
 		
 		// qaa/qaa.jsp로 전달할 데이터
 		model.addAttribute("qaaList", qaaList);
-		model.addAttribute("totalRecord", totalRecord);
+		// model.addAttribute("totalRecord", totalRecord);
+		model.addAttribute("startNo", totalRecord - (page - 1) * pageUtils.getRecordPerPage());
 		model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/qaa/qaaPage"));
 		
 	}
@@ -122,8 +126,10 @@ public class QaaServiceImpl implements QaaService {
 		pageUtils.setPageEntity(findRecord, page);
 		
 		// beginRecord + endRecord => Map
-		map.put("beginRecord", pageUtils.getBeginRecord());
-		map.put("endRecord", pageUtils.getEndRecord());
+		// map.put("beginRecord", pageUtils.getBeginRecord());
+		// map.put("endRecord", pageUtils.getEndRecord());
+		map.put("beginRecord", pageUtils.getBeginRecord() - 1);
+		map.put("recordPerPage", pageUtils.getRecordPerPage());
 		
 		// beginRecord ~ endRecord 사이 검색된 목록 가져오기
 		List<QaaDTO> qaaList = qaaMapper.selectFindList(map);
@@ -131,7 +137,8 @@ public class QaaServiceImpl implements QaaService {
 		// qaa/qaa.jsp로 전달할 데이터
 		model.addAttribute("query", query);
 		model.addAttribute("qaaList", qaaList);
-		model.addAttribute("totalRecord", findRecord);
+		// model.addAttribute("totalRecord", findRecord);
+		model.addAttribute("startNo", findRecord - (page - 1) * pageUtils.getRecordPerPage());
 		model.addAttribute("paging", pageUtils.getPaging(request.getContextPath() + "/qaa/search?column=" + column + "&query=" + query));
 		
 	}
@@ -143,7 +150,7 @@ public class QaaServiceImpl implements QaaService {
 	public void saveReply(HttpServletRequest request, HttpServletResponse response) {
 		
 		String memberId = request.getParameter("memberId");
-		String content = request.getParameter("content");
+		String content = SecurityUtils.xss(request.getParameter("content"));
 		
 		int depth = Integer.parseInt(request.getParameter("depth"));
 		Long groupNo = Long.parseLong(request.getParameter("groupNo"));
@@ -304,7 +311,7 @@ public class QaaServiceImpl implements QaaService {
 	}
 	
 	
-	// 댓글 삭제하기
+	// 댓글 삭제하기.
 	@Transactional
 	@Override
 	public Map<String, Object> removeReply(QaaDTO qaa) {
@@ -328,21 +335,7 @@ public class QaaServiceImpl implements QaaService {
 		return res;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 
 }

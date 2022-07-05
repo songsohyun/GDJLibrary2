@@ -5,11 +5,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.goodee.gdlibrary.mapper.BookReplyMapper">
 
-	<insert id="insertReview" parameterType="BookReplyDTO">
+	<insert id="insertReply" parameterType="BookReplyDTO">
 		INSERT INTO BOOK_REPLY
 			(BOOK_NO, MEMBER_ID, BOOK_REPLY_CONTENT, BOOK_REPLY_CREATED, BOOK_RATING)
 		  VALUES
-		    (#{bookNo}, 'ADMIN', #{bookReplyContent}, SYSDATE, #{bookRating})	
+		    (#{bookNo}, #{memberId}, #{bookReplyContent}, now(), #{bookRating})	
 	</insert>
 	
 	<!-- 해당 게시글에 달린 댓글의 갯수 -->
@@ -20,10 +20,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="selectReplyList" parameterType="Map" resultType="BookReplyDTO">
-		SELECT A.BOOK_REPLY_NO, A.BOOK_NO, A.MEMBER_ID, A.BOOK_REPLY_CONTENT, A.BOOK_REPLY_CREATED, A.BOOK_RATING
-		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY BOOK_REPLY_NO DESC) AS RN, BOOK_REPLY_NO, BOOK_NO, MEMBER_ID, BOOK_REPLY_CONTENT, BOOK_REPLY_CREATED, BOOK_RATING
-                  FROM BOOK_REPLY)A
-		 WHERE A.RN BETWEEN #{beginRecord} AND #{endRecord}
+		SELECT BOOK_REPLY_NO, BOOK_NO, MEMBER_ID, BOOK_REPLY_CONTENT, BOOK_REPLY_CREATED, BOOK_RATING
+		  FROM BOOK_REPLY
+		 WHERE BOOK_NO = #{bookNo} 
+		 LIMIT #{beginRecord}, #{recordPerPage} 
 	</select>
 	
 	<select id="selectReplyRatingAverage" parameterType="Long" resultType="Double">

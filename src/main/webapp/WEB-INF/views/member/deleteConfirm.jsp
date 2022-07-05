@@ -25,22 +25,93 @@
 	}
 
 </script>
+<style>
+* {
+    padding: 0;
+    margin: 0;
+}
 
+.deleteConfirm_wrap {
+    width: 500px;
+    margin: 150px auto 0;
+}
+
+.deleteConfirm table {
+    margin: 0 auto;
+    
+}
+
+.deleteConfirm > h3 {
+    display: block;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 15px;
+    color: #4e4c4c;
+}
+.deleteConfirm_wrap tr td:nth-of-type(1) {
+    font-size: 13px;
+    padding: 0 10px 0 5px;
+    width: 120px;
+	text-align: center;
+	color: #4e4c4c;
+}
+
+.deleteConfirm_wrap tr td:nth-of-type(2) {
+    display: block;
+    height: 35px;
+    margin-bottom: 3px;
+    border: 1px solid #d7d7d7;
+    position: relative;
+    padding-right: 5px;
+}
+
+.deleteConfirm_wrap input[type="password"] {
+    width: 180px;
+    height: 10px;
+    padding: 12px 10px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #635f5f;
+    outline-style: none;
+    border: none;
+}
+
+.deleteConfirm_wrap button {
+	display: inline-block;;
+	text-align: center;
+	background-color: #f5e0c1;
+	width: 80px;
+	border-color: #f5d7ac;
+	padding: 3px 5px;
+	font-size: 12px;
+	padding: 5px 18px;
+	margin: 0 5px 5px 10px;
+}
+</style>
 </head>
 <body>
 
 	<jsp:include page="../layout/header.jsp"></jsp:include>
 	
-	<br><br><br>
-	
-	<h3>회원 탈퇴를 위한 인증 절차</h3>
-	<form id="f" action="${contextPath}/member/deletePwCheck" method="post">
-		<input type="hidden" name="memberId" id="memberId" value="${loginMember.memberId}">
-		<label for="memberPw">
-			비밀번호<br>
-			<input type="password" name="memberPw" id="memberPw">
-		</label>
-		<button>확인</button>
-	</form>
+	<div class="deleteConfirm_wrap">
+        <div class="deleteConfirm">
+            <h3>회원 탈퇴를 위한 인증 절차</h3>
+
+			<form id="f" action="${contextPath}/member/deletePwCheck" method="post">
+				<input type="hidden" name="memberId" id="memberId" value="${loginMember.memberId}">
+				<table>
+					<tbody>
+						<tr>
+							<td colspan="2"><label for="memberPw">비밀번호</label></td>
+							<td><input type="password" name="memberPw" id="memberPw"></td>
+							<td><button>확인</button></td>
+						</tr>	
+					</tbody>
+				</table>
+				
+			</form>
+
+        </div>
+    </div>
 </body>
 </html>

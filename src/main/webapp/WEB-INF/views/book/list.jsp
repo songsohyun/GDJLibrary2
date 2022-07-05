@@ -32,35 +32,41 @@
 			color: limegreen;
 			font-weight: 900;
 		}
-
+		
+		.hidden{
+			display: none;
+		}
+		.seen{
+			display: inline;
+		}
 
 </style>
 <script src="../resources/js/jquery-3.6.0.js"></script>
 <script>
-	$(function(){
-		
-		fnList();
-		fnPagingLink();
-		fnSearch();
-	})
-	
-	
-	// 1. 회원목록 + page 전역변수
-	var page = 1;  // 초기화
-	function fnList(){
-		$.ajax({
-			url: '${contextPath}/book/list',
-			type: 'GET',
-			data: 'page=' + page,
-			dataType: 'json',
-			success: function(obj){
-				fnPrintBookList(obj.books, obj.p);
-				fnPrintPaging(obj.p);
+			// 페이지로드 이벤트
+			$(function(){
+				fnList();
+				fnPagingLink();
+				fnSearch();
+			})
+
+			
+			// 1. 책목록 + page 전역변수
+			var page = 1;  // 초기화
+			function fnList(){
+				$.ajax({
+					url: '${contextPath}/book/list',
+					type: 'GET',
+					data: 'page=' + page,
+					dataType: 'json',
+					success: function(obj){
+						fnPrintBookList(obj.books, obj.p);
+						fnPrintPaging(obj.p);
+					}
+				})
 			}
-		})
-	}
 	
-	// 1-1) 회원 목록 출력
+			// 1-1) 책 목록 출력
 			function fnPrintBookList(books, p){
 			$('#bookInfo').empty();
 			$.each((books), function(i, book){
@@ -69,19 +75,19 @@
 			tr += '<td><img src="' + book.bookImage + '"width=100px height=120px></td>';
 			tr += '<td><a href="${contextPath}/book/detail?bookNo=' + book.bookNo + '">' + book.bookTitle + '</a></td>';
 			tr += '<td>' + book.bookAuthor + '</td>';
-			tr += '<td>' + book.bookField + '</td>';
+			tr += '<td>' + book.bookType + '</td>';
 			tr += '</tr>';
 			$('#bookInfo').append(tr);
-			})
-		}
+				})
+			}
 		
 			// 1-2 페이징 링크 처리
 			function fnPagingLink(){
 			$(document).on('click', '.enable_link', function(){
 				page = $(this).data('page');
 				fnList();
-			})
-		}
+				})
+			}
 	
 			// 1-2) 페이징 정보 출력
 			function fnPrintPaging(p){
@@ -129,8 +135,9 @@
 			
 			$('#paging').append(paging);
 			
-		}
+			}
 	
+			
 			var page = 1; 
 			function fnSearch(){
 			$('#btnSearch').on('click', function(){
@@ -140,35 +147,34 @@
 					data: 'page=' + page + '&column=' + $('#column').val() + '&query=' + $('#query').val(),
 					dataType: 'json',
 					success: function(obj){
-						fnPrintBookList(obj.books);
+						fnPrintBookList(obj.books, obj.p);
 						fnPrintPaging(obj.p);
-					}
+						}
+					})
 				})
-			})
-		}
+			}
 		
-		function enterKey(){
-			
-			$.ajax({
-				url: '${contextPath}/book/search',
-				type: 'GET',
-				data: 'page=' + page + '&column=' + $('#column').val() + '&query=' + $('#query').val(),
-				dataType: 'json',
-				success: function(obj){
-					fnPrintBookList(obj.books, obj.p);
-					fnPrintPaging(obj.p);
+			function enterKey(){
+				$.ajax({
+					url: '${contextPath}/book/search',
+					type: 'GET',
+					data: 'page=' + page + '&column=' + $('#column').val() + '&query=' + $('#query').val(),
+					dataType: 'json',
+					success: function(obj){
+						fnPrintBookList(obj.books, obj.p);
+						fnPrintPaging(obj.p);
+						}
+					})
 				}
-			})
-			
-		}
 	
 		
 		
 </script>
 </head>
 <body>
-		
+		<div id="insertApi">
 		<a href="${contextPath}/book/insertBook">책추가하기</a>
+		</div>
 		<div class="all">
 
 		<table class="listTable">
@@ -201,7 +207,7 @@
 					<option value="">:::선택:::</option>
 					<option value="BOOK_TITLE">제목</option>
 					<option value="BOOK_AUTHOR">저자</option>
-					<option value="BOOK_FIELD">분야</option>
+					<option value="BOOK_TYPE">분야</option>
 				</select>
 				<input type="text" id="query" name="query" onkeypress="if(event.keyCode == 13){enterKey()}" placeholder="검색어를 입력하세요"/>
 				<input type="text" style="display: none;" />

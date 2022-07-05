@@ -21,17 +21,23 @@
 		//1. api로 가져오기
 		function fnGetBookInfo(){
 			
-			$('#getBookInfo').on('submit',function(){
+			$('#getBookInfo').on('submit',function(event){
 				var regField = /^[0-9]{1,2}$/;
 				var query = $('#query')
-				query.on('keyup', function(){
 					if(regField.test($('#query').val()) == false){
-						alert('숫자만 입력하기 바랍니다.');
+						alert('분야코드에 맞는 숫자만 입력해주세요.');
+						event.preventDefault();
 						query.val('');
-						return false;
+						return;
 					}
-					return true;
-				})
+					if(query.val() == 4 || query.val() == 5 || query.val() == 6 || query.val() == 11){
+						$(this).submit();						
+					}else{
+						alert('분야코드를 확인해주세요');
+						event.preventDefault();
+						query.val('');
+						return;
+					}
 			})
 			
 		}
@@ -41,7 +47,7 @@
 <body>
 		
 		<form action="${contextPath}/book/insertApi" id="getBookInfo">
-				11:문학, 6:인문과학, 5:사회과학, 4:자연과학 <br>
+				4:자연과학, 5:사회과학, 6:인문과학, 11:문학 <br>
 			<input type="text" name="query" id="query" placeholder="분야코드를 적어주세요">
 			<button>api 정보받아오기</button>
 		</form>

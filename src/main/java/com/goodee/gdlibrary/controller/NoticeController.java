@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.goodee.gdlibrary.domain.MemberDTO;
 import com.goodee.gdlibrary.service.NoticeService;
 
 @Controller
@@ -39,7 +38,9 @@ public class NoticeController {
 	// 관리자만 볼 수 있는 버튼임.
 	// 공지사항 작성 페이지로 이동하기
 	@GetMapping("/notice/addNoticePage")
-	public String addNoticePage() {
+	public String addNoticePage(HttpServletRequest request) {
+		
+		request.setAttribute("res", "add");
 		return "notice/addNotice";
 	}
 	

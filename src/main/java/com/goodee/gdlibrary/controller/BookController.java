@@ -17,15 +17,11 @@ public class BookController {
 	
 	@Autowired
 	private BookService bookService;
+	
 
 	@GetMapping("/book/listPage")
 	public String bookListPage() {
 		return "book/list";
-	}
-	
-	@GetMapping("book/indexPage")
-	public String indexPage() {
-		return "book/aa";
 	}
 	
 	@ResponseBody
@@ -42,7 +38,7 @@ public class BookController {
 	@GetMapping("book/insertApi")
 	public String getBookInfo(HttpServletRequest request, Model model) {
 		bookService.getBooksInfo(request);
-		return "redirect:list";
+		return "redirect:listPage";
 	}
 	
 	@ResponseBody

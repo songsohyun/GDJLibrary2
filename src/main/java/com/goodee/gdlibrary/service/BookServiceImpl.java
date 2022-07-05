@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +17,7 @@ import org.json.JSONObject;
 import org.json.XML;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import com.goodee.gdlibrary.domain.BookDTO;
@@ -27,11 +27,13 @@ import com.goodee.gdlibrary.util.PageUtils1;
 @Service
 public class BookServiceImpl implements BookService {
 
-	@Autowired
-	private BookMapper bookMapper;
-
-	@Override
-	public void getBooksInfo(HttpServletRequest request) {
+		@Autowired
+		private BookMapper bookMapper;
+	
+		@Transactional
+		@Override
+		// api정보 받아오기
+		public void getBooksInfo(HttpServletRequest request) {
 
 		// API URL with Parameter
 		String key = "d99cfc0bc8e22bb018dd441c09f57af2624e907b48a7135e2bce67d44b6a0db3";
@@ -68,7 +70,6 @@ public class BookServiceImpl implements BookService {
 		} catch(IOException e) {
 			e.printStackTrace();  // API 응답 실패
 		}
-		List<BookDTO> list = new ArrayList<BookDTO>();
 		JSONObject books = XML.toJSONObject(sb.toString());
 		JSONObject items = books.getJSONObject("channel");
 		JSONArray item = items.getJSONArray("list");
@@ -80,7 +81,7 @@ public class BookServiceImpl implements BookService {
 			book.setBookTitle(b.getString("recomtitle"));
 			book.setBookAuthor(b.getString("recomauthor"));
 			book.setBookPublisher(b.getString("recompublisher"));
-			book.setBookPubdate(b.getString("regdate"));
+			book.setBookPubdateTime(b.getString("regdate"));
 			if(b.getString("recomcontens").length() > 3000) {
 				book.setBookDescription(b.getString("recomcontens").substring(0, 3000));
 			}else {
@@ -88,16 +89,15 @@ public class BookServiceImpl implements BookService {
 			}
 			book.setBookImage(b.getString("recomfilepath"));
 			book.setBookType(b.getString("drCodeName"));
-			list.add(book);
-		}
-			
-		bookMapper.getBooksInfo(list);
+			bookMapper.insertBook(book);
+			}
 		
-	}
+		}
 	
-	
-	@Override
-	public Map<String, Object> bookList(int page) {
+		
+		@Override
+		// 책목록 출력
+		public Map<String, Object> bookList(int page) {
 		
 		// page, totalRecord를 이용해서 페이징
 		Integer totalRecord = bookMapper.selectBookCount();
@@ -106,8 +106,8 @@ public class BookServiceImpl implements BookService {
 		
 		// 목록은 beginRecord ~ endRecord 사이값을 가져온다.
 		Map<String, Object> m = new HashMap<String, Object>();
-		m.put("beginRecord", p.getBeginRecord());
-		m.put("endRecord", p.getEndRecord());
+		m.put("beginRecord", p.getBeginRecord()-1);
+		m.put("recordPerPage", p.getRecordPerPage());
 		
 		// 목록과 paging 정보를 반환
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -116,10 +116,11 @@ public class BookServiceImpl implements BookService {
 	
 		return map;
 		
-	}
+		}
 	
-	@Override
-	public Map<String, Object> searchBook(HttpServletRequest request) {
+		@Override
+		// 책검색하기
+		public Map<String, Object> searchBook(HttpServletRequest request) {
 
 		String column = request.getParameter("column");
 		String query = request.getParameter("query");
@@ -133,31 +134,33 @@ public class BookServiceImpl implements BookService {
 		PageUtils1 p = new PageUtils1();
 		p.setPageEntity(totalRecord, page);
 		
-		map.put("beginRecord", p.getBeginRecord());
-		map.put("endRecord", p.getEndRecord());
+		map.put("beginRecord", p.getBeginRecord()-1);
+		map.put("recordPerPage", p.getRecordPerPage());
 		
-
 		
 		List<BookDTO> books = bookMapper.searchBook(map);
 		Map<String, Object> resMap = new HashMap<>();
 		resMap.put("books", books);
 		resMap.put("p", p);
+		
 		return resMap;
 		
-	}
+		}
 	
 	
 	
-	@Override
-	public void detailBook(HttpServletRequest request, Model model) {
+		@Override
+		// 책 상세보기
+		public void detailBook(HttpServletRequest request, Model model) {
 		Long bookNo = Long.parseLong(request.getParameter("bookNo"));
 		model.addAttribute("book", bookMapper.detailBook(bookNo));
 		
-	}
+		}
 	
 
-	@Override
-	public Map<String, Object> recomBook(Model model) {
+		@Override
+		// 평점순 추천도서
+		public Map<String, Object> recomBook(Model model) {
 		
 		List<BookDTO> list = bookMapper.recomBook();
 		
@@ -168,10 +171,8 @@ public class BookServiceImpl implements BookService {
 		
 
 		return map;
-	}
+		}
 	
-	
-	
-	
+
 }	
 	
