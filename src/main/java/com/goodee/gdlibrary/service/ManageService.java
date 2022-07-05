@@ -13,8 +13,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 public interface ManageService {
 	
 	// member 서비스
-	public Map<String, Object> memberIdCheck(String id);
-	public Map<String, Object> memberEmailCheck(String email);
+	public Map<String, Object> checkMemberId(String id);
+	public Map<String, Object> checkMemberEmail(String email);
 	public void findMembers(HttpServletRequest request, Model model);
 	public void findMemberByNo(HttpServletRequest request, Model model);
 	public void saveMember(HttpServletRequest request, HttpServletResponse response);
@@ -22,11 +22,11 @@ public interface ManageService {
 	public void removeMember(HttpServletRequest request, HttpServletResponse response);
 	public void changeMember(HttpServletRequest request, HttpServletResponse response, Model model);
 	public void findSearchMembers(HttpServletRequest request, Model model);
-	public Map<String, Object> memberAutoComplete(HttpServletRequest request);
+	public Map<String, Object> autoCompleteMember(HttpServletRequest request);
 	
 	// dormantMember 서비스 
-	public Map<String, Object> dormantMemberIdCheck(String id);
-	public Map<String, Object> dormantMemberEmailCheck(String email);
+	public Map<String, Object> checkDormantMemberId(String id);
+	public Map<String, Object> checkDormantMemberEmail(String email);
 	public void findDormantMembers(HttpServletRequest request, Model model);
 	public void findDormantMemberByNo(HttpServletRequest request, Model model);
 	public void saveDormantMember(HttpServletRequest request, HttpServletResponse response, Model model);
@@ -34,7 +34,7 @@ public interface ManageService {
 	public void removeCheckDormantMember(HttpServletRequest request, HttpServletResponse response);
 	public void removeDormantMember(HttpServletRequest request, HttpServletResponse response);
 	public void findSearchDormantMembers(HttpServletRequest request, Model model);
-	public Map<String, Object> dormantMemberAutoComplete(HttpServletRequest request);
+	public Map<String, Object> autoCompleteDormantMember(HttpServletRequest request);
 	
 	
 	// signOutMember 서비스
@@ -43,11 +43,11 @@ public interface ManageService {
 	public void removeCheckSignOutMember(HttpServletRequest request, HttpServletResponse response);
 	public void removeSignOutMember(HttpServletRequest request, HttpServletResponse response);
 	public void findSearchSignOutMembers(HttpServletRequest request, Model model);
-	public Map<String, Object> signOutMemberAutoComplete(HttpServletRequest request);
+	public Map<String, Object> autoCompleteSignOutMember(HttpServletRequest request);
 	
 	
 	// book 서비스
-	public Map<String, Object> bookIsbnCheck(String isbn);
+	public Map<String, Object> checkBookIsbn(String isbn);
 	
 	public void findBooks(HttpServletRequest request, Model model);
 	public void findBookByNo(HttpServletRequest request, Model model);
@@ -56,5 +56,5 @@ public interface ManageService {
 	public void removeBook(HttpServletRequest request, HttpServletResponse response);
 	public void changeBook(HttpServletRequest request, HttpServletResponse response, Model model);
 	public void findSearchBooks(HttpServletRequest request, Model model);
-	public Map<String, Object> bookAutoComplete(HttpServletRequest request);
+	public Map<String, Object> autoCompleteBook(HttpServletRequest request);
 }

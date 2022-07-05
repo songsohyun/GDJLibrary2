@@ -24,10 +24,10 @@
 </head>
 <body>
 	
-	<a href="${contextPath}/admin/memberList?value=15">활동회원관리</a>
-	<a href="${contextPath}/admin/dormantMemberList?value=15">휴면회원관리</a>
-	<a href="${contextPath}/admin/signOutMemberList?value=15">탈퇴회원관리</a>
-	<a href="${contextPath}/admin/bookList?value=15">도서관리</a>
+	<a href="${contextPath}/admin/listMember?value=15">활동회원관리</a>
+	<a href="${contextPath}/admin/listDormantMember?value=15">휴면회원관리</a>
+	<a href="${contextPath}/admin/listSignOutMember?value=15">탈퇴회원관리</a>
+	<a href="${contextPath}/admin/listBook?value=15">도서관리</a>
 	
 	
 	

@@ -35,242 +35,242 @@ public class ManageController {
 	
 	
 	// member매핑
-	@GetMapping("/admin/memberList")
-	public String memberList(HttpServletRequest request, Model model) {
+	@GetMapping("/admin/listMember")
+	public String listMember(HttpServletRequest request, Model model) {
 		manageService.findMembers(request, model);
-		return "manage/memberManage";
+		return "manage/manageMember";
 	}
 	
-	@GetMapping("/admin/memberSavePage")
+	@GetMapping("/admin/saveMemberPage")
 	public String savePage(HttpServletRequest request, Model model) {
 		model.addAttribute("value", request.getParameter("value"));
-		return "manage/memberSave";
+		return "manage/saveMember";
 	}
 	
-	@PostMapping("/admin/memberSave")
-	public void memberSave(HttpServletRequest request, HttpServletResponse response) {
+	@PostMapping("/admin/saveMember")
+	public void saveMember(HttpServletRequest request, HttpServletResponse response) {
 		manageService.saveMember(request, response);
 	}
 	
 	@ResponseBody
-	@GetMapping(value="/admin/memberIdCheck", produces="application/json")
-	public Map<String, Object> memberIdCheck(@RequestParam String id) {
-		return manageService.memberIdCheck(id);
+	@GetMapping(value="/admin/checkMemberId", produces="application/json")
+	public Map<String, Object> checkMemberId(@RequestParam String id) {
+		return manageService.checkMemberId(id);
 		// {"res": null}
 		// {"res": {"memberNo":1, ...}}
 	}
 	
 	@ResponseBody
-	@GetMapping(value="/admin/memberEmailCheck", produces="application/json")
-	public Map<String, Object> memberEmailCheck(@RequestParam String email) {
-		return manageService.memberEmailCheck(email);
+	@GetMapping(value="/admin/checkMemberEmail", produces="application/json")
+	public Map<String, Object> checkMemberEmail(@RequestParam String email) {
+		return manageService.checkMemberEmail(email);
 		// {"res": null}
 		// {"res": {"memberNo":1, ...}}
 	}
 	
 	
-	@GetMapping("/admin/memberDetail")
-	public String memberDetail(HttpServletRequest request, Model model) {
+	@GetMapping("/admin/detailMember")
+	public String detailMember(HttpServletRequest request, Model model) {
 		manageService.findMemberByNo(request, model);
-		return "manage/memberDetail";
+		return "manage/detailMember";
 	}
-	@GetMapping("/admin/memberChangePage")
-	public String memberChangePage(HttpServletRequest request, Model model) {
+	@GetMapping("/admin/changeMemberPage")
+	public String changeMemberPage(HttpServletRequest request, Model model) {
 		manageService.findMemberByNo(request, model);
-		return "manage/memberChange";
+		return "manage/changeMember";
 	}
-	@PostMapping("/admin/memberChange")
-	public void memberChange(HttpServletRequest request, HttpServletResponse response, Model model) {
+	@PostMapping("/admin/changeMember")
+	public void changeMember(HttpServletRequest request, HttpServletResponse response, Model model) {
 		manageService.changeMember(request, response, model);
 	}
 	
-	@GetMapping("/admin/memberRemove")
-	public void memberRemove(HttpServletRequest request, HttpServletResponse response) {
+	@GetMapping("/admin/removeMember")
+	public void removeMember(HttpServletRequest request, HttpServletResponse response) {
 		manageService.removeMember(request, response);
 	}
-	@PostMapping("/admin/memberCheckRemove")
-	public void memberCheckRemove(HttpServletRequest request, HttpServletResponse response) {
+	@PostMapping("/admin/removeCheckMember")
+	public void removeCheckmember(HttpServletRequest request, HttpServletResponse response) {
 		manageService.removeCheckMember(request, response);
 	}
-	@GetMapping("/admin/memberSearch")
-	public String memberSearch(HttpServletRequest request, Model model) {
+	@GetMapping("/admin/searchMember")
+	public String searchMember(HttpServletRequest request, Model model) {
 		manageService.findSearchMembers(request, model);
-		return "manage/memberManage";
+		return "manage/manageMember";
 	}
 	@ResponseBody
-	@GetMapping(value="/admin/memberAutoComplete", produces="application/json")
-	public Map<String, Object> memberAutoComplete(HttpServletRequest request){
-		return manageService.memberAutoComplete(request);
+	@GetMapping(value="/admin/autoCompleteMember", produces="application/json")
+	public Map<String, Object> autoCompleteMember(HttpServletRequest request){
+		return manageService.autoCompleteMember(request);
 	}
 	
 	
 	
 	// dormantMember 매핑
-	@GetMapping("/admin/dormantMemberList")
-	public String dormantMemberList(HttpServletRequest request, Model model) {
+	@GetMapping("/admin/listDormantMember")
+	public String listDormantMember(HttpServletRequest request, Model model) {
 		manageService.findDormantMembers(request, model);
-		return "manage/dormantMemberManage";
+		return "manage/manageDormantMember";
 	}
 	
-	@GetMapping("/admin/dormantMemberSavePage")
-	public String dormantMemberSavePage(HttpServletRequest request, Model model) {
+	@GetMapping("/admin/saveDormantMemberPage")
+	public String saveDormantMemberPage(HttpServletRequest request, Model model) {
 		model.addAttribute("value", request.getParameter("value"));
 		model.addAttribute("memberNo", request.getParameter("memberNo"));
-		return "manage/dorMantMemberSave";
+		return "manage/saveDormantMember";
 	}
 	
-	@PostMapping("/admin/dormantMemberSave")
-	public void dormantMemberSave(HttpServletRequest request, HttpServletResponse response, Model model) {
+	@PostMapping("/admin/saveDormantMember")
+	public void saveDormantMember(HttpServletRequest request, HttpServletResponse response, Model model) {
 		manageService.findMemberByNo(request, model);
 		manageService.saveDormantMember(request, response, model);
 		manageService.removeMember(request, response);
 	}
 	
-	@PostMapping("/admin/dormantToMemberSave")
-	public void dormantToMemberSave(HttpServletRequest request, HttpServletResponse response, Model model) {
+	@PostMapping("/admin/saveDormantToMember")
+	public void saveDormantToMember(HttpServletRequest request, HttpServletResponse response, Model model) {
 		manageService.findDormantMemberByNo(request, model);
 		manageService.saveDormantToMember(request, response, model);
 		manageService.removeDormantMember(request, response);
 	}
 	
 	@ResponseBody
-	@GetMapping(value="/admin/dormantMemberIdCheck", produces="application/json")
-	public Map<String, Object> dormantMemberIdCheck(@RequestParam String id) {
-		return manageService.dormantMemberIdCheck(id);
+	@GetMapping(value="/admin/checkDormantMemberId", produces="application/json")
+	public Map<String, Object> checkDormantMemberId(@RequestParam String id) {
+		return manageService.checkDormantMemberId(id);
 		// {"res": null}
 		// {"res": {"memberNo":1, ...}}
 	}
 	
 	@ResponseBody
-	@GetMapping(value="/admin/dormantMemberEmailCheck", produces="application/json")
-	public Map<String, Object> dormantMemberEmailCheck(@RequestParam String email) {
-		return manageService.dormantMemberEmailCheck(email);
+	@GetMapping(value="/admin/checkDormantMemberEmail", produces="application/json")
+	public Map<String, Object> checkDormantMemberEmail(@RequestParam String email) {
+		return manageService.checkDormantMemberEmail(email);
 		// {"res": null}
 		// {"res": {"memberNo":1, ...}}
 	}
 	
 	
-	@GetMapping("/admin/dormantMemberDetail")
-	public String dormantMemberDetail(HttpServletRequest request, Model model) {
+	@GetMapping("/admin/detailDormantMember")
+	public String detailDormantMember(HttpServletRequest request, Model model) {
 		manageService.findDormantMemberByNo(request, model);
-		return "manage/dormantMemberDetail";
+		return "manage/detailDormantMember";
 	}
 	
-	@GetMapping("/admin/dormantMemberRemove")
-	public void dormantMemberRemove(HttpServletRequest request, HttpServletResponse response) {
+	@GetMapping("/admin/removeDormantMember")
+	public void removeDormantMember(HttpServletRequest request, HttpServletResponse response) {
 		manageService.removeDormantMember(request, response);
 	}
-	@PostMapping("/admin/dormantMemberCheckRemove")
-	public void dormantMemberCheckRemove(HttpServletRequest request, HttpServletResponse response) {
+	@PostMapping("/admin/removeCheckDormantMember")
+	public void removeCheckDormantMember(HttpServletRequest request, HttpServletResponse response) {
 		manageService.removeCheckDormantMember(request, response);
 	}
-	@GetMapping("/admin/dormantMemberSearch")
-	public String dormantMemberSearch(HttpServletRequest request, Model model) {
+	@GetMapping("/admin/searchDormantMember")
+	public String searchDormantMember(HttpServletRequest request, Model model) {
 		manageService.findSearchDormantMembers(request, model);
-		return "manage/dormantMemberManage";
+		return "manage/manageDormantMember";
 	}
 	@ResponseBody
-	@GetMapping(value="/admin/dormantMemberAutoComplete", produces="application/json")
-	public Map<String, Object> dormantMemberAutoComplete(HttpServletRequest request){
-		return manageService.dormantMemberAutoComplete(request);
+	@GetMapping(value="/admin/autoCompleteDormantMember", produces="application/json")
+	public Map<String, Object> autoCompleteDormantMember(HttpServletRequest request){
+		return manageService.autoCompleteDormantMember(request);
 	}
 	
 	
 	
 	
 	// SignOutMember매핑
-	@GetMapping("/admin/signOutMemberList")
-	public String signOutMemberList(HttpServletRequest request, Model model) {
+	@GetMapping("/admin/listSignOutMember")
+	public String listSignOutMember(HttpServletRequest request, Model model) {
 		manageService.findSignOutMembers(request, model);
-		return "manage/signOutMemberManage";
+		return "manage/manageSignOutMember";
 	}
 	
 	
-	@GetMapping("/admin/signOutMemberDetail")
-	public String signOutMemberDetail(HttpServletRequest request, Model model) {
+	@GetMapping("/admin/detailSignOutMember")
+	public String detailSignOutMember(HttpServletRequest request, Model model) {
 		manageService.findSignOutMemberByNo(request, model);
-		return "manage/memberDetail";
+		return "manage/detailSignOutMember";
 	}
 	
 	
-	@GetMapping("/admin/signOutMemberRemove")
-	public void signOutMemberRemove(HttpServletRequest request, HttpServletResponse response) {
+	@GetMapping("/admin/removeSignOutMember")
+	public void removeSignOutMember(HttpServletRequest request, HttpServletResponse response) {
 		manageService.removeSignOutMember(request, response);
 	}
-	@PostMapping("/admin/signOutMemberCheckRemove")
-	public void signOutMemberCheckRemove(HttpServletRequest request, HttpServletResponse response) {
+	@PostMapping("/admin/removeCheckSignOutMember")
+	public void removeCheckSignOutMember(HttpServletRequest request, HttpServletResponse response) {
 		manageService.removeCheckSignOutMember(request, response);
 	}
-	@GetMapping("/admin/signOutMemberSearch")
-	public String signOutMemberSearch(HttpServletRequest request, Model model) {
+	@GetMapping("/admin/searchSignOutMember")
+	public String searchSignOutMember(HttpServletRequest request, Model model) {
 		manageService.findSearchSignOutMembers(request, model);
-		return "manage/memberManage";
+		return "manage/manageSignOutMember";
 	}
 	@ResponseBody
-	@GetMapping(value="/admin/signOutMemberAutoComplete", produces="application/json")
-	public Map<String, Object> signOutMemberAutoComplete(HttpServletRequest request){
-		return manageService.signOutMemberAutoComplete(request);
+	@GetMapping(value="/admin/autoCompleteSignOutMember", produces="application/json")
+	public Map<String, Object> autoCompleteSignOutMember(HttpServletRequest request){
+		return manageService.autoCompleteSignOutMember(request);
 	}
 	
 	
 	
 	// book 매핑
-	@GetMapping("/admin/bookList")
-	public String bookList(HttpServletRequest request, Model model) {
+	@GetMapping("/admin/listBook")
+	public String listBook(HttpServletRequest request, Model model) {
 		manageService.findBooks(request, model);
-		return "manage/bookManage";
+		return "manage/manageBook";
 	}
 	
-	@GetMapping("/admin/bookSavePage")
-	public String bookSavePage(HttpServletRequest request, Model model) {
+	@GetMapping("/admin/saveBookPage")
+	public String saveBookPage(HttpServletRequest request, Model model) {
 		model.addAttribute("value", request.getParameter("value"));
-		return "manage/bookSave";
+		return "manage/saveBook";
 	}
 	
-	@PostMapping("/admin/bookSave")
-	public void bookSave(HttpServletRequest request, HttpServletResponse response) {
+	@PostMapping("/admin/saveBook")
+	public void saveBook(HttpServletRequest request, HttpServletResponse response) {
 		manageService.saveBook(request, response);
 	}
 	
 	@ResponseBody
-	@GetMapping(value="/admin/bookIsbnCheck", produces="application/json")
-	public Map<String, Object> bookIsbnCheck(@RequestParam String isbn) {
-		return manageService.bookIsbnCheck(isbn);
+	@GetMapping(value="/admin/checkBookIsbn", produces="application/json")
+	public Map<String, Object> checkBookIsbn(@RequestParam String isbn) {
+		return manageService.checkBookIsbn(isbn);
 		// {"res": null}
 		// {"res": {"bookNo":1, ...}}
 	}
 	
-	@GetMapping("/admin/bookDetail")
-	public String bookDetail(HttpServletRequest request, Model model) {
+	@GetMapping("/admin/detailBook")
+	public String detailBook(HttpServletRequest request, Model model) {
 		manageService.findBookByNo(request, model);
-		return "manage/bookDetail";
+		return "manage/detailBook";
 	}
-	@GetMapping("/admin/bookChangePage")
-	public String bookChangePage(HttpServletRequest request, Model model) {
+	@GetMapping("/admin/changeBookPage")
+	public String changeBookPage(HttpServletRequest request, Model model) {
 		manageService.findBookByNo(request, model);
-		return "manage/bookChange";
+		return "manage/changeBook";
 	}
-	@PostMapping("/admin/bookChange")
-	public void bookChange(HttpServletRequest request, HttpServletResponse response, Model model) {
+	@PostMapping("/admin/changeBook")
+	public void changeBook(HttpServletRequest request, HttpServletResponse response, Model model) {
 		manageService.changeBook(request, response, model);
 	}
-	@GetMapping("/admin/bookRemove")
-	public void bookRemove(HttpServletRequest request, HttpServletResponse response) {
+	@GetMapping("/admin/removeBook")
+	public void removeBook(HttpServletRequest request, HttpServletResponse response) {
 		manageService.removeBook(request, response);
 	}
-	@PostMapping("/admin/bookCheckRemove")
-	public void bookCheckRemove(HttpServletRequest request, HttpServletResponse response) {
+	@PostMapping("/admin/removeCheckBook")
+	public void removeCheckBook(HttpServletRequest request, HttpServletResponse response) {
 		manageService.removeCheckBook(request, response);
 	}
-	@GetMapping("/admin/bookSearch")
-	public String bookSearch(HttpServletRequest request, Model model) {
+	@GetMapping("/admin/searchBook")
+	public String searchBook(HttpServletRequest request, Model model) {
 		manageService.findSearchBooks(request, model);
-		return "manage/bookManage";
+		return "manage/manageBook";
 	}
 	@ResponseBody
-	@GetMapping(value="/admin/bookAutoComplete", produces="application/json")
-	public Map<String, Object> bookAutoComplete(HttpServletRequest request){
-		return manageService.bookAutoComplete(request);
+	@GetMapping(value="/admin/autoCompleteBook", produces="application/json")
+	public Map<String, Object> autoCompleteBook(HttpServletRequest request){
+		return manageService.autoCompleteBook(request);
 	}
 	
 
