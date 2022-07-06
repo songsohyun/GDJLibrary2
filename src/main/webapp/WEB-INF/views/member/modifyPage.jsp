@@ -84,9 +84,12 @@
 	}
 	
 	function fnMemberDelete() {
-		$('#f2').on('submit', function(){
+		$('#f2').on('submit', function(event){
 			if(confirm('탈퇴하시겠습니까?')) {
 				return true;
+			}else {
+				event.preventDefault();
+				return false;
 			}
 		})
 	}
@@ -99,47 +102,159 @@
 	.dont {
 		color: #666b7d;
 	}
+	* {
+            margin: 0;
+            padding: 0;
+    }
+    .mofidy_warp {
+        width: 800px;
+        margin: 40px auto 0;
+        padding: 50px 50px 51px;
+        
+        
+    }
+    .mofidy_warp  h3 {
+        text-align: center;
+        margin-bottom: 50px;
+        color: #4e4c4c;
+       
+    }
+    .mofidy_warp table {
+        border-collapse: collapse;
+    }
+    
+    .mofidy_warp table td {
+        width: 650px;
+        border-top: 1px solid #f2f4f5;
+        border-bottom: 1px solid #f2f4f5;
+        height: 40px;
+    }
+    
+    .mofidy_warp table td:first-of-type {
+        border-right: 1px solid #f2f4f5;
+        width: 150px;
+    }
+    .mofidy_warp label, .mofidy_warp tr:nth-of-type(2) td:first-of-type{
+        font-size: 13px;
+        padding-left: 10px;
+    }
+    
+    .mofidy_warp input[type="text"] {
+        margin-left: 10px;
+        width: 150px;
+        height: 10px;
+        padding: 5px 10px 5px 7px;
+        font-size: 14px;
+        
+        color: #635f5f;
+        outline-style: none;
+        border: 1px solid #d7d7d7
+       
+    }
+    .mofidy_warp tr:nth-of-type(3) td, .mofidy_warp tr:nth-of-type(4) td, .mofidy_warp tr:last-of-type td {
+        border-right: 0;
+    }
+    .mofidy_warp td span {
+        
+        font-size: 13px;
+        padding-left: 5px;
+    }
+
+    .remove_wrap{
+       text-align: right;
+       margin-bottom: 5px;
+    }
+
+    .btnRemove {
+        width: 80px;
+        height: 30px;
+        background-color: #f5e0c1;
+        border: #f5e0c1;
+        font-size: 13px;
+        font-weight: bold;
+        color: #4e4c4c;
+        letter-spacing: -0.5px;
+        text-align: center;
+        line-height: 30px;
+
+    }
+
+
+    .mofidy_warp input[type="button"], .btnModify {
+        font-size: 13px;
+        border: 1px solid #f5e0c1;
+        background-color: #f5e0c1;
+        padding: 2px 5px;
+        cursor: pointer;
+        
+    }
+    .modifyBotton {
+        margin-top: 20px;
+        text-align: center;
+        
+    }
+
+    .modifyBotton input[type="button"] {
+        font-size: 13px;
+        border: 1px solid #f5e0c1;
+        background-color: #f5e0c1;
+        padding: 2px 5px;
+        cursor: pointer;
+    }
 </style>
 </head>
 <body>
 
 	<jsp:include page="../layout/header.jsp"></jsp:include>
 	
-	<br><br><br>
-	
-	<h3>수정</h3>
-	
-	<form id="f" action="${contextPath}/member/modify" method="post">
+	<div class="mofidy_warp">
+        <h3>회원정보 수정</h3>
+        <div class="remove_wrap">
+            <form id="f2" action="${contextPath}/member/memberDelete" method="post">
+                <input type="hidden" name="memberId" id="memberId" value="${member.memberId}">
+                <button class="btnRemove">회원탈퇴</button>   
+            </form>
+        </div>
 
-		<input type="hidden" name="memberId" id="memberId" value="${member.memberId}">
-		<div>
-			<label for="memberName">
-				이름
-				<input type="text" name="memberName" id="memberName" value="${member.memberName}">
-			</label>
-		</div>
-		<div>
-			주소
-			<input type="text" name="memberPostcode" id="memberPostcode" placeholder="우편번호" readonly="readonly" value="${member.memberPostcode}">
-			<input type="button" onclick="fnPostcode()" value="우편번호 찾기">
-			<input type="text" name="memberRoadAddress" id="memberRoadAddress" placeholder="도로명주소" readonly="readonly" value="${member.memberRoadAddress}">
-			<input type="text" name="memberDetailAddress" id="memberDetailAddress" placeholder="상세주소" value="${member.memberDetailAddress}">
-		</div>
-		<div>
-			<label for="memberPhone">
-				휴대전화
-				<input type="text" name="memberPhone" id="memberPhone" value="${member.memberPhone}">
-				<span id="phoneMsg"></span>
-			</label>
-		</div>
-		
-		<button>수정하기</button>
-		<input type="button" value="취소하기" onclick="fnCancel();">
-	</form>
+        <form id="f" action="${contextPath}/member/modify" method="post">
+            
+            <input type="hidden" name="memberId" id="memberId" value="${member.memberId}">
+            <table>
+                <tbody>
+                    <tr>
+                        <td><label for="memberName">이름</label></td>
+                        <td><input type="text" name="memberName" id="memberName" value="${member.memberName}"></td>
+                    </tr>
+                    <tr>
+                        <td rowspan="3">주소</td>
+                        <td>
+                            <input type="text" name="memberPostcode" id="memberPostcode"  readonly="readonly" value="${member.memberPostcode}">
+                            <input type="button" onclick="fnPostcode()" value="우편번호 찾기">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="memberRoadAddress" id="memberRoadAddress"  readonly="readonly" value="${member.memberRoadAddress}"><span>도로명 주소</span></td>
+                    </tr>
+                    <tr>
+                        
+                        <td><input type="text" name="memberDetailAddress" id="memberDetailAddress" value="${member.memberDetailAddress}"><span>상세 주소</span></td>
+                    </tr>
+                    <tr>
+                        <td><label for="memberPhone">휴대전화</label></td>
+                        <td><input type="text" name="memberPhone" id="memberPhone" value="${member.memberPhone}"><span id="phoneMsg"></span></td>
+                    </tr>
+
+                </tbody>
+               
+            </table>
+            <div class="modifyBotton">
+                <button class="btnModify">수정하기</button>
+                <input type="button" value="취소하기" onclick="fnCancel();">
+            </div>
+        </form>
+        
+        
+    </div>
 	
-	<form id="f2" action="${contextPath}/member/memberDelete" method="post">
-		<input type="hidden" name="memberId" id="memberId" value="${member.memberId}">
-		<button>회원탈퇴</button>
-	</form>
 </body>
 </html>

@@ -108,6 +108,7 @@
 			</thead>
 			<tbody id="myPageRentBookList"></tbody>
 		</table>
+		<input type="button" value="반납하기" onclick="location.href='${contextPath}/returned/returnedBookPage'">
 	</div>
 	<br>
 	<div>

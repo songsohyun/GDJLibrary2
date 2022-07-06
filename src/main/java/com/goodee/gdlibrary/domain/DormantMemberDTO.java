@@ -25,6 +25,7 @@ public class DormantMemberDTO {
 	private String memberDetailAddress;
 	private Integer memberAgreeState;
 	private Date memberSignUp;
+	private String memberSnsType;
 	private Date dormantDate;
 	private Date memberPwModified;
 	private Date memberInfoModified;

@@ -141,6 +141,7 @@ public class MemberController {
 		return "member/findPwPage";
 	}
 	
+	
 	//비밀번호를 찾기 위한 아이디/이메일 확인
 	@ResponseBody
 	@GetMapping(value="/member/findPwCheckIdEmail", produces="application/json")
@@ -225,6 +226,7 @@ public class MemberController {
 		String accessToken = memberService.getNaverAccessToken(request);
 		Map<String, Object> naverUserInfo = memberService.getNaverUserInfo(accessToken);
 		MemberDTO loginMember = memberService.naverLogin(request, naverUserInfo);
+
 		if(loginMember != null) {
 			model.addAttribute("loginMember", loginMember);
 		}

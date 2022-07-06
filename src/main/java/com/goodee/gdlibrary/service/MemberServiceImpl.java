@@ -677,6 +677,7 @@ public class MemberServiceImpl implements MemberService {
 		return loginMember;
 	}
 
+	
 	//휴면회원 취소
 	@Transactional
 	@Override

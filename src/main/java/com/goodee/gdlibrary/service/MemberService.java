@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.ui.Model;
 
+import com.goodee.gdlibrary.domain.DormantMemberDTO;
 import com.goodee.gdlibrary.domain.MemberDTO;
 
 
@@ -52,7 +53,6 @@ public interface MemberService {
 	public String getNaverAccessToken (HttpServletRequest request);
 	public Map<String, Object> getNaverUserInfo (String accessToken);
 	public MemberDTO naverLogin(HttpServletRequest request, Map<String, Object> map);
-	//public String getDeleteNaverAccessToken(HttpServletRequest request, String accessToken);
 	
 	//휴면회원 취소(휴면 회원은 batch에서 함)
 	public void dormantCancle(HttpServletRequest request, HttpServletResponse response);
