@@ -35,6 +35,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
 		String memberId = SecurityUtils.xss(request.getParameter("memberId"));
 		DormantMemberDTO member = memberMapper.selectDormantMemberById(memberId);
+		
 		if(member != null) {
 			request.setAttribute("member", member);
 			request.getRequestDispatcher("/member/dormantCancelPage").forward(request, response);

@@ -217,6 +217,7 @@
 						}
 					} else if(obj.seats.seatStatus == 2){
 						alert('이미 이용중인 좌석입니다. 다른 좌석을 선택해주세요.');
+						event.preventDefault();
 					}
 				}
 			})
@@ -495,6 +496,10 @@
 								좌석갱신
 								<input type="button" value="좌석 갱신" id="btnSeatRenew" class="formBtn">
 								<label for="btnSeatRenew">&nbsp;<i class="fa-solid fa-computer-mouse bt"></i>&nbsp;</label>
+								
+								<br>
+								
+								<input type="button" value="첫페이지로 가기" onclick="location.href='${contextPath}'">
 							</div>
 						</td>
 		    		</tr>

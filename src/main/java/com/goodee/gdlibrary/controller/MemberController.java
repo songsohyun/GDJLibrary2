@@ -141,6 +141,7 @@ public class MemberController {
 		return "member/findPwPage";
 	}
 	
+	
 	//비밀번호를 찾기 위한 아이디/이메일 확인
 	@ResponseBody
 	@GetMapping(value="/member/findPwCheckIdEmail", produces="application/json")
@@ -161,7 +162,20 @@ public class MemberController {
 	public void changePw(HttpServletRequest request, HttpServletResponse response) {
 		memberService.changePw(request, response);
 	}
+	
+	
+	//회원 정보 수정 비밀번호 확인 페이지 이동
+	@GetMapping("/member/modifyConfirm")
+	public String modifyConfirm() {
+		return "member/modifyConfirm";
+	}
 
+	//회원정보 수정 비밀번호 확인
+	@PostMapping("/member/modifyPwCheck")
+	public void modifyPwCheck(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+		memberService.modifyPwCheck(session, request, response);
+	}
+	
 	//회원 정보 수정 페이지 이동
 	@GetMapping("/member/modifyPage")
 	public String modifyPage(@RequestParam String memberId, Model model) {
@@ -173,6 +187,12 @@ public class MemberController {
 	@PostMapping("/member/modify")
 	public void modify(HttpServletRequest request, HttpServletResponse response) {
 		memberService.modify(request, response);
+	}
+	
+	//회원 탈퇴
+	@PostMapping("/member/memberDelete")
+	public void memberDelete(@RequestParam String memberId, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+		memberService.memberDelete(memberId, session, request, response);
 	}
 	
 	//회원 비밀번호 변경 확인 페이지 이동
@@ -190,7 +210,7 @@ public class MemberController {
 	//회원 비밀번호 변경 페이지 이동
 	@GetMapping("/member/pwModifyPage")
 	public String pwModifyPage() {
-		return "member//pwModifyPage";
+		return "member/pwModifyPage";
 	}
 	
 	//회원 비밀번호 변경
@@ -199,19 +219,6 @@ public class MemberController {
 		memberService.pwModify(request, response);
 	}
 
-	//회원 탈퇴 페이지 이동
-	@GetMapping("/member/deleteConfirm")
-	public String deleteConfirm() {
-		return "member/deleteConfirm";
-	}
-	
-	//회원탈퇴 비밀번호 확인
-	@PostMapping("/member/deletePwCheck")
-	public void deletePwCheck(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
-		memberService.deletePwCheck(session, request, response);
-	}
-	
-
 	//네아로 콜백
 	@GetMapping("/member/callback")
 	public String callback(HttpServletRequest request, Model model) {
@@ -219,6 +226,7 @@ public class MemberController {
 		String accessToken = memberService.getNaverAccessToken(request);
 		Map<String, Object> naverUserInfo = memberService.getNaverUserInfo(accessToken);
 		MemberDTO loginMember = memberService.naverLogin(request, naverUserInfo);
+
 		if(loginMember != null) {
 			model.addAttribute("loginMember", loginMember);
 		}

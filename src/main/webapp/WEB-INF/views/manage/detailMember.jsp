@@ -44,7 +44,7 @@
 	주소 ${member.memberRoadAddress}<br>
 	상세주소 ${member.memberDetailAddress}<br>
 	
-	<form id="f" action="${contextPath}/admin/saveDormantMember?memberNo=${member.memberNo}" method="post">
+	<form id="f" action="${contextPath}/admin/saveDormantMember?memberNo=${member.memberNo}&yes=1" method="post">
 		<input type="hidden" value="${member.memberNo}" name="memberNo">
 
 		<input type="hidden" value="${value}" name="value">

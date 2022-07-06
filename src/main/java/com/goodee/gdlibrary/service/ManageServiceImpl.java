@@ -206,6 +206,36 @@ public class ManageServiceImpl implements ManageService {
 		}
 	}
 	
+	@Override
+	public void removeTransCheckMember(HttpServletRequest request, HttpServletResponse response) {
+		String[] check = request.getParameterValues("check");
+		List<String> list = Arrays.asList(check);
+		int size = list.size();
+		int res = 0;
+		
+		res += manageMapper.deleteCheckMember(list);
+		int value = Integer.parseInt(request.getParameter("value"));
+		// 응답
+		try {
+			response.setContentType("text/html");
+			PrintWriter out = response.getWriter();
+			if(res == size) {
+				out.println("<script>");
+				out.println("alert('회원이 추방되었습니다.')");
+				out.println("location.href='" + request.getContextPath() + "/admin/listMember?value=" + value + "'");
+				out.println("</script>");
+				out.close();
+			} else {
+				out.println("<script>");
+				out.println("alert('회원이 추방되지 않았습니다.')");
+				out.println("history.back()");
+				out.println("</script>");
+				out.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	// 회원 삭제
 	@Override
@@ -213,20 +243,21 @@ public class ManageServiceImpl implements ManageService {
 		Long memberNo = Long.parseLong(request.getParameter("memberNo"));
 		MemberDTO member = manageMapper.selectMemberByNo(memberNo);
 		
-		SignOutMemberDTO signOutMember = SignOutMemberDTO.builder()
-				.memberNo(memberNo)
-				.memberId(member.getMemberId())
-				.memberName(member.getMemberName())
-				.memberPhone(member.getMemberPhone())
-				.memberEmail(member.getMemberEmail())
-				.memberPostcode(member.getMemberPostcode())
-				.memberRoadAddress(member.getMemberRoadAddress())
-				.memberDetailAddress(member.getMemberDetailAddress())
-				.memberAgreeState(member.getMemberAgreeState())
-				.memberSignUp(member.getMemberSignUp())
-				.build();
+			SignOutMemberDTO signOutMember = SignOutMemberDTO.builder()
+					.memberNo(memberNo)
+					.memberId(member.getMemberId())
+					.memberName(member.getMemberName())
+					.memberPhone(member.getMemberPhone())
+					.memberEmail(member.getMemberEmail())
+					.memberPostcode(member.getMemberPostcode())
+					.memberRoadAddress(member.getMemberRoadAddress())
+					.memberDetailAddress(member.getMemberDetailAddress())
+					.memberAgreeState(member.getMemberAgreeState())
+					.memberSignUp(member.getMemberSignUp())
+					.build();
+			
+			int res1 = manageMapper.insertSignOutMember(signOutMember);
 		
-		int res1 = manageMapper.insertSignOutMember(signOutMember);
 		
 		
 		int res = manageMapper.deleteMember(memberNo);
@@ -241,6 +272,36 @@ public class ManageServiceImpl implements ManageService {
 			response.setContentType("text/html");
 			PrintWriter out = response.getWriter();
 			if(res == 1 && res1 == 1) {
+				out.println("<script>");
+				out.println("alert('회원이 추방되었습니다.')");
+				out.println("location.href='" + request.getContextPath() + "/admin/listMember?value=" + value + "'");
+				out.println("</script>");
+				out.close();
+			} else {
+				out.println("<script>");
+				out.println("alert('회원이 추방되지 않았습니다.')");
+				out.println("history.back()");
+				out.println("</script>");
+				out.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public void removeTransMember(HttpServletRequest request, HttpServletResponse response) {
+		Long memberNo = Long.parseLong(request.getParameter("memberNo"));
+
+		int res = manageMapper.deleteMember(memberNo);
+		int value = Integer.parseInt(request.getParameter("value"));
+		
+	    
+		// 응답
+		try {
+			response.setContentType("text/html");
+			PrintWriter out = response.getWriter();
+			if(res == 1) {
 				out.println("<script>");
 				out.println("alert('회원이 추방되었습니다.')");
 				out.println("location.href='" + request.getContextPath() + "/admin/listMember?value=" + value + "'");

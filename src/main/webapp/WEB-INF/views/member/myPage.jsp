@@ -93,10 +93,8 @@
 	<jsp:include page="../layout/header.jsp"></jsp:include>
 	<h2>마이페이지</h2>
 	
-	
-	<a href="${contextPath}/member/modifyPage?memberId=${loginMember.memberId}">정보 수정</a>
+	<a href="${contextPath}/member/modifyConfirm">회원정보수정</a>
 	<a href="${contextPath}/member/pwModifyConfirm">비밀번호 변경</a>
-	<a href="${contextPath}/member/deleteConfirm">회원탈퇴</a>
 
 	<div>
 		<table border="1">
@@ -110,6 +108,7 @@
 			</thead>
 			<tbody id="myPageRentBookList"></tbody>
 		</table>
+		<input type="button" value="반납하기" onclick="location.href='${contextPath}/returned/returnedBookPage'">
 	</div>
 	<br>
 	<div>
