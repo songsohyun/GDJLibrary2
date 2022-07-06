@@ -248,7 +248,9 @@
 		box-sizing: border-box;
 	}
 	.bookList_wrap {
-		padding-left: 20px;
+		width: 1020px;
+		margin: 30px auto; 
+		/* padding-left: 20px; */
 	}
 	table {
 		border-collapse: collapse;	

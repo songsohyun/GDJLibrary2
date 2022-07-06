@@ -11,7 +11,9 @@
 <title>Insert title here</title>
 <style>
 	.addQaa_wrap {
-		padding-left: 20px;
+		width: 600px;
+		margin: 30px auto; 
+		/* padding-left: 20px; */
 	}
 	input[name="title"], input[name="memberId"] {
 		width: 400px;

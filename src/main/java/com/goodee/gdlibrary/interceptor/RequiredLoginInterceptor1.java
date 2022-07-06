@@ -7,9 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 
-public class RequiredLoginInterceptor implements HandlerInterceptor {
-
-	// 책 대여는 로그인 한 사용자만 할 수 있으므로 미리 점검해야 한다.
+public class RequiredLoginInterceptor1 implements HandlerInterceptor {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)

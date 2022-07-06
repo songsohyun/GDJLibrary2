@@ -22,8 +22,17 @@
 		fnModifySubmit();
 		fnFileCheck();
 		fnRemoveFileAttach();
+		fnCancel();
 	});
 	
+	// 수정페이지에서 취소 버튼 누르면 공지사항 페이지로 가기
+	function fnCancel() {
+		$('#btnCancel').on('click', function(){
+			if(confirm('수정안하시겠습니까?')){
+				location.href='${contextPath}/notice/noticePage';
+			}
+		});
+	}
 
 	// 기존 첨부파일 삭제하기(하나씩)
 	var removeFileCount = 0;
@@ -184,8 +193,9 @@
 	}
 	.addNotice_wrap, .modifyNotice_wrap {
 		width: 860px;
-		margin-top: 30px;
-		margin-bottom: 70px;
+/* 		margin-top: 30px;
+		margin-bottom: 70px; */
+		margin: 30px auto;
 		padding-left: 15px;
 		
 	}
@@ -214,7 +224,7 @@
 		margin-top: 20px;
 		margin-bottom: 50px;
 	}
-	.btn_wrap button {
+	.btn_wrap button, #btnCancel {
 		border: 1px solid #7c7c7c;
 		border-radius: 10px;
 		width: 100px;
@@ -222,6 +232,10 @@
 		color: white;
 		background-color: #4390de;
 		font-size: 16px;
+		cursor: pointer;
+	}
+	#btnCancel {
+		width: 70px;
 	}
 	.add_file {
 		margin-bottom: 4px;
@@ -239,11 +253,9 @@
 	<c:if test="${res eq 'add'}">
 		<div class="addNotice_wrap">
 			<form id="f1" action="${contextPath}/notice/addNotice" method="post" enctype="multipart/form-data">
-			
-				<!-- <span class="title_wrap">제목</span><input type="text" name="title" id="title" size="80"><br> -->
 	
 				<div class="title_wrap">
-					제목 <input type="text" name="title" class="title" id="title1" size="90">
+					제목 <input type="text" name="title" class="title" id="title1" size="100">
 				</div>
 				<div class="content_wrap">
 					<textarea name="content" class="content" id="content1"></textarea><br><br>
@@ -272,7 +284,7 @@
 					<input type="file" name="files" class="files" id="files" multiple="multiple">
 					<div class="btn_wrap">
 						<input type="hidden" name="noticeNo" value="${notice.noticeNo}">
-						<button>수정완료</button>
+						<button>수정완료</button>&nbsp;&nbsp;<input type="button" id="btnCancel" value="취소">
 					</div>
 				</div>
 			</form>
