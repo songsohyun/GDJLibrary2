@@ -16,4 +16,5 @@ public interface SeatService {
 	public void downSeatStatusByScheduled();
 	public Map<String, Object> seatRenew();
 	public Long randomSeatCode(Long seatNo);
+	public void addSeatInfo(Long seatNo, HttpServletRequest request);
 }

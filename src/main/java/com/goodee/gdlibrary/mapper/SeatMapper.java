@@ -16,4 +16,6 @@ public interface SeatMapper {
 	public SeatDTO selectSeatById(String memberId);
 	public int updateDownSeatStatusByScheduled();
 	public void updateRandomCode(SeatDTO seat);
+	public void updateSeatDate(SeatDTO seat);
+	public void insertSeatInfo(SeatDTO seat);
 }

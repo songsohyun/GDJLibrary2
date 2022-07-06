@@ -40,10 +40,7 @@ public class SeatServiceImpl implements SeatService {
 	    		  .memberNo(memberNo)
 	    		  .seatNo(seatNo)
 	    		  .build();
-	      
-	      System.out.println(memberNo);
 		seatMapper.updateUpSeatStatus(seat);
-		System.out.println(memberNo);
 	}
 	
 	
@@ -88,12 +85,22 @@ public class SeatServiceImpl implements SeatService {
 		seat.setSeatCode(seatCode);
 		
 		seatMapper.updateRandomCode(seat);
+		seatMapper.updateSeatDate(seat);
 		
 		return seatCode;
 	}
 
 	
-	
+	@Override
+	public void addSeatInfo(Long seatNo, HttpServletRequest request) {
+		MemberDTO loginMember = (MemberDTO) request.getSession().getAttribute("loginMember");
+	      Long memberNo = loginMember.getMemberNo();
+	      SeatDTO seat = SeatDTO.builder()
+	    		  .memberNo(memberNo)
+	    		  .seatNo(seatNo)
+	    		  .build();
+		seatMapper.insertSeatInfo(seat);
+	}
 	
 	
 	

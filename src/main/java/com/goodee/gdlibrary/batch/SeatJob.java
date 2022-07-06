@@ -17,6 +17,7 @@ public class SeatJob {
 	
 	@Scheduled(cron="0 0/1 * * * ?")
 		public void execute() {
+		System.out.println("스케줄 작동");
 		seatService.downSeatStatusByScheduled();
 	}
 	
