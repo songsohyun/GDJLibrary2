@@ -25,7 +25,7 @@
 	function fnBookChange(){
 		$('#f').on('submit', function(event){
 			
-			if($('#title').val() == '${book.bookTitle}' && $('#author').val() == '${book.bookAuthor}' && $('#publisher').val() == '${book.bookPublisher}' && $('#pubdate').val() == '${book.bookPubdate}' && $('#description').val() == '${book.bookDescription}' && $('#image').val() == '${book.bookImage}' && $('#field').val() == '${book.bookField}'){
+			if($('#title').val() == '${book.bookTitle}' && $('#author').val() == '${book.bookAuthor}' && $('#publisher').val() == '${book.bookPublisher}' && $('#pubdate').val() == '${book.bookPubdateTime}' && $('#description').val() == '${book.bookDescription}' && $('#image').val() == '${book.bookImage}' && $('#field').val() == '${book.bookType}'){
 				alert('변경된 내용이 없습니다.');
 				event.preventDefault();
 				return false;
@@ -51,7 +51,7 @@
 	// 목록
 	function fnList(){
 		$('#btnList').on('click', function(){
-			location.href='${contextPath}/admin/listMember?value=${value}';
+			location.href='${contextPath}/admin/listBook?value=${value}';
 		})
 	}
 </script>
@@ -68,10 +68,10 @@
 		제목 <input type="text" name="title" id="title" value="${book.bookTitle}"><br>
 		작가 <input type="text" name="author" id="author" value="${book.bookAuthor}"><br>
 		출판사 <input type="text" name="publisher" id="publisher" value="${book.bookPublisher}"><br>
-		출판날짜 <input type="text" name="pubdate" id="pubdate" value="${book.bookPubdate}"><br>
+		출판날짜 <input type="text" name="pubdate" id="pubdate" value="${book.bookPubdateTime}"><br>
 		설명 <input type="text" name="description" id="description" value="${book.bookDescription}"><br>
 		이미지주소 <input type="text" name="image" id="image" value="${book.bookImage}"><br>
-		분야 <input type="text" name="field" id="field" value="${book.bookField}"><br>
+		분야 <input type="text" name="field" id="field" value="${book.bookType}"><br>
 		
 		<button>수정완료</button>
 		<input type="button" value="목록" id="btnList">

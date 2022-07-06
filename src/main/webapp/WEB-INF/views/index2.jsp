@@ -38,33 +38,6 @@
 		text-align: right;
 	}
 	
-	#divTopMenu {
-		background-color: beige;
-		text-align: center;
-	}
-	
-	.divTopMenu {
-		display: inline-block;
-		font-size: 30px;
-		font-weight: 900;
-		margin: 20px;
-		text-decoration: none;
-		color: 3d3b3b;
-		padding-left: 20px;
-		padding-right: 20px;
-		
-	}
-	
-	.divTopMenu a{
-		color: #4a4848;
-		text-decoration: none;
-	}
-	
-	.divTopMenu a:hover {
-		color: black;
-		font-size: 31px;
-	}
-	
 	#divBottomMenu {
 		background-color: beige;
 		text-align: center;
@@ -119,14 +92,7 @@
 	
 	</div>
 	
-	<div id="divTopMenu">
-		<div class="divTopMenu"><a href="${contextPath}/rent/rentBook?bookNo=1">대여하기</a></div>
-		<div class="divTopMenu"><a href="${contextPath}/returned/returnedBookPage">반납하기</a></div>
-		<div class="divTopMenu"><a href="${contextPath}/notice/noticePage">공지사항</a></div>
-		<div class="divTopMenu"><a href="${contextPath}/qaa/qaaPage">질문과답변</a></div>
-		<div class="divTopMenu"><a href="${contextPath}/fnq/fnqPage">자주하는질문</a></div>
-		<div class="divTopMenu"><a href="${contextPath}/seat/seatAgreePage">열람실이용</a></div>
-	</div>
+
 	<div id="divImg">
 		<div id="divInnerImg">
 			<div style="text-align: center">
@@ -176,7 +142,7 @@
 		</div>
 	</div>
 	<div id="divBottomMenu">
-		<div class="divBottomMenu"><a href="${contextPath}/book/listPage">도서관리</a></div>
+		<div class="divBottomMenu"><a href="${contextPath}/rent/rentBook?bookNo=1">대여하기</a></div>
 		<div class="divBottomMenu"><a href="${contextPath}/returned/returnedBookPage">반납하기</a></div>
 		<div class="divBottomMenu"><a href="${contextPath}/notice/noticePage">공지사항</a></div>
 		<div class="divBottomMenu"><a href="${contextPath}/qaa/qaaPage">질문과답변</a></div>

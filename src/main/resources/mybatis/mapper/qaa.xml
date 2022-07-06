@@ -39,7 +39,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	-->
 	
-	<!-- qaa 작성한 게시글 내용 넣기(원글 삽입)(MySQL) -->
+	<!-- 
+		qaa 작성한 게시글 내용 넣기(원글 삽입)(MySQL)(기존)
 	<insert id="insertQaa" parameterType="QaaDTO">
 		<selectKey keyProperty="qaaNo" order="BEFORE" resultType="Long">
 			SELECT LAST_INSERT_ID() + 1
@@ -49,6 +50,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		VALUES
 			(#{memberId}, #{qaaTitle}, #{qaaContent}, NOW(), 0, #{qaaNo}, 0)
 	</insert>
+	-->
+	
+	<!-- qaa 작성한 게시글 내용 넣기(원글 삽입, QAA_GROUP_NO = NULL)(MySQL) -->
+	<insert id="insertQaa" parameterType="QaaDTO">
+		<selectKey keyProperty="qaaNo" order="AFTER" resultType="Long">
+			SELECT MAX(QAA_NO) FROM QAA
+		</selectKey>
+		INSERT INTO QAA
+			(MEMBER_ID, QAA_TITLE, QAA_CONTENT, QAA_MODIFIED, QAA_DEPTH, QAA_GROUP_NO, QAA_GROUP_ORD)
+		VALUES
+			(#{memberId}, #{qaaTitle}, #{qaaContent}, NOW(), 0, NULL, 0)
+	</insert>
+	
+	<!-- qaa 작성한 게시글 내용 넣기(QAA_GROUP_NO)(MySQL) -->
+	<update id="updateQaaGroupNo" parameterType="QaaDTO">
+		UPDATE QAA
+		   SET QAA_GROUP_NO = QAA_NO
+		 WHERE QAA_NO = #{qaaNo}
+	</update>
 	
 	<!-- 댓글 삽입 전에 처리 -->
 	<!-- 같은 그룹의 기존 댓글의 GROUP_ORD 값 증가시키기 -->

@@ -37,15 +37,15 @@ public class SeatController {
 	@Transactional
 	@ResponseBody
 	@GetMapping(value="/seat/seatCheck", produces="application/json; charset=UTF-8")
-	public Map<String, Object> seatCheck(@RequestParam Long seatNo) {
+	public Map<String, Object> seatCheck(@RequestParam Long seatNo, HttpServletRequest request) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("seats", seatService.findSeat(seatNo));
 		map.put("code", seatService.randomSeatCode(seatNo));
+		seatService.addSeatInfo(seatNo, request);
 		return map;
 	}
 	
 	
-	@Transactional
 	@GetMapping("/seat/upSeatStatus")
 	public String upSeatStatus(@RequestParam Long seatNo, HttpServletRequest request ,Model model) {
 		seatService.upSeatStatus(seatNo, request);

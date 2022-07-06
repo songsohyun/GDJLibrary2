@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<update id="updateUpSeatStatus" parameterType="SeatDTO">
 		UPDATE SEAT
-		   SET MEMBER_NO = #{memberNo}, SEAT_STATUS = 2, SEAT_DATE = CURRENT_TIMESTAMP()
+		   SET MEMBER_NO = #{memberNo}, SEAT_STATUS = 2
 		 WHERE SEAT_NO = #{seatNo}
 	</update>
 	
@@ -39,16 +39,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateDownSeatStatusByScheduled">
 		 <![CDATA[
 			UPDATE SEAT
-	           SET MEMBER_NO = NULL, SEAT_STATUS = 1, SEAT_DATE = NULL
-	         WHERE TIMEDIFF(NOW(), SEAT_DATE) > 2;
+	           SET MEMBER_NO = NULL, SEAT_STATUS = 1, SEAT_DATE = NULL, SEAT_CODE = NULL
+	         WHERE TIME_TO_SEC(TIMEDIFF(CURRENT_TIMESTAMP(), SEAT_DATE)) > TIME_TO_SEC('02:00:00')
          ]]>
 	</update>
-	
 	
 	<update id="updateRandomCode" parameterType="SeatDTO">
 		UPDATE SEAT
 		   SET SEAT_CODE = #{seatCode}
 		 WHERE SEAT_NO = #{seatNo}
 	</update>
+	
+	<update id="updateSeatDate" parameterType="SeatDTO">
+		UPDATE SEAT
+		   SET SEAT_DATE = CURRENT_TIMESTAMP()
+		 WHERE SEAT_NO = #{seatNo}
+	</update>
+	
+	<insert id="insertSeatInfo" parameterType="SeatDTO">
+		INSERT INTO SEAT_INFO 
+			(MEMBER_NO, SEAT_NO, SEAT_DATE)
+		VALUES
+		 	(#{memberNo}, #{seatNo}, CURRENT_TIMESTAMP())
+		
+	</insert>
 
 </mapper>

@@ -83,15 +83,17 @@ public class ManageController {
 	public void changeMember(HttpServletRequest request, HttpServletResponse response, Model model) {
 		manageService.changeMember(request, response, model);
 	}
+	@PostMapping("/admin/removeCheckMember")
+	public void removeCheckMember(HttpServletRequest request, HttpServletResponse response) {
+		manageService.removeCheckMember(request, response);
+	}
 	
 	@GetMapping("/admin/removeMember")
 	public void removeMember(HttpServletRequest request, HttpServletResponse response) {
 		manageService.removeMember(request, response);
 	}
-	@PostMapping("/admin/removeCheckMember")
-	public void removeCheckmember(HttpServletRequest request, HttpServletResponse response) {
-		manageService.removeCheckMember(request, response);
-	}
+	
+	
 	@GetMapping("/admin/searchMember")
 	public String searchMember(HttpServletRequest request, Model model) {
 		manageService.findSearchMembers(request, model);
@@ -123,7 +125,8 @@ public class ManageController {
 	public void saveDormantMember(HttpServletRequest request, HttpServletResponse response, Model model) {
 		manageService.findMemberByNo(request, model);
 		manageService.saveDormantMember(request, response, model);
-		manageService.removeMember(request, response);
+		manageService.removeTransMember(request, response);
+		
 	}
 	
 	@PostMapping("/admin/saveDormantToMember")
