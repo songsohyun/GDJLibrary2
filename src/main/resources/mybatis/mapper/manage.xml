@@ -83,7 +83,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO MEMBER
 			(MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_PHONE, MEMBER_EMAIL, MEMBER_POSTCODE, MEMBER_ROAD_ADDRESS, MEMBER_DETAIL_ADDRESS, MEMBER_AGREE_STATE, MEMBER_SIGN_UP)
 		VALUES
-			(#{memberId}, #{memberPw}, #{memberName}, #{memberPhone}, #{memberEmail}, #{memberPostcode}, #{memberRoadAddress}, #{memberDetailAddress}, 1, STR_TO_DATE(SYSDATE(), '%Y-%m-%d')
+			(#{memberId}, #{memberPw}, #{memberName}, #{memberPhone}, #{memberEmail}, #{memberPostcode}, #{memberRoadAddress}, #{memberDetailAddress}, 1, SYSDATE())
 	</insert>
 
 	
@@ -271,8 +271,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 회원 목록 -->
 	<select id="selectSignOutMemberList" parameterType="Map" resultType="SignOutMemberDTO">
-	  SELECT A.MEMBER_NO, A.MEMBER_ID, A.MEMBER_NAME, A.MEMBER_PHONE, A.MEMBER_EMAIL, A.MEMBER_POSTCODE, A.MEMBER_ROAD_ADDRESS, A.MEMBER_DETAIL_ADDRESS, A.MEMBER_AGREE_STATE, A.MEMBER_SIGN_UP, A.MEMBER_PW_MODIFIED, A.MEMBER_INFO_MODIFIED, A.MEMBER_SESSION_ID, A.MEMBER_SESSION_LIMIT
-		FROM (SELECT MEMBER_NO, MEMBER_ID, MEMBER_NAME, MEMBER_PHONE, MEMBER_EMAIL, MEMBER_POSTCODE, MEMBER_ROAD_ADDRESS, MEMBER_DETAIL_ADDRESS, MEMBER_AGREE_STATE, MEMBER_SIGN_UP, MEMBER_PW_MODIFIED, MEMBER_INFO_MODIFIED, MEMBER_SESSION_ID, MEMBER_SESSION_LIMIT
+	  SELECT A.MEMBER_NO, A.MEMBER_ID, A.MEMBER_NAME, A.MEMBER_PHONE, A.MEMBER_EMAIL, A.MEMBER_POSTCODE, A.MEMBER_ROAD_ADDRESS, A.MEMBER_DETAIL_ADDRESS, A.MEMBER_AGREE_STATE, A.MEMBER_SIGN_UP, A.SIGN_OUT 
+		FROM (SELECT MEMBER_NO, MEMBER_ID, MEMBER_NAME, MEMBER_PHONE, MEMBER_EMAIL, MEMBER_POSTCODE, MEMBER_ROAD_ADDRESS, MEMBER_DETAIL_ADDRESS, MEMBER_AGREE_STATE, MEMBER_SIGN_UP, SIGN_OUT 
 		        FROM SIGN_OUT_MEMBER
 		       ORDER BY MEMBER_NO DESC) A
 	   LIMIT #{beginRecord}, #{recordPerPage}
@@ -356,7 +356,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 책ISBN체크 -->
 	<select id="selectBookByIsbn" parameterType="String" resultType="BookDTO">
-		SELECT BOOK_NO, BOOK_ISBN, BOOK_TITLE, BOOK_AUTHOR, BOOK_PUBLISHER, BOOK_PUBDATE, BOOK_DESCRIPTION, BOOK_IMAGE, BOOK_FIELD
+		SELECT BOOK_NO, BOOK_ISBN, BOOK_TITLE, BOOK_AUTHOR, BOOK_PUBLISHER, BOOK_PUBDATETIME, BOOK_DESCRIPTION, BOOK_IMAGE, BOOK_TYPE
 		  FROM BOOK
 		 WHERE BOOK_ISBN = #{bookIsbn}
 	</select>
@@ -369,8 +369,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 책 목록 -->
 	<select id="selectBookList" parameterType="Map" resultType="BookDTO">
-	  SELECT A.ROW_NUM, A.BOOK_NO, A.BOOK_ISBN, A.BOOK_TITLE, A.BOOK_AUTHOR, A.BOOK_PUBLISHER, A.BOOK_PUBDATE, A.BOOK_DESCRIPTION, A.BOOK_IMAGE, A.BOOK_FIELD
-		FROM (SELECT BOOK_NO, BOOK_ISBN, BOOK_TITLE, BOOK_AUTHOR, BOOK_PUBLISHER, BOOK_PUBDATE, BOOK_DESCRIPTION, BOOK_IMAGE, BOOK_FIELD
+	  SELECT A.BOOK_NO, A.BOOK_ISBN, A.BOOK_TITLE, A.BOOK_AUTHOR, A.BOOK_PUBLISHER, A.BOOK_PUBDATETIME, A.BOOK_DESCRIPTION, A.BOOK_IMAGE, A.BOOK_TYPE
+		FROM (SELECT BOOK_NO, BOOK_ISBN, BOOK_TITLE, BOOK_AUTHOR, BOOK_PUBLISHER, BOOK_PUBDATETIME, BOOK_DESCRIPTION, BOOK_IMAGE, BOOK_TYPE
 		        FROM BOOK
 		       ORDER BY BOOK_NO DESC) A
 	   LIMIT #{beginRecord}, #{recordPerPage}
@@ -378,7 +378,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 책 상세 보기 -->
 	<select id="selectBookByNo" parameterType="Long" resultType="BookDTO">
-		SELECT BOOK_NO, BOOK_ISBN, BOOK_TITLE, BOOK_AUTHOR, BOOK_PUBLISHER, BOOK_PUBDATE, BOOK_DESCRIPTION, BOOK_IMAGE, BOOK_FIELD
+		SELECT BOOK_NO, BOOK_ISBN, BOOK_TITLE, BOOK_AUTHOR, BOOK_PUBLISHER, BOOK_PUBDATETIME, BOOK_DESCRIPTION, BOOK_IMAGE, BOOK_TYPE
 		  FROM BOOK
 		 WHERE BOOK_NO = #{bookNo}
 	</select>
@@ -386,16 +386,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 책 수정 -->
 	<update id="updateBook" parameterType="BookDTO">
 		UPDATE BOOK
-		   SET BOOK_ISBN = #{bookIsbn}, BOOK_TITLE = #{bookTitle}, BOOK_AUTHOR = #{bookAuthor}, BOOK_PUBLISHER = #{bookPublisher}, BOOK_PUBDATE = #{bookPubdate}, BOOK_DESCRIPTION = #{bookDescription}, BOOK_IMAGE = #{bookImage}, BOOK_FIELD = #{bookField}
+		   SET BOOK_ISBN = #{bookIsbn}, BOOK_TITLE = #{bookTitle}, BOOK_AUTHOR = #{bookAuthor}, BOOK_PUBLISHER = #{bookPublisher}, BOOK_PUBDATETIME = #{bookPubdateTime}, BOOK_DESCRIPTION = #{bookDescription}, BOOK_IMAGE = #{bookImage}, BOOK_TYPE = #{bookType}
 		 WHERE BOOK_NO = #{bookNo}
 	</update>
 	
 	<!-- 책 추가 -->
 	<insert id="insertBook" parameterType="BookDTO">
 		INSERT INTO BOOK
-			(BOOK_ISBN, BOOK_TITLE, BOOK_AUTHOR, BOOK_PUBLISHER, BOOK_PUBDATE, BOOK_DESCRIPTION, BOOK_IMAGE, BOOK_FIELD)
+			(BOOK_ISBN, BOOK_TITLE, BOOK_AUTHOR, BOOK_PUBLISHER, BOOK_PUBDATETIME, BOOK_DESCRIPTION, BOOK_IMAGE, BOOK_TYPE)
 		VALUES
-			(#{bookIsbn}, #{bookTitle}, #{bookAuthor}, #{bookPublisher}, #{bookPubdate}, #{bookDescription}, #{bookImage}, #{bookField})
+			(#{bookIsbn}, #{bookTitle}, #{bookAuthor}, #{bookPublisher}, #{bookPubdateTime}, #{bookDescription}, #{bookImage}, #{bookType})
 	</insert>
 	
 	
@@ -435,14 +435,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 책검색 -->
 	<select id="selectFindBookList" parameterType="Map" resultMap="BookMap">
 		SELECT A.*
-		  FROM (SELECT BOOK_NO, BOOK_ISBN, BOOK_TITLE, BOOK_AUTHOR, BOOK_PUBLISHER, BOOK_PUBDATE, BOOK_DESCRIPTION, BOOK_IMAGE, BOOK_FIELD
+		  FROM (SELECT BOOK_NO, BOOK_ISBN, BOOK_TITLE, BOOK_AUTHOR, BOOK_PUBLISHER, BOOK_PUBDATETIME, BOOK_DESCRIPTION, BOOK_IMAGE, BOOK_FIELD
 		          FROM BOOK
 				<where>  
 					<choose>
-				 		<when test="column == 'BOOK_ISBN'">LOWER(${column}) LIKE '%' || LOWER(#{query}) || '%'</when>
-				 		<when test="column == 'BOOK_TITLE'">LOWER(${column}) LIKE '%' || LOWER(#{query}) || '%'</when>
-		 				<when test="column == 'BOOK_AUTHOR'">LOWER(${column}) LIKE '%' || LOWER(#{query}) || '%'</when>
-				 		<when test="column == 'BOOK_PUBLISHER'">LOWER(${column}) LIKE '%' || LOWER(#{query}) || '%'</when>
+				 		<when test="column == 'BOOK_ISBN'">${column} LIKE CONCAT('%', LOWER(IFNULL(#{query}, '')), '%')</when>
+				 		<when test="column == 'BOOK_TITLE'">${column} LIKE CONCAT('%', LOWER(IFNULL(#{query}, '')), '%')</when>
+		 				<when test="column == 'BOOK_AUTHOR'">${column} LIKE CONCAT('%', LOWER(IFNULL(#{query}, '')), '%')</when>
+				 		<when test="column == 'BOOK_PUBLISHER'">${column} LIKE CONCAT('%', LOWER(IFNULL(#{query}, '')), '%')</when>
 				 	</choose>
 				</where>
 			    ORDER BY BOOK_PUBDATE) A

@@ -3,7 +3,7 @@
     
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>    
-    
+  
 <!DOCTYPE html>
 <html>
 <head>
@@ -287,6 +287,7 @@
 			</thead>
 			<tbody>
 				<c:forEach items="${books}" var="book" varStatus="vs">
+					
 					<tr>
 						<td><input type="checkbox" name="check" class="blind checkOne" value="${book.bookNo}"></td>
 						<td>${beginNo - vs.index}</td>
@@ -295,7 +296,7 @@
 						<td>${book.bookTitle}</td>
 						<td>${book.bookAuthor}</td>
 						<td>${book.bookPublisher}</td>
-						<td>${book.bookPubdate}</td>					
+						<td>${book.bookPubdateTime}</td>					
 						<td><a href="${contextPath}/admin/removeBook?bookNo=${book.bookNo}&value=${value}" onclick="return confirm('정말 삭제하시겠습니까?')"><i class="fa-solid fa-circle-xmark"></i></a></td>					
 						<input type="hidden" name="value" value="${value}">
 					</tr>

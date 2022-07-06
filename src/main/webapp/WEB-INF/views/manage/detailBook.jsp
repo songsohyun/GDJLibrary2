@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:set var="contextPath" value="${pageContext.request.contextPath}"/>    
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>   
     
     
 <!DOCTYPE html>
@@ -40,10 +41,10 @@
 	제목 ${book.bookTitle}<br>
 	작가 ${book.bookAuthor}<br>
 	출판사 ${book.bookPublisher}<br>
-	출판날짜 ${book.bookPubdate}<br>
+	출판날짜 ${book.bookPubdateTime}<br>
 	설명 ${book.bookDescription}<br>
 	이미지주소 ${book.bookImage}<br>
-	분야 ${book.bookField}<br>
+	분야 ${book.bookType}<br>
 	
 	<input type="button" value="수정페이지" id="btnChangePage">
 	<input type="button" value="목록" id="btnList">
