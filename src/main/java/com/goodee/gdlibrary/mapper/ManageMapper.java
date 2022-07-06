@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.goodee.gdlibrary.domain.BookDTO;
 import com.goodee.gdlibrary.domain.DormantMemberDTO;
+import com.goodee.gdlibrary.domain.FnqDTO;
 import com.goodee.gdlibrary.domain.MemberDTO;
 import com.goodee.gdlibrary.domain.SignOutMemberDTO;
 
@@ -111,7 +112,7 @@ public interface ManageMapper {
 	public BookDTO selectBookByNo(Long bookNo);
 		
 	// 책 ISBN체크
-    public BookDTO selectBookByIsbn(String isbn);
+    public BookDTO checkBookByIsbn(String isbn);
 	
 	// 책 수정
 	public int updateBook(BookDTO book);
@@ -131,4 +132,7 @@ public interface ManageMapper {
 	
 	// 책 검색 자동완성
 	public List<BookDTO> autoCompleteBook(Map<String, Object> map);
+	
+	// FNQ 게시글 추가
+    public int insertFnq(FnqDTO fnq);
 }

@@ -230,15 +230,21 @@ public class ManageController {
 		return "manage/saveBook";
 	}
 	
+	@GetMapping("/admin/saveNaverBookPage")
+	public String saveNaverBookPage(HttpServletRequest request, Model model) {
+		model.addAttribute("value", request.getParameter("value"));
+		return "book/insert";
+	}
+	
 	@PostMapping("/admin/saveBook")
 	public void saveBook(HttpServletRequest request, HttpServletResponse response) {
 		manageService.saveBook(request, response);
 	}
 	
 	@ResponseBody
-	@GetMapping(value="/admin/checkBookIsbn", produces="application/json")
+	@GetMapping(value="/admin/checkBookByIsbn", produces="application/json")
 	public Map<String, Object> checkBookIsbn(@RequestParam String isbn) {
-		return manageService.checkBookIsbn(isbn);
+		return manageService.checkBookByIsbn(isbn);
 		// {"res": null}
 		// {"res": {"bookNo":1, ...}}
 	}
@@ -276,6 +282,15 @@ public class ManageController {
 		return manageService.autoCompleteBook(request);
 	}
 	
+	@GetMapping("/fnq/fnqWrite")
+	public String fnqWrite(HttpServletRequest request, Model model) {
+		return "manage/saveFaq";
+	}
+	
+	@PostMapping("/admin/saveFaq")
+	public void saveFaq(HttpServletRequest request, HttpServletResponse response) {
+		manageService.insertFnq(request, response);
+	}
 
 	
 }

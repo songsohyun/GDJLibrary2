@@ -22,7 +22,7 @@
 		fnlistCountChange();
 		fnMoveManageMain();
 		fnInsert();
-		
+		fnInsertNaver();
 	})
 	
 	// 함수
@@ -30,6 +30,12 @@
 	function fnInsert(){
 		$('#btnInsert').on('click', function(){
 			location.href='${contextPath}/admin/saveBookPage?value=' + ${value};
+		})
+	}
+	
+	function fnInsertNaver(){
+		$('#btnInsertNaver').on('click', function(){
+			location.href='${contextPath}/admin/saveNaverBookPage?value=' + ${value};
 		})
 	}
 	
@@ -75,10 +81,11 @@
 		
 		$('#btnSearch').on('click', function(){
 			
+			
+			var regBookIsbn = /^[0-9-.=]{1,16}$/;
 			// 책ISBN고유번호 검색
-			var regBookIsbn = /^[0-9]{1,10}$/;   
 			if( column.val() == 'BOOK_ISBN' && regBookIsbn.test(query.val()) == false) {
-				alert('ISBN은 숫자 1~10자입니다.');
+				alert('ISBN은 숫자 또는 특수문자(- . =) 1~16자 입니다.');
 				query.focus();
 				return;
 			}
@@ -133,7 +140,7 @@
 			} else if( $(this).val() == 'BOOK_ISBN' || $(this).val() == 'BOOK_TITLE' || $(this).val() == 'BOOK_AUTHOR' || $(this).val() == 'BOOK_PUBLISHER') {
 				$('#equalArea').css('display', 'inline');
 				$('#rangeArea').css('display', 'none');
-				$('#selectSection').css('padding-left', '94px');
+				$('#selectSection').css('padding-left', '114px');
 			}
 		})
 		
@@ -238,9 +245,9 @@
  	#column{
  		margin-left: 180px;
  	}
- 	.tfoot{
+ 	#tfoot{
+ 		padding-right: 10px;
  			
- 		margin: auto;	
  	}
  	.link, .unlink{
  		padding-left: 8px;
@@ -249,7 +256,7 @@
 </head>
 <body>
 	
-	<input type="button" value="책추가" id="btnInsert">
+	
 	
 	<div class="form-group">
     <select id="pageUnit" name="pageUnit">
@@ -262,9 +269,9 @@
     &nbsp;&nbsp;&nbsp;&nbsp;
     페이지별검색수: ${value}        
 	&nbsp;&nbsp;
-	책수: ${totalRecord}명
-	<input type="button" value="전체책조회" id="btnSearchAll">
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	책수: ${totalRecord}권
+	<input type="button" value="전체책조회" id="btnSearchAll">&nbsp;&nbsp;&nbsp;<input type="button" value="책 추가하기" id="btnInsert">&nbsp;&nbsp;&nbsp;<input type="button" value="네이버API 책 추가하기" id="btnInsertNaver">
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	<input type="button" value="관리자메인페이지" id="btnManageMain">
 	</div>
 	
@@ -275,14 +282,14 @@
 			<thead>
 				<tr>
 					<th width="1%" height="50%"><input type="checkbox" name="checkAll" class="blind checkAll" id="checkAll"></th>
-					<th width="7%">번호</th>
+					<th width="5%">번호</th>
 					<th width="5%">이미지</th>
-					<th width="13%">ISBN</th>
-					<th width="15%">제목</th>
-					<th width="15%">작가</th>
+					<th width="10%">ISBN</th>
+					<th width="17%">제목</th>
+					<th width="17%">작가</th>
 					<th width="10%">출판사</th>
-					<th width="10%">출판날짜</th>
-					<th width="7%">책삭제</th>
+					<th width="5%">출판날짜</th>
+					<th width="6%">책삭제</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -311,7 +318,7 @@
 			</tfoot>
 		</table>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<button onclick="return confirm('정말 삭제하시겠습니까?')">회원선택삭제</button>
+		<button onclick="return confirm('정말 삭제하시겠습니까?')">책 선택 삭제</button>
 	</form>
 	
 	<div id="search">
