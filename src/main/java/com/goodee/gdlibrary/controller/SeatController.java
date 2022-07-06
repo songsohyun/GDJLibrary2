@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.goodee.gdlibrary.domain.SeatDTO;
 import com.goodee.gdlibrary.service.SeatService;
 
 @Controller
@@ -39,8 +40,13 @@ public class SeatController {
 	@GetMapping(value="/seat/seatCheck", produces="application/json; charset=UTF-8")
 	public Map<String, Object> seatCheck(@RequestParam Long seatNo, HttpServletRequest request) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("seats", seatService.findSeat(seatNo));
-		map.put("code", seatService.randomSeatCode(seatNo));
+		SeatDTO seats = seatService.findSeat(seatNo);
+		Long code = null;
+		if(seats.getSeatStatus() == 1) {
+			code = seatService.randomSeatCode(seatNo);
+		} 
+		map.put("seats", seats);
+		map.put("code", code);
 		seatService.addSeatInfo(seatNo, request);
 		return map;
 	}
