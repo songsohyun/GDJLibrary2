@@ -10,7 +10,10 @@ import com.goodee.gdlibrary.domain.SeatDTO;
 public interface SeatMapper {
 	
 	public List<SeatDTO> selectSeatList();
+	
 	public SeatDTO selectSeatByNo(Long seatNo);
+
+	
 	public int updateUpSeatStatus(SeatDTO seat);
 	public int updateDownSeatStatus(Long seatCode);
 	public SeatDTO selectSeatById(String memberId);
@@ -18,4 +21,7 @@ public interface SeatMapper {
 	public void updateRandomCode(SeatDTO seat);
 	public void updateSeatDate(SeatDTO seat);
 	public void insertSeatInfo(SeatDTO seat);
+	
+	// 추가한 부분
+	public int selectSeatByMemberNo(Long memberNo);
 }

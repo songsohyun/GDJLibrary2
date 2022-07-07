@@ -136,6 +136,7 @@
 	function fnWrite() {
 		$('#btnWrite').on('click', function(){
 			location.href='${contextPath}/qaa/addQaaPage';
+			
 		});
 	}
 
@@ -146,7 +147,7 @@
 	}
 	.qaa_all_wrap {
 		width: 1070px;
-		margin: 30px auto; 
+		margin: 100px auto; 
 		/* padding-left: 20px; */
 	}
 	.qaa_top_wrap {
@@ -310,6 +311,8 @@
 </style>
 </head>
 <body>
+
+	<jsp:include page="../layout/header.jsp"></jsp:include><br><br><br>
 	
 	<div class="qaa_all_wrap">
 		<div class="qaa_top_wrap">

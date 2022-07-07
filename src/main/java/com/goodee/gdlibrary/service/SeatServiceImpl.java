@@ -34,12 +34,15 @@ public class SeatServiceImpl implements SeatService {
 	
 	@Override
 	public void upSeatStatus(Long seatNo, HttpServletRequest request) {
-		MemberDTO loginMember = (MemberDTO) request.getSession().getAttribute("loginMember");
+		  MemberDTO loginMember = (MemberDTO) request.getSession().getAttribute("loginMember");
 	      Long memberNo = loginMember.getMemberNo();
+	      String memberId = loginMember.getMemberId();
 	      SeatDTO seat = SeatDTO.builder()
 	    		  .memberNo(memberNo)
 	    		  .seatNo(seatNo)
+	    		  .memberId(memberId)
 	    		  .build();
+	      
 		seatMapper.updateUpSeatStatus(seat);
 	}
 	
@@ -55,6 +58,8 @@ public class SeatServiceImpl implements SeatService {
 	@Override
 	public Map<String, Object> seatConfirm(String memberId) {
 		Map<String, Object> map = new HashMap<String, Object>();
+		
+		
 		map.put("res", seatMapper.selectSeatById(memberId));
 		return map;
 	}
@@ -104,7 +109,11 @@ public class SeatServiceImpl implements SeatService {
 	
 	
 	
-	
+	// 추가한 부분
+	@Override
+	public int findSeatByMemberNo(Long memberNo) {
+		return seatMapper.selectSeatByMemberNo(memberNo);
+	}
 	
 	
 	
