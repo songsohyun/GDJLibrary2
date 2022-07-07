@@ -1,5 +1,6 @@
 package com.goodee.gdlibrary.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+
+import com.goodee.gdlibrary.domain.MemberDTO;
+import com.goodee.gdlibrary.domain.SeatDTO;
 
 import com.goodee.gdlibrary.service.SeatService;
 
@@ -36,8 +41,28 @@ public class SeatController {
 	@Transactional
 	@ResponseBody
 	@GetMapping(value="/seat/seatCheck", produces="application/json; charset=UTF-8")
-	public Map<String, Object> seatCheck(HttpServletRequest request) {
-		return seatService.findSeat(request);
+	public Map<String, Object> seatCheck(@RequestParam Long seatNo, HttpServletRequest request) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		// 추가한 부분
+		MemberDTO member = (MemberDTO)request.getSession().getAttribute("loginMember");
+		int res = seatService.findSeatByMemberNo(member.getMemberNo());
+		if(res == 1) {
+			map.put("status", res);
+		} else if(res == 0){
+			map.put("status", res);
+			SeatDTO seats = seatService.findSeat(seatNo);
+			Long code = null;
+			if(seats.getSeatStatus() == 1) {
+				code = seatService.randomSeatCode(seatNo);
+			} 
+			map.put("seats", seats);
+			map.put("code", code);
+			seatService.addSeatInfo(seatNo, request);			
+		}
+		
+		return map;
 	}
 	
 	

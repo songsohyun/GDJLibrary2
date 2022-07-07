@@ -213,7 +213,7 @@
 	}
 	#fnq_wrap {
 		width: 800px;
-		margin: 30px auto; 
+		margin: 100px auto; 
 		/* padding-left: 20px; */
 	}
 	.top_title_wrap {
@@ -340,6 +340,8 @@
 </style>
 </head>
 <body>
+
+	<jsp:include page="../layout/header.jsp"></jsp:include><br><br><br>
 
 	<div id="fnq_wrap">
 		<div class="top_title_wrap">
