@@ -254,7 +254,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          LIMIT #{beginRecord}, #{recordPerPage}
 	</select>	
 	
-	<!-- 휴면회원검색 자동완성 -->
+	<!-- 휴면 회원 검색 자동완성 -->
 	<select id="autoCompleteDormantMember" parameterType="Map" resultType="DormantMemberDTO">
 		SELECT DISTINCT ${column}
 		  FROM DORMANT_MEMBER
@@ -269,7 +269,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  FROM SIGN_OUT_MEMBER
 	</select>
 	
-	<!-- 회원 목록 -->
+	<!-- 탈퇴 회원 목록 -->
 	<select id="selectSignOutMemberList" parameterType="Map" resultType="SignOutMemberDTO">
 	  SELECT A.MEMBER_NO, A.MEMBER_ID, A.MEMBER_NAME, A.MEMBER_PHONE, A.MEMBER_EMAIL, A.MEMBER_POSTCODE, A.MEMBER_ROAD_ADDRESS, A.MEMBER_DETAIL_ADDRESS, A.MEMBER_AGREE_STATE, A.MEMBER_SIGN_UP, A.SIGN_OUT 
 		FROM (SELECT MEMBER_NO, MEMBER_ID, MEMBER_NAME, MEMBER_PHONE, MEMBER_EMAIL, MEMBER_POSTCODE, MEMBER_ROAD_ADDRESS, MEMBER_DETAIL_ADDRESS, MEMBER_AGREE_STATE, MEMBER_SIGN_UP, SIGN_OUT 
@@ -278,7 +278,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	   LIMIT #{beginRecord}, #{recordPerPage}
 	</select>
 	
-	<!-- 회원 상세 보기 -->
+	<!-- 탈퇴 회원 상세 보기 -->
 	<select id="selectSignOutMemberByNo" parameterType="Long" resultType="SignOutMemberDTO">
 		SELECT MEMBER_NO, MEMBER_ID, MEMBER_NAME, MEMBER_PHONE, MEMBER_EMAIL, MEMBER_POSTCODE, MEMBER_ROAD_ADDRESS, MEMBER_DETAIL_ADDRESS, MEMBER_AGREE_STATE, MEMBER_SIGN_UP, SIGN_OUT
 		  FROM SIGN_OUT_MEMBER
@@ -286,7 +286,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	
-	<!-- 탈퇴회원 추가 -->
+	<!-- 탈퇴 회원 추가 -->
 	<insert id="insertSignOutMember" parameterType="SignOutMemberDTO">
 		INSERT INTO SIGN_OUT_MEMBER
 			(MEMBER_NO, MEMBER_ID, MEMBER_NAME, MEMBER_PHONE, MEMBER_EMAIL, MEMBER_POSTCODE, MEMBER_ROAD_ADDRESS, MEMBER_DETAIL_ADDRESS, MEMBER_AGREE_STATE, MEMBER_SIGN_UP)
@@ -294,14 +294,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			(#{memberNo}, #{memberId}, #{memberName}, #{memberPhone}, #{memberEmail}, #{memberPostcode}, #{memberRoadAddress}, #{memberDetailAddress}, #{memberAgreeState}, #{memberSignUp})
 	</insert>
 	
-	<!-- 회원 삭제 -->
+	<!-- 탈퇴 회원 삭제 -->
 	<delete id="deleteSignOutMember" parameterType="Long">
 		DELETE
 		  FROM SIGN_OUT_MEMBER
 		 WHERE MEMBER_NO = #{memberNo}
 	</delete>
 
-	<!-- 회원 선택 삭제 -->
+	<!-- 탈퇴 회원 선택 삭제 -->
 	<delete id="deleteCheckSignOutMember" parameterType="java.util.List">
 		DELETE
 		  FROM SIGN_OUT_MEMBER
@@ -313,7 +313,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</where> 
 	</delete>
 	
-	<!-- 회원 검색된 레코드 갯수 -->
+	<!-- 탈퇴 회원 검색된 레코드 갯수 -->
 	<select id="selectFindSignOutMemberCount" parameterType="Map" resultType="Integer">
 		SELECT COUNT(*)
 		  FROM SIGN_OUT_MEMBER
@@ -327,7 +327,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</where>
 	</select>
 	
-	<!-- 회원검색 -->
+	<!-- 탈퇴 회원검색 -->
 	<select id="selectFindSignOutMemberList" parameterType="Map" resultMap="MemberMap">
 		SELECT A.*
 		  FROM (SELECT MEMBER_ID, MEMBER_NO, MEMBER_NAME, MEMBER_PHONE, MEMBER_EMAIL, MEMBER_POSTCODE, MEMBER_ROAD_ADDRESS, MEMBER_DETAIL_ADDRESS, MEMBER_SIGN_UP, SIGN_OUT 
@@ -344,7 +344,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          LIMIT #{beginRecord}, #{recordPerPage}
 	</select>	
 	
-	<!-- 회원검색 자동완성 -->
+	<!-- 탈퇴 회원 검색 자동완성 -->
 	<select id="autoCompleteSignOutMember" parameterType="Map" resultType="SignOutMemberDTO">
 		SELECT DISTINCT ${column}
 		  FROM SIGN_OUT_MEMBER
