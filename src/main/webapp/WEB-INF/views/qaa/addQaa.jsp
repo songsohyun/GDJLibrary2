@@ -11,7 +11,9 @@
 <title>Insert title here</title>
 <style>
 	.addQaa_wrap {
-		padding-left: 20px;
+		width: 600px;
+		margin: 100px auto; 
+		/* padding-left: 20px; */
 	}
 	input[name="title"], input[name="memberId"] {
 		width: 400px;
@@ -94,6 +96,8 @@
 
 </head>
 <body>
+
+	<jsp:include page="../layout/header.jsp"></jsp:include><br><br><br>
 
 	<div class="addQaa_wrap">
 		<form id="f" action="${contextPath}/qaa/addQaa" method="post">

@@ -136,10 +136,12 @@
 			if( $(this).val() == '' ) {
 				$('#equalArea, #rangeArea').css('display', 'none');
 			} else if( $(this).val() == 'MEMBER_NAME' || $(this).val() == 'MEMBER_PHONE' || $(this).val() == 'MEMBER_ROAD_ADDRESS' ) {
+				$('#btnSearchSection').css('padding-right', '0px');
 				$('#equalArea').css('display', 'inline');
 				$('#rangeArea').css('display', 'none');
-				$('#selectSection').css('padding-left', '94px');
+				$('#selectSection').css('padding-left', '104px');
 			} else {
+				$('#selectSection').css('padding-left', '0px');
 				$('#equalArea').css('display', 'none');
 				$('#rangeArea').css('display', 'inline');
 				$('#btnSearchSection').css('padding-right', '92px');
@@ -247,18 +249,19 @@
  	#column{
  		margin-left: 180px;
  	}
- 	.tfoot{
+ 	#tfoot{
+ 		padding-right: 40px;
  			
- 		margin: auto;	
  	}
  	.link, .unlink{
  		padding-left: 8px;
  	}
+ 	
 </style>
 </head>
 <body>
 	
-	<input type="button" value="회원추가" id="btnInsert">
+	
 	
 	<div class="form-group">
     <select id="pageUnit" name="pageUnit" onchange="Change(1)">
@@ -272,8 +275,8 @@
     페이지별검색수: ${value}        
 	&nbsp;&nbsp;
 	활동회원수: ${totalRecord}명
-	<input type="button" value="전체활동회원조회" id="btnSearchAll">
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="button" value="전체활동회원조회" id="btnSearchAll">&nbsp;&nbsp;&nbsp;<input type="button" value="회원추가" id="btnInsert">
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	<input type="button" value="관리자메인페이지" id="btnManageMain">
 	</div>
 	
@@ -303,7 +306,7 @@
 						<td>${member.memberEmail}</td>
 						<td>${member.memberRoadAddress}</td>
 						<td><fmt:formatDate value="${member.memberSignUp}" pattern="yyyy-MM-dd" /></td>					
-						<td><a href="${contextPath}/admin/removeMember?memberNo=${member.memberNo}&value=${value}" onclick="return confirm('정말 삭제하시겠습니까?')"><i class="fa-solid fa-circle-xmark"></i></a></td>					
+						<td><a href="${contextPath}/admin/removeMember?memberNo=${member.memberNo}&value=${value}" onclick="return confirm('정말 추방하시겠습니까?')"><i class="fa-solid fa-circle-xmark"></i></a></td>					
 						<input type="hidden" name="value" value="${value}">
 					</tr>
 				</c:forEach>
@@ -317,7 +320,7 @@
 			</tfoot>
 		</table>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<button onclick="return confirm('정말 삭제하시겠습니까?')">회원선택삭제</button>
+		<button onclick="return confirm('정말 삭제하시겠습니까?')">회원 선택 추방</button>
 	</form>
 	
 	<div id="search">

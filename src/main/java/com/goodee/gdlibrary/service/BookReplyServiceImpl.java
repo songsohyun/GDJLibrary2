@@ -21,24 +21,36 @@ public class BookReplyServiceImpl implements BookReplyService {
 		@Override
 		// 감상평 등록
 		public Map<String, Object> addReply(HttpServletRequest request) {
-		
+
 		MemberDTO loginMember = (MemberDTO) request.getSession().getAttribute("loginMember");
 
 	    String memberId = loginMember.getMemberId();
 	    Long bookNo = Long.parseLong(request.getParameter("bookNo"));
 	    String bookReplyContent = request.getParameter("bookReplyContent");
 	    Integer bookRating = Integer.parseInt(request.getParameter("bookRating")); 
-	      
+	    
+
 	    BookReplyDTO reply = BookReplyDTO.builder()
 	    					.bookNo(bookNo)
 	    		  			.bookReplyContent(bookReplyContent)
 	    		  			.bookRating(bookRating)
 	    		  			.memberId(memberId).build();
-
+	    int resRent = 0;
+	    resRent += bookReplyMapper.selectRentCheck(reply);
+	    resRent += bookReplyMapper.selectReturnCheck(reply);
+	    resRent += bookReplyMapper.selectOverdueCheck(reply);
+	    
 	    Map<String, Object> map = new HashMap<>();
-
-		map.put("res", bookReplyMapper.insertReply(reply));
-		return map;
+	    if(resRent == 0) {	
+	    	map.put("res", null);
+	    	return map;
+	    }else {
+	    	
+	    	map.put("res", bookReplyMapper.insertReply(reply));
+	    	return map;
+	    	
+	    	}
+	    	
 		}
 	
 		

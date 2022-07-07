@@ -49,8 +49,8 @@
 
 		<input type="hidden" value="${value}" name="value">
 		<input type="button" value="수정페이지" id="btnChangePage">
-		<input type="button" value="목록" id="btnList">
-		<button id="btnDormantMember">휴면회원전환</button>
+		<input type="button" value="활동 회원 목록" id="btnList">
+		<button id="btnDormantMember" onclick="return confirm('정말 전환하시겠습니까?')">휴면회원전환</button>
 	</form>
 </body>
 </html>

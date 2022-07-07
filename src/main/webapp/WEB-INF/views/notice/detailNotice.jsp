@@ -47,6 +47,10 @@
 	* {
 		box-sizing: border-box;
 	}
+	.notice_wrap {
+		width: 860px;
+		margin: 100px auto; 
+	}
 	.notice_detail_wrap {
 		width: 850px;
 		padding-left: 20px;
@@ -151,62 +155,66 @@
 </style>
 </head>
 <body>
-	<div class="notice_top">
-		- 공지사항 -
-	</div>
-	<c:if test="${empty notice}">
-		<div>
-			게시글이 없습니다.	
-		</div>	
-	</c:if>
-	<c:if test="${not empty notice}">
-		<div class="notice_detail_wrap">
-			<div class="notice_title_wrap">
-				${notice.noticeTitle}
-			</div>
-			<div class="created_hit_wrap">
-				<div>
-					<%-- 작성일 ${notice.noticeCreated}	 --%>	
-					<span>작성일ㅣ </span><span><fmt:formatDate value="${notice.noticeCreated}" pattern="yyyy-MM-dd"/></span>	
-				</div>
-				<div class="hit_wrap">
-					<span>조회수ㅣ </span> ${notice.noticeHit}			
-				</div>
-			</div>
-			<div class="notice_content_wrap">
-				${notice.noticeContent}
-			</div>
-			<div class="files_wrap">
-				<div class="files_title">
-					첨부파일
-				</div>
-				<div class="fileList">
-					<c:if test="${empty fileAttaches}">
-						<div class="no_file">
-							첨부파일이 없습니다.
-						</div>
-					</c:if>
-					<c:if test="${not empty fileAttaches}">
-						<div>
-							<c:forEach items="${fileAttaches}" var="fileAttach">
-								<div class="download_wrap">
-									<a class="download_link_style" href="${contextPath}/notice/download?noticeFileAttachNo=${fileAttach.noticeFileAttachNo}"><i class="fa-solid fa-download"></i>&nbsp;&nbsp;${fileAttach.noticeFileAttachOrigin}</a>
-								</div>
-							</c:forEach>
-						</div>
-					</c:if>
-				</div>
-			</div>
-			<div class="btn_wrap">
-				<input type="button" value="목록" id="btnList">
-				<c:if test="${loginMember.memberId eq 'admin'}">
-					<input type="button" value="수정" id="btnModify">
-					<input type="button" value="삭제" id="btnRemove" data-notice_no="${notice.noticeNo}">
-				</c:if>
-			</div>
-		</div>
-	</c:if>
+
+	<jsp:include page="../layout/header.jsp"></jsp:include><br><br><br>
 	
+	<div class="notice_wrap">
+		<div class="notice_top">
+			- 공지사항 -
+		</div>
+		<c:if test="${empty notice}">
+			<div>
+				게시글이 없습니다.	
+			</div>	
+		</c:if>
+		<c:if test="${not empty notice}">
+			<div class="notice_detail_wrap">
+				<div class="notice_title_wrap">
+					${notice.noticeTitle}
+				</div>
+				<div class="created_hit_wrap">
+					<div>
+						<%-- 작성일 ${notice.noticeCreated}	 --%>	
+						<span>작성일ㅣ </span><span><fmt:formatDate value="${notice.noticeCreated}" pattern="yyyy-MM-dd"/></span>	
+					</div>
+					<div class="hit_wrap">
+						<span>조회수ㅣ </span> ${notice.noticeHit}			
+					</div>
+				</div>
+				<div class="notice_content_wrap">
+					${notice.noticeContent}
+				</div>
+				<div class="files_wrap">
+					<div class="files_title">
+						첨부파일
+					</div>
+					<div class="fileList">
+						<c:if test="${empty fileAttaches}">
+							<div class="no_file">
+								첨부파일이 없습니다.
+							</div>
+						</c:if>
+						<c:if test="${not empty fileAttaches}">
+							<div>
+								<c:forEach items="${fileAttaches}" var="fileAttach">
+									<div class="download_wrap">
+										<a class="download_link_style" href="${contextPath}/notice/download?noticeFileAttachNo=${fileAttach.noticeFileAttachNo}"><i class="fa-solid fa-download"></i>&nbsp;&nbsp;${fileAttach.noticeFileAttachOrigin}</a>
+									</div>
+								</c:forEach>
+							</div>
+						</c:if>
+					</div>
+				</div>
+				<div class="btn_wrap">
+					<input type="button" value="목록" id="btnList">
+					<c:if test="${loginMember.memberId eq 'admin'}">
+						<input type="button" value="수정" id="btnModify">
+						<input type="button" value="삭제" id="btnRemove" data-notice_no="${notice.noticeNo}">
+					</c:if>
+				</div>
+			</div>
+		</c:if>
+	</div>
 
 </body>
 </html>

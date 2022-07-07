@@ -77,7 +77,8 @@
 						$('<tr>')
 						.append($('<td>').html('<input type="checkbox" class="checkOneOverdue" name="overdueNo" value="' + overdueBook.overdueNo + '">'))
 						.append($('<td class="img_wrap">').html('<img src="' + overdueBook.bookImage + '" width="50">'))
-						.append($('<td>').text(overdueBook.bookTitle))
+						// .append($('<td>').text(overdueBook.bookTitle))
+						.append($('<td>').html(overdueBook.bookTitle))
 						.append($('<td>').text(overdueBook.rentExpirationDate))
 						.appendTo('#overdueBookList');
 					});
@@ -151,7 +152,8 @@
 						// .append($('<td>').html('<input type="checkbox" class="checkOneRent" data-rent_no="' + rentBook.rentNo + '">'))
 						.append($('<td>').html('<input type="checkbox" class="checkOneRent" name="rentNo" value="' + rentBook.rentNo + '">'))
 						.append($('<td class="img_wrap">').html('<img src="' + rentBook.bookImage + '" width="50">'))
-						.append($('<td>').text(rentBook.bookTitle))
+						// .append($('<td>').text(rentBook.bookTitle))
+						.append($('<td>').html(rentBook.bookTitle))
 						.append($('<td>').text(rentBook.rentDate))
 						.append($('<td>').text(rentBook.rentExpirationDate))
 						.appendTo('#rentBookList');
@@ -248,7 +250,9 @@
 		box-sizing: border-box;
 	}
 	.bookList_wrap {
-		padding-left: 20px;
+		width: 1020px;
+		margin: 100px auto; 
+		/* padding-left: 20px; */
 	}
 	table {
 		border-collapse: collapse;	
@@ -306,6 +310,8 @@
 </head>
 <body>
 
+	<jsp:include page="../layout/header.jsp"></jsp:include><br><br><br>
+	
 	<div class="bookList_wrap">
 		<form id="f1">
 			<table>
