@@ -51,6 +51,7 @@ public class SeatServiceImpl implements SeatService {
 		    
 		    int res = seatMapper.selectRegMember(memberId);
 		    seatMapper.updateRandomCode(seat);
+		    seatMapper.updateSeatDate(seat);
 			Map<String, Object> map = new HashMap<>();
 			map.put("seats", seat);
 			map.put("member", res);
