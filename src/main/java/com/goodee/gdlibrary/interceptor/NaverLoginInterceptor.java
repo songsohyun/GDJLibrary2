@@ -30,7 +30,6 @@ public class NaverLoginInterceptor implements HandlerInterceptor {
 
 		Map<String, Object> map = modelAndView.getModel();
 		Object loginMember = map.get("loginMember");
-		//Object url = map.get("url");
 
 		if (loginMember != null) {
 

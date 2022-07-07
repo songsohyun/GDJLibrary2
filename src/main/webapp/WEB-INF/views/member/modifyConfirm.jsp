@@ -31,24 +31,24 @@
     margin: 0;
 }
 
-.deleteConfirm_wrap {
+.modifyConfirm {
     width: 500px;
     margin: 150px auto 0;
 }
 
-.deleteConfirm table {
+.modifyConfirm table {
     margin: 0 auto;
     
 }
 
-.deleteConfirm > h3 {
+.modifyConfirm > h3 {
     display: block;
     text-align: center;
     margin-bottom: 30px;
     font-size: 15px;
     color: #4e4c4c;
 }
-.deleteConfirm_wrap tr td:nth-of-type(1) {
+.modifyConfirm_wrap tr td:nth-of-type(1) {
     font-size: 13px;
     padding: 0 10px 0 5px;
     width: 120px;
@@ -56,7 +56,7 @@
 	color: #4e4c4c;
 }
 
-.deleteConfirm_wrap tr td:nth-of-type(2) {
+.modifyConfirm_wrap tr td:nth-of-type(2) {
     display: block;
     height: 35px;
     margin-bottom: 3px;
@@ -65,7 +65,7 @@
     padding-right: 5px;
 }
 
-.deleteConfirm_wrap input[type="password"] {
+.modifyConfirm_wrap input[type="password"] {
     width: 180px;
     height: 10px;
     padding: 12px 10px 12px;
@@ -76,7 +76,7 @@
     border: none;
 }
 
-.deleteConfirm_wrap button {
+.modifyConfirm_wrap button {
 	display: inline-block;;
 	text-align: center;
 	background-color: #f5e0c1;
@@ -93,11 +93,11 @@
 
 	<jsp:include page="../layout/header.jsp"></jsp:include>
 	
-	<div class="deleteConfirm_wrap">
-        <div class="deleteConfirm">
-            <h3>회원 탈퇴를 위한 인증 절차</h3>
+	<div class="modifyConfirm_wrap">
+        <div class="modifyConfirm">
+            <h3>회원 정보 수정을 위한 인증 절차</h3>
 
-			<form id="f" action="${contextPath}/member/deletePwCheck" method="post">
+			<form id="f" action="${contextPath}/member/modifyPwCheck" method="post">
 				<input type="hidden" name="memberId" id="memberId" value="${loginMember.memberId}">
 				<table>
 					<tbody>

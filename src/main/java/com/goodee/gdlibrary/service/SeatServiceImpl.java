@@ -27,19 +27,50 @@ public class SeatServiceImpl implements SeatService {
 	
 	
 	@Override
-	public SeatDTO findSeat(Long seatNo) {
-		return seatMapper.selectSeatByNo(seatNo);
+	public Map<String, Object> findSeat(HttpServletRequest request) {
+		
+			Long seatNo = Long.parseLong(request.getParameter("seatNo"));
+			
+			String str = "";
+			for(int i = 0; i <6; i++) {
+				str += ((int)(Math.random() * 9) + 1);
+			}
+			Long seatCode = Long.parseLong(str);
+	
+			MemberDTO loginMember = (MemberDTO) request.getSession().getAttribute("loginMember");
+
+		    String memberId = loginMember.getMemberId();
+		    
+		    Integer seatStatus = seatMapper.selectSeatByNo(seatNo);
+		    
+		    SeatDTO seat = SeatDTO.builder()
+		    				.seatCode(seatCode)
+		    				.seatNo(seatNo)
+		    				.memberId(memberId)
+		    				.seatStatus(seatStatus).build();
+		    
+		    int res = seatMapper.selectRegMember(memberId);
+		    seatMapper.updateRandomCode(seat);
+			Map<String, Object> map = new HashMap<>();
+			map.put("seats", seat);
+			map.put("member", res);
+			
+			return map;
+
 	}
 	
 	
 	@Override
 	public void upSeatStatus(Long seatNo, HttpServletRequest request) {
-		MemberDTO loginMember = (MemberDTO) request.getSession().getAttribute("loginMember");
+		  MemberDTO loginMember = (MemberDTO) request.getSession().getAttribute("loginMember");
 	      Long memberNo = loginMember.getMemberNo();
+	      String memberId = loginMember.getMemberId();
 	      SeatDTO seat = SeatDTO.builder()
 	    		  .memberNo(memberNo)
 	    		  .seatNo(seatNo)
+	    		  .memberId(memberId)
 	    		  .build();
+	      
 		seatMapper.updateUpSeatStatus(seat);
 	}
 	

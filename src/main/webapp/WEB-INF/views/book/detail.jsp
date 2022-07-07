@@ -36,8 +36,109 @@
 		border: ;
 	}
 	
+	.contentGroup .no1{
+		display: inline-flex;
+		color: red;
+		flex-direction: column;
+		
+	}
+	.contentGroup .no2{
+		display: inline-flex;
+		flex-direction: column;
+	}
+		#contentReg fieldset{
+		    display: inline-block;
+		    direction: rtl;
+		    border:0;
+		}
+		#contentReg input[type=radio]{
+		    display: none;
+		}
+		#contentReg label{
+		    font-size: 3em;
+		    color: transparent;
+		    text-shadow: 0 0 0 #f0f0f0;
+		    font-size: 30px
+		}
+		#contentReg label:hover{
+		    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+		}
+		#contentReg label:hover ~ label{
+		    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+		}
+		#contentReg input[type=radio]:checked ~ label{
+		    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+		}
+		
+		.userRating{
+			font-size: 3em;
+		    color: transparent;
+		    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+		    font-size: 20px
+		}
+		
+		#recomeBook{
+			display: flex;
+			text-align: center;
+		}
+
+		.detailBook{
+			display: inline-flex;
+		}
+		
+		.bookImg{
+			margin: 50px 100px 50px 250px;
+		}
+		
+		.bookInfo{
+			display: block;
+			margin: 40px 100px 50px 20px;
+			font-size: 15px;
+		}
+		
+		.bookInfo elm{
+			margin-bottom: 5px;
+		}
+
+		
+		#btnSearchAll{
+			margin-left: 15px;
+		}
+		
+		hr {
+	    border: none;
+	    border-top: 2px solid #E3E7EB;
+	    overflow: visible;
+	    text-align: center;
+	    margin: 24px 70px 17px 70px;
+		}
 	
-	
+		hr:after {
+		    content: "GDJ LIBRARY";
+		    position: relative;
+		    top: -12px;
+		    background: #F1F3F5; 
+		    padding: 0 10px;
+		    color: #868E96;
+		    font-size: 0.8em;
+		}
+		
+		.bookDescript{
+			margin: 40px 90px 0 90px;
+		}
+		
+		.recomText{
+			margin: 40px 90px 0 90px;
+		}
+		
+		.recom{
+			margin-right: 50px;
+		}
+		
+		#recomeBook{
+			justify-content: center;
+		}
+		
 </style>
 <script>
 		//별점	
@@ -164,6 +265,8 @@
 								alert('감상평이 등록되었습니다.');
 								fnList();
 								fnInit();
+						}else{
+							alert('해당책의 대여한 기록이 없습니다.');
 						}
 					}
 					
@@ -184,7 +287,7 @@
 				success: function(obj){
 					$.each(obj.recom, function(i, recom){
 						var sp = '<span>';
-						sp += '<ul><a href="${contextPath}/book/detail?bookNo=' + recom.bookNo + '"><img src="' + recom.bookImage + '" width=130px height=170px></a></ul>';
+						sp += '<ul class="recom1"><a href="${contextPath}/book/detail?bookNo=' + recom.bookNo + '"><img src="' + recom.bookImage + '" width=130px height=170px></a></ul>';
 						sp += '<ul>' + recom.bookTitle + '</ul>';
 						sp += '</span>'
 						$('#recomeBook').append(sp);
@@ -197,84 +300,40 @@
 		
 	
 </script>
-<style>
-
-	.contentGroup .no1{
-		display: inline-flex;
-		color: red;
-		flex-direction: column;
-		
-	}
-	.contentGroup .no2{
-		display: inline-flex;
-		flex-direction: column;
-	}
-		#contentReg fieldset{
-		    display: inline-block;
-		    direction: rtl;
-		    border:0;
-		}
-		#contentReg input[type=radio]{
-		    display: none;
-		}
-		#contentReg label{
-		    font-size: 3em;
-		    color: transparent;
-		    text-shadow: 0 0 0 #f0f0f0;
-		    font-size: 30px
-		}
-		#contentReg label:hover{
-		    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
-		}
-		#contentReg label:hover ~ label{
-		    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
-		}
-		#contentReg input[type=radio]:checked ~ label{
-		    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
-		}
-		
-		.userRating{
-			font-size: 3em;
-		    color: transparent;
-		    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
-		    font-size: 20px
-		}
-		
-		#recomeBook{
-			display: flex;
-			text-align: center;
-		}
-		
-		
-		
-
-</style>
 </head>
 <body>
-		
-			<div class="detailBookList">
-				<span><img src="${book.bookImage}" width="200px" height="300px" ></span>
-				
-				<p>제목 : ${book.bookTitle}</p>
-				<p>저자 : ${book.bookAuthor}</p>
-				<p>출판사 : ${book.bookPublisher}</p>
-				<p>분야 : ${book.bookType}</p>
-				<p>isbn : ${book.bookIsbn}</p>
-				
-				<input type="button" value="대여하기" onclick="location.href='${contextPath}/rent/rentBook?bookNo=${book.bookNo}'">
-				<input type="button" id="btnSearchAll" value="목록가기" onclick="location.href='${contextPath}/book/listPage'"/>
-				<br>
-					
-			<h3>책소개</h3>
-				<span>${book.bookDescription}</span>
-				
+		<div class="all">
+		  <div class="detailBook">	
+			<div class="bookImg">
+				<span><img src="${book.bookImage}" width="300px" height="420px" ></span>
 			</div>
+			
+			<div class="bookInfo">
+				<div class="bookInfo elm">제목 : ${book.bookTitle}</div>
+				<div class="bookInfo elm">저자 : ${book.bookAuthor}</div>
+				<div class="bookInfo elm">출판사 : ${book.bookPublisher}</div>
+				<div class="bookInfo elm">분야 : ${book.bookType}</div>
+				<div class="bookInfo elm">isbn : ${book.bookIsbn}</div>
+				<span>
+				<input type="button" id="btnRent" value="대여하기" onclick="location.href='${contextPath}/rent/rentBook?bookNo=${book.bookNo}'">
+				<input type="button" id="btnSearchAll" value="목록가기" onclick="location.href='${contextPath}/book/listPage'"/>
+				</span>
+			</div>	
+		  </div>	
+				
+			<hr>	
+			
+			<div class="bookDescript">
+			<h3>책소개</h3>
+				${book.bookDescription}
+			</div>	
 		
-			<br><br>
+			<hr>
 			
-			<h3>추천도서</h3>
+			
+			<h3 class="recomText">추천도서</h3>
 			<div id="recomeBook"></div>
-			
+
 			<br>
 			
 			<div class="wrap">
@@ -337,7 +396,7 @@
 				</tfoot>
 			</table>
     	
-    
+    	</div>
      	
 </body>
 </html>

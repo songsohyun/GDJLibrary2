@@ -23,8 +23,17 @@
 		fnWrite();
 		fnSearch();
 		fnEnterSearch();
+		fnQaaRemove();
 	});
 	
+	// 게시글(원글) 삭제하기
+	function fnQaaRemove(){
+		$('.btnQaaRemove').on('click', function(){
+			if(confirm('게시글을 삭제하면 댓글도 같이 삭제됩니다. 정말 삭제하시겠습니까?')){
+				location.href='${contextPath}/qaa/removeQaa?qaaNo=' + $(this).data('qaa_no');
+			}
+		});
+	}
 	
 	// Enter 누르면 작성자(회원ID) 검색
 	function fnEnterSearch() {
@@ -136,7 +145,9 @@
 		box-sizing: border-box;
 	}
 	.qaa_all_wrap {
-		padding-left: 20px;
+		width: 1070px;
+		margin: 30px auto; 
+		/* padding-left: 20px; */
 	}
 	.qaa_top_wrap {
 		width: 1065px;
@@ -204,7 +215,7 @@
 		color: blue;
 		cursor: pointer;
 	}
-	input[name="memberId"], input[name="content"] {
+	.memberId_box, input[name="content"] {
 		height: 35px;
 		padding-left: 5px;
 		border-radius: 10px;
@@ -241,7 +252,7 @@
 		background-color: #eaeff3;
 		color: #201e1e;
 	}
-	.btnDetail {
+	.btnDetail, .btnQaaRemove {
 		width: 50px;
 		height: 25px;
 		background-color: #eaeff3;
@@ -325,7 +336,7 @@
 					<c:forEach var="qaa" items="${qaaList}" varStatus="vs">
 						<tr>
 							<td>${startNo - vs.index}</td>
-							<td>${qaa.memberId}</td>
+							<td>${qaa.memberId.substring(0, 3)}***</td>
 							<td>
 								<!-- Depth만큼 들여쓰기(Depth 1 == Space 2) -->
 								<c:forEach begin="1" end="${qaa.qaaDepth}" step="1">&nbsp;&nbsp;</c:forEach>
@@ -379,6 +390,7 @@
 									 -->
 									 
 									<input type="button" value="조회" data-qaa_no="${qaa.qaaNo}" class="btnDetail btn_style">
+									<input type="button" value="삭제" data-qaa_no="${qaa.qaaNo}" class="btnQaaRemove btn_style">
 									
 								</c:if>
 								<c:if test="${(loginMember.memberId eq 'admin' && qaa.qaaTitle eq '댓글 작성') || (loginMember.memberId eq qaa.memberId && qaa.qaaTitle eq '댓글 작성')}">
@@ -392,7 +404,8 @@
 						<tr class="reply_form blind">
 							<td colspan="5">
 								<form class="f" action="${contextPath}/qaa/saveReply" method="post">
-									<input type="text" name="memberId" value="${loginMember.memberId}" readonly size="10">
+									<input type="hidden" name="memberId" value="${loginMember.memberId}">
+									<input type="text" value="${loginMember.memberId.substring(0, 3)}***" readonly size="10" class="memberId_box">
 									<input type="text" name="content" class="writeReply" placeholder="내용" size="80">
 									<!-- 원글의 Depth, GroupNo, GroupOrd -->
 									<input type="hidden" name="depth" value="${qaa.qaaDepth}">

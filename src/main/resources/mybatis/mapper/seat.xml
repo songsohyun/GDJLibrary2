@@ -11,10 +11,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 ORDER BY SEAT_NO
 	</select>
 
-	<select id="selectSeatByNo" parameterType="Long" resultType="SeatDTO">
-		SELECT SEAT_NO, MEMBER_NO, SEAT_STATUS, SEAT_DATE, SEAT_CODE
+	<select id="selectSeatByNo" parameterType="Long" resultType="Integer">
+		SELECT SEAT_STATUS
 		  FROM SEAT
 		 WHERE SEAT_NO = #{seatNo}
+	</select>
+	
+	<select id="selectRegMember" parameterType="String" resultType="Integer">
+		SELECT COUNT(*)
+		  FROM (SELECT S.SEAT_NO, S.MEMBER_NO, S.SEAT_STATUS, S.SEAT_DATE, S.SEAT_CODE
+		  		  FROM SEAT S INNER JOIN MEMBER M
+		  		    ON S.MEMBER_NO = M.MEMBER_NO
+		  		 WHERE MEMBER_ID = #{memberId})A
 	</select>
 	
 	<update id="updateUpSeatStatus" parameterType="SeatDTO">

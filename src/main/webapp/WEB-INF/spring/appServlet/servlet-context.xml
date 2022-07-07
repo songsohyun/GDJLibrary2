@@ -63,18 +63,27 @@
 	
 	
 
-	<beans:bean class="com.goodee.gdlibrary.interceptor.RequiredLoginInterceptor" id="requiredLoginInterceptor" />
+	<beans:bean class="com.goodee.gdlibrary.interceptor.RequiredLoginInterceptor1" id="requiredLoginInterceptor1" />
 
 	  
 	<interceptors>
 		<interceptor>
-			<mapping path="/rent/rentBook"/>
 			<mapping path="/returned/returnedBookPage"/>
 			<mapping path="/qaa/addQaaPage"/>
 			<mapping path="/seat/seatAgreePage"/>
-			<beans:ref bean="requiredLoginInterceptor"/>
+			<beans:ref bean="requiredLoginInterceptor1"/>
 		</interceptor>
 	</interceptors>	
-
+	
+	
+	<beans:bean class="com.goodee.gdlibrary.interceptor.RequiredLoginInterceptor2" id="requiredLoginInterceptor2" />
+	
+	<interceptors>
+		<interceptor>
+			<mapping path="/rent/rentBook"/>
+			<beans:ref bean="requiredLoginInterceptor2"/>
+		</interceptor>
+	</interceptors>	
+	
 	
 </beans:beans>

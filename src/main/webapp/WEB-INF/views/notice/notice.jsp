@@ -73,7 +73,8 @@
 	}
 	.notice_all_wrap {
 		width: 1020px;
-		padding-left: 20px;
+		margin: 30px auto; 
+		/* padding-left: 20px; */
 	}
 	.notice_top {
 		width: 100%;
@@ -102,7 +103,7 @@
 	td:nth-child(2) { 
 		width: 750px; 
 		text-align: left;
-		padding-left: 10px;
+		padding-left: 20px;
 	}
 	td:nth-child(3) { width: 140px; }
 	td:nth-child(4) { width: 80px; }

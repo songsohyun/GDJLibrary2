@@ -23,6 +23,7 @@ public class MemberDTO {
 	private String memberDetailAddress;
 	private Integer memberAgreeState;
 	private Date memberSignUp;
+	private String memberSnsType;
 	private Date memberPwModified;
 	private Date memberInfoModified;
 	private String memberSessionId;

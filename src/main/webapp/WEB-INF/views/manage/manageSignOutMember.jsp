@@ -133,10 +133,12 @@
 			if( $(this).val() == '' ) {
 				$('#equalArea, #rangeArea').css('display', 'none');
 			} else if( $(this).val() == 'MEMBER_NAME' || $(this).val() == 'MEMBER_PHONE' || $(this).val() == 'MEMBER_ROAD_ADDRESS' ) {
+				$('#btnSearchSection').css('padding-right', '0px');
 				$('#equalArea').css('display', 'inline');
 				$('#rangeArea').css('display', 'none');
-				$('#selectSection').css('padding-left', '94px');
+				$('#selectSection').css('padding-left', '104px');
 			} else {
+				$('#selectSection').css('padding-left', '0px');
 				$('#equalArea').css('display', 'none');
 				$('#rangeArea').css('display', 'inline');
 				$('#btnSearchSection').css('padding-right', '92px');
@@ -244,9 +246,9 @@
  	#column{
  		margin-left: 180px;
  	}
- 	.tfoot{
+ 	#tfoot{
+ 		padding-right: 40px;
  			
- 		margin: auto;	
  	}
  	.link, .unlink{
  		padding-left: 8px;
@@ -255,7 +257,7 @@
 </head>
 <body>
 	
-	<input type="button" value="회원추가" id="btnInsert">
+	
 	
 	<div class="form-group">
     <select id="pageUnit" name="pageUnit" onchange="Change(1)">
@@ -268,9 +270,9 @@
     &nbsp;&nbsp;&nbsp;&nbsp;
     페이지별검색수: ${value}        
 	&nbsp;&nbsp;
-	활동회원수: ${totalRecord}명
-	<input type="button" value="전체활동회원조회" id="btnSearchAll">
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	탈퇴회원수: ${totalRecord}명
+	<input type="button" value="전체탈퇴회원조회" id="btnSearchAll">
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	<input type="button" value="관리자메인페이지" id="btnManageMain">
 	</div>
 	
@@ -287,7 +289,7 @@
 					<th width="20%">이메일</th>
 					<th width="30%">주소</th>
 					<th width="">회원가입일</th>
-					<th width="8%">회원추방</th>
+					<th width="8%">회원삭제</th>
 				</tr>
 			</thead>
 			<tbody>

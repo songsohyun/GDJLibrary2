@@ -1,7 +1,6 @@
 package com.goodee.gdlibrary.service;
 
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +16,7 @@ import org.springframework.ui.Model;
 
 import com.goodee.gdlibrary.domain.BookDTO;
 import com.goodee.gdlibrary.domain.DormantMemberDTO;
+import com.goodee.gdlibrary.domain.FnqDTO;
 import com.goodee.gdlibrary.domain.MemberDTO;
 import com.goodee.gdlibrary.domain.SignOutMemberDTO;
 import com.goodee.gdlibrary.mapper.ManageMapper;
@@ -130,6 +130,7 @@ public class ManageServiceImpl implements ManageService {
 				out.println("</script>");
 				out.close();
 			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -549,6 +550,7 @@ public class ManageServiceImpl implements ManageService {
 					.memberDetailAddress(member.getMemberDetailAddress())
 					.memberAgreeState(member.getMemberAgreeState())
 					.memberSignUp(member.getMemberSignUp())
+					.memberSnsType(member.getMemberSnsType())
 					.memberPwModified(member.getMemberPwModified())
 					.memberInfoModified(member.getMemberInfoModified())
 					.build();
@@ -612,6 +614,7 @@ public class ManageServiceImpl implements ManageService {
 					.memberDetailAddress(dormantMember.getMemberDetailAddress())
 					.memberAgreeState(dormantMember.getMemberAgreeState())
 					.memberSignUp(dormantMember.getMemberSignUp())
+					.memberSnsType(dormantMember.getMemberSnsType())
 					.memberPwModified(dormantMember.getMemberPwModified())
 					.memberInfoModified(dormantMember.getMemberInfoModified())
 					.build();
@@ -925,7 +928,7 @@ public class ManageServiceImpl implements ManageService {
 				if(res == size) {
 					out.println("<script>");
 					out.println("alert('탈퇴회원이 삭제되었습니다.')");
-					out.println("location.href='" + request.getContextPath() + "/admin/listMember?value=" + value + "'");
+					out.println("location.href='" + request.getContextPath() + "/admin/listSignOutMember?value=" + value + "'");
 					out.println("</script>");
 					out.close();
 				} else {
@@ -1188,9 +1191,9 @@ public class ManageServiceImpl implements ManageService {
 	
 	// 책 isbn 중복체크
 	@Override
-	public Map<String, Object> checkBookIsbn(String isbn) {
+	public Map<String, Object> checkBookByIsbn(String isbn) {
 		Map<String, Object> map = new HashMap<>();
-		map.put("res", manageMapper.selectBookByIsbn(isbn));
+		map.put("res", manageMapper.checkBookByIsbn(isbn));
 		return map;
 	}
 
@@ -1412,6 +1415,43 @@ public class ManageServiceImpl implements ManageService {
 	
 	
 	
+	@Override
+	public void insertFnq(HttpServletRequest request, HttpServletResponse response) {
+		// 전달된 파라미터
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+			
+		// FnqDTO
+		FnqDTO Fnq = FnqDTO.builder()
+				.fnqTitle(title)
+				.fnqContent(content)
+				.build();
+		
+		// FNQ INSERT 수행
+		int fnqResult = manageMapper.insertFnq(Fnq);  // INSERT 수행
+
+		// 응답
+		try {
+			response.setContentType("text/html");
+			PrintWriter out = response.getWriter();
+			if(fnqResult == 1) {
+				out.println("<script>");
+				out.println("alert('자주묻는질문 게시글이 등록되었습니다.')");
+				out.println("location.href='" + request.getContextPath() + "/fnq/fnqPage'");
+				out.println("</script>");
+				out.close();
+			} else {
+				out.println("<script>");
+				out.println("alert('자주묻는질문 게시글이 등록되지 않았습니다.')");
+				out.println("history.back()");
+				out.println("</script>");
+				out.close();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 }
 

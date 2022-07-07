@@ -213,8 +213,8 @@
 	}
 	#fnq_wrap {
 		width: 800px;
-		/* margin: 0 auto; */
-		padding-left: 20px;
+		margin: 30px auto; 
+		/* padding-left: 20px; */
 	}
 	.top_title_wrap {
 		border-bottom: 1px solid #E2E2E2;
