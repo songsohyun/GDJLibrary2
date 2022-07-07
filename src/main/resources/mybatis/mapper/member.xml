@@ -32,12 +32,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 회원가입 -->
-	<insert id="insertMemberSignIn" parameterType="MemberDTO">
-		INSERT INTO MEMBER
-			(MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_PHONE, MEMBER_EMAIL, MEMBER_POSTCODE, MEMBER_ROAD_ADDRESS, MEMBER_DETAIL_ADDRESS, MEMBER_AGREE_STATE, MEMBER_SIGN_UP)
-		VALUES
-			(#{memberId}, #{memberPw}, #{memberName}, #{memberPhone}, #{memberEmail}, #{memberPostcode}, #{memberRoadAddress}, #{memberDetailAddress}, #{memberAgreeState}, NOW())
-	</insert>
+	   <insert id="insertMemberSignIn" parameterType="MemberDTO">
+      <selectKey keyProperty="memberNo" order="AFTER" resultType="Long">
+         SELECT MEMBER_NO FROM MEMBER WHERE MEMBER_ID = #{memberId}
+      </selectKey>
+      INSERT INTO MEMBER
+         (MEMBER_ID, MEMBER_PW, MEMBER_NAME, MEMBER_PHONE, MEMBER_EMAIL, MEMBER_POSTCODE, MEMBER_ROAD_ADDRESS, MEMBER_DETAIL_ADDRESS, MEMBER_AGREE_STATE, MEMBER_SIGN_UP)
+      VALUES
+         (#{memberId}, #{memberPw}, #{memberName}, #{memberPhone}, #{memberEmail}, #{memberPostcode}, #{memberRoadAddress}, #{memberDetailAddress}, #{memberAgreeState}, NOW())
+  	 </insert>
 
 	<!-- 로그인 id/pw 검사 -->
 	<select id="selectMemberByIdPw" parameterType="MemberDTO" resultType="MemberDTO">

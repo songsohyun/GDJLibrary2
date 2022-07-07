@@ -9,7 +9,7 @@ import com.goodee.gdlibrary.domain.SeatDTO;
 
 public interface SeatService {
 	public List<SeatDTO> findSeatList();
-	public SeatDTO findSeat(Long seatNo);
+	public Map<String, Object> findSeat(HttpServletRequest request);
 	public void upSeatStatus(Long seatNo, HttpServletRequest request);
 	public Map<String, Object> seatCheckOut(Long seatCode);
 	public Map<String, Object> seatConfirm(String memberId);

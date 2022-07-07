@@ -209,16 +209,26 @@
 				data: 'seatNo=' + $(this).text(),
 				dataType: 'json',
 				success: function(obj){
-					if(obj.seats.seatStatus == 1) {
-						if(confirm(obj.seats.seatNo + '번 좌석을 사용하시겠습니까?')){
-
-							alert('예약되었습니다. 좌석코드는 ' + obj.code + '입니다. 출력된 번호표를 가져가세요.');
-							location.href='${contextPath}/seat/upSeatStatus?seatNo=' + obj.seats.seatNo;
+					console.log(obj);
+					var seat = obj.seats;
+					var member = obj.member;
+					if(member == 0){
+						if(seat.seatStatus == 1){
+							if(confirm(seat.seatNo + '번 좌석을 사용하시겠습니까?')){
+								alert('예약되었습니다. 좌석코드는 ' + seat.seatCode + '입니다. 출력된 번호표를 가져가세요.');
+								location.href='${contextPath}/seat/upSeatStatus?seatNo=' + seat.seatNo;
+							}else{
+								alert('zzzzzzzzzzzz');
+								return false;
+							}
+						}else if(seat.seatStatus == 2){
+							alert('이미 이용중인 좌석입니다. 다른 좌석을 선택해주세요.');
+							return;
 						}
-					} else if(obj.seats.seatStatus == 2){
-						alert('이미 이용중인 좌석입니다. 다른 좌석을 선택해주세요.');
-						event.preventDefault();
-					}
+					}else{
+						alert('이미 이용하고 있는 좌석이 있습니다');
+						return;
+					}	
 				}
 			})
 			
