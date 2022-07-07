@@ -105,7 +105,7 @@
 	<form id="f" action="${contextPath}/admin/changeBook?value=${value}" method="post">
 	
 		책번호 ${book.bookNo}<br>
-		<input type="text" name="isbn" value="${book.bookIsbn}">
+		<input type="text" name="isbn" id="isbn">
 		<span id="isbnMsg"></span><br><br>
 		<input type="hidden" name="bookNo" value="${book.bookNo}">
 		제목 <input type="text" name="title" id="title" value="${book.bookTitle}"><br>

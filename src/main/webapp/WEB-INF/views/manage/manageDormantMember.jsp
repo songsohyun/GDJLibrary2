@@ -25,16 +25,13 @@
 		fnInsert();
 	})
 	
+	
 	// 함수
 	function fnInsert(){
 		$('#btnInsert').on('click', function(){
 			location.href='${contextPath}/admin/saveDormantMemberPage?value=' + ${value};
 		})
 	}
-	// 삭제
-		
-
-	
 	
 	function fnlistCountChange(){
 		$('#pageUnit').change(function(){
@@ -86,7 +83,7 @@
 			}
 			
 			// 전화번호 검색
-			var regMemberPhone = /^[0-9]{3}-[0-9]{4}-[0-9]{4}$/;      // 숫자만가능.
+			var regMemberPhone = /^[0-9]{3}-[0-9]{4}-[0-9]{4}$/;      // 010-1234-5678
 			if( column.val() == 'MEMBER_PHONE' && regMemberPhone.test(query.val()) == false ) {
 				alert('휴대전화 형식 예) 010-1234-5678');
 				return;
@@ -262,6 +259,9 @@
 	
 	
 	
+	
+	
+	
 	<div class="form-group">
     <select id="pageUnit" name="pageUnit" onchange="Change(1)">
         <option value="">:::선택:::</option>
@@ -274,14 +274,14 @@
     페이지별검색수: ${value}        
 	&nbsp;&nbsp;
 	휴면회원수: ${totalRecord}명
-	<input type="button" value="전체휴면회원조회" id="btnSearchAll">
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<input type="button" value="관리자메인페이지" id="btnManageMain">
+	<input type="button" value="전체 휴면 회원 조회" id="btnSearchAll">
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="button" value="관리자 메인 페이지" id="btnManageMain">
 	</div>
 	
-	<br>	
-				
-	<form id="f" action="${contextPath}/admin/removeCheckDormantMember" method="post">
+	<br>
+	
+	<form id="f" action="${contextPath}/admin/removeCheckDormantMember?value=${value}" method="post">
 		<table border="1" class="table">
 			<thead>
 				<tr>
@@ -305,8 +305,7 @@
 						<td>${member.memberEmail}</td>
 						<td>${member.memberRoadAddress}</td>
 						<td><fmt:formatDate value="${member.memberSignUp}" pattern="yyyy-MM-dd" /></td>					
-						<td><a href="${contextPath}/admin/removeDormantMember?memberNo=${member.memberNo}&value=${value}" onclick="return confirm('정말 삭제하시겠습니까?')"><i class="fa-solid fa-circle-xmark"></i></a></td>					
-						<input type="hidden" name="value" value="${value}">
+						<td><a href="${contextPath}/admin/removeDormantMember?memberNo=${member.memberNo}&value=${value}" onclick="return confirm('정말 추방하시겠습니까?')"><i class="fa-solid fa-circle-xmark"></i></a></td>					
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -319,7 +318,7 @@
 			</tfoot>
 		</table>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<button onclick="return confirm('정말 삭제하시겠습니까?')">회원선택추방</button>
+		<button onclick="return confirm('정말 추방하시겠습니까?')">회원선택추방</button>
 	</form>
 	
 	<div id="search">

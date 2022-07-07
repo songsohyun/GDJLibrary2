@@ -14,6 +14,11 @@
 <script src="../resources/js/jquery-3.6.0.js"></script>
 
 <style>
+	
+	.all{
+		padding: 40px;
+	}
+	
 	#paging {
 		display: flex;
 		justify-content: center;
@@ -57,7 +62,7 @@
 		#contentReg label{
 		    font-size: 3em;
 		    color: transparent;
-		    text-shadow: 0 0 0 #f0f0f0;
+		    text-shadow: 0 0 0 #3f81e9;
 		    font-size: 30px
 		}
 		#contentReg label:hover{
@@ -87,7 +92,7 @@
 		}
 		
 		.bookImg{
-			margin: 50px 100px 50px 250px;
+			margin: 50px 100px 50px 200px;
 		}
 		
 		.bookInfo{
@@ -137,6 +142,49 @@
 		
 		#recomeBook{
 			justify-content: center;
+		}
+		
+		.bookReviewSec{
+			margin: 20px 180px;
+		}
+		
+		.bookReview{
+			padding: 20px;
+			background-color: #f2f2f2;
+		}
+		
+		#attention{
+			font-size: 12px;
+			margin-bottom: 5px;
+		}
+		
+		#btnReg{
+			background-color: #196ab3;
+			  color: white;
+			  padding: 35px 10px 0px 10px;
+			  border: none;
+			  border-radius: 5px;
+			  letter-spacing: 2px;
+			  outline: none;
+			  align-self: center;
+			  cursor: pointer;
+			  font-weight: bold;
+		}
+		
+		.reviews{
+			margin-left: 100px;
+		}
+		
+		#replyInfo{
+			margin: 10px 0 20px 250px;
+			font-size: 20px;
+		}
+		
+		.replyList{
+			margin-left: auto;
+			margin-right: auto;			
+			text-align: center;
+			width: 1000px;
 		}
 		
 </style>
@@ -334,43 +382,51 @@
 			<h3 class="recomText">추천도서</h3>
 			<div id="recomeBook"></div>
 
-			<br>
+			<hr>
 			
-			<div class="wrap">
-    		<h3>한줄 감상평</h3>
-			    <form id="contentReg">			 
-			        <div class="review_rating">
-			            <div>별점을 선택해 주세요.</div>
-			            <div class="ratingStar">
-			                <fieldset>
-			               	    <input type="hidden" id="bookNo" name="bookNo" value="${book.bookNo}">
-								<input type="radio" name="bookRating" value="5" id="rate1"><label
-									for="rate1">★</label>
-								<input type="radio" name="bookRating" value="4" id="rate2"><label
-									for="rate2">★</label>
-								<input type="radio" name="bookRating" value="3" id="rate3"><label
-									for="rate3">★</label>
-								<input type="radio" name="bookRating" value="2" id="rate4"><label
-									for="rate4">★</label>
-								<input type="radio" name="bookRating" value="1" id="rate5"><label
-									for="rate5">★</label>
-							</fieldset>
-			            </div>
-			        </div>
-			        <div id="replyContent">
-					  <span>
-					  	 <label for="content"></label>
-					  	 <textarea rows="3" cols="80" id="bookReplyContent" name="bookReplyContent" placeholder="한글 기준 50자까지 작성가능"></textarea>
-					  </span>
-					</div>
-					  	<input type="button" id="btnReg" value="등록하기">
-			    </form>
+			<div class="bookReviewSec">
+	    		<h3>한줄 감상평</h3>
+	    		<div id="attention">* 감상평은 책을 대여한 기록이 있는 분만 작성이 가능합니다. </div>
+	    		<div id="attention">* 감상평 수정 및 삭제가 불가능하므로 신중히 작성 부탁드립니다.</div>
+				<div class="bookReview">
+				    <form id="contentReg">			 
+				        <div class="review_rating">
+				            <div>별점을 선택해 주세요.</div>
+				            <div class="ratingStar">
+				                <fieldset>
+				               	    <input type="hidden" id="bookNo" name="bookNo" value="${book.bookNo}">
+									<input type="radio" name="bookRating" value="5" id="rate1"><label
+										for="rate1">★</label>
+									<input type="radio" name="bookRating" value="4" id="rate2"><label
+										for="rate2">★</label>
+									<input type="radio" name="bookRating" value="3" id="rate3"><label
+										for="rate3">★</label>
+									<input type="radio" name="bookRating" value="2" id="rate4"><label
+										for="rate4">★</label>
+									<input type="radio" name="bookRating" value="1" id="rate5"><label
+										for="rate5">★</label>
+								</fieldset>
+				            </div>
+				        </div>
+				        <div id="replyContent">
+						  <span>
+						  	 <label for="content"></label>
+						  	 <textarea rows="3" cols="120" id="bookReplyContent" name="bookReplyContent" placeholder="한글 기준 50자까지 작성가능"></textarea>
+						  </span>
+						  	<span><input type="button" id="btnReg" value="등록하기"></span>
+						</div>
+							
+						  	
+				    </form>
+				</div>
 			</div>
 			
-			<h3>감상평</h3>
+			<hr>
+			
+			<h3 class="reviews">한줄 감상평</h3>
 			
 			<div id="replyInfo">
-				<em>감상평 <span id="replyCount"></span>개 평균평점 <span id="replyRatingAverage"></span>점</em>
+				<em>총 감상평 <span id="replyCount"></span>개 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;평균평점 <span id="replyRatingAverage"></span>점</em>
 		   </div>
 			
 			<table class="replyList">

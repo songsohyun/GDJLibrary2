@@ -58,6 +58,8 @@ public class SeatServiceImpl implements SeatService {
 	@Override
 	public Map<String, Object> seatConfirm(String memberId) {
 		Map<String, Object> map = new HashMap<String, Object>();
+		
+		
 		map.put("res", seatMapper.selectSeatById(memberId));
 		return map;
 	}

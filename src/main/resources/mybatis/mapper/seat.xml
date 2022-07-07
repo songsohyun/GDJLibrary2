@@ -20,7 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<update id="updateUpSeatStatus" parameterType="SeatDTO">
 		UPDATE SEAT
-		   SET MEMBER_NO = #{memberNo}, SEAT_STATUS = 2
+		   SET MEMBER_NO = #{memberNo}, SEAT_STATUS = 2, SEAT_DATE = CURRENT_TIMESTAMP()
 		 WHERE SEAT_NO = #{seatNo}
 	</update>
 	
