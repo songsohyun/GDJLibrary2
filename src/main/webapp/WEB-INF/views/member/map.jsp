@@ -31,7 +31,7 @@
 	        title: "GDJLibrary",
 	        position: new naver.maps.LatLng(37.478095, 126.879192),
 	        icon: {
-	            content: '<img src="<c:url value="/resources/images/marker.png"/>" alt="" style="margin: 0px; padding: 0px; border: 0px solid transparent; display: block; max-width: none; max-height: none; -webkit-user-select: none; position: absolute; width: 32px; height: 32px; left: 0px; top: 0px;">',
+	            content: '<img src="<c:url value="/resources/images/map-pin-g894a2ee8c_1920.png"/>" alt="" style="margin: 0px; padding: 0px; border: 0px solid transparent; display: block; max-width: none; max-height: none; -webkit-user-select: none; position: absolute; width: 30px; height: 38px; left: 0px; top: 0px;">',
 	            size: new naver.maps.Size(32, 32),
 	            anchor: new naver.maps.Point(16, 32)
 	        }

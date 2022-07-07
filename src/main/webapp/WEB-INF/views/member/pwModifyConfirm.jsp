@@ -26,10 +26,7 @@
 
 </script>
 <style>
-	* {
-          padding: 0;
-          margin: 0;
-      }
+
 
     .pwModifyConfirm_wrap {
         width: 500px;

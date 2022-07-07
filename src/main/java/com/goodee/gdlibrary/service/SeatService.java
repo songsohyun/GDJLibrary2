@@ -17,4 +17,6 @@ public interface SeatService {
 	public Map<String, Object> seatRenew();
 	public Long randomSeatCode(Long seatNo);
 	public void addSeatInfo(Long seatNo, HttpServletRequest request);
+	
+	public SeatDTO seatFindMemberNo(HttpServletRequest request);
 }

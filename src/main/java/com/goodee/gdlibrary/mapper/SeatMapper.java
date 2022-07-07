@@ -18,4 +18,6 @@ public interface SeatMapper {
 	public void updateRandomCode(SeatDTO seat);
 	public void updateSeatDate(SeatDTO seat);
 	public void insertSeatInfo(SeatDTO seat);
+	
+	public SeatDTO selectSeatMemberNo(Long memberNo);
 }

@@ -209,7 +209,13 @@
 				data: 'seatNo=' + $(this).text(),
 				dataType: 'json',
 				success: function(obj){
-					if(obj.seats.seatStatus == 1) {
+					if(obj.findMember != null) {
+						alert('이미 예약을 하셨습니다.');
+						event.preventDefault();
+						return false;
+					}
+					else if(obj.seats.seatStatus == 1) {
+						
 						if(confirm(obj.seats.seatNo + '번 좌석을 사용하시겠습니까?')){
 
 							alert('예약되었습니다. 좌석코드는 ' + obj.code + '입니다. 출력된 번호표를 가져가세요.');

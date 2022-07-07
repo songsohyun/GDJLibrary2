@@ -89,10 +89,7 @@
 	.dont {
 		color: #666b7d;
 	}
-	* {
-        padding: 0;
-        margin: 0;
-    }
+
 
     .pwChange_wrap {
         width: 500px;

@@ -213,7 +213,7 @@
             </div>
             <div class="btn_sns_login">
                 <ul>
-                    <li><a href="${apiURL}" class="ico_naver"><img src="../resources/images/btnNaver.png"/></a></li>
+                    <li><a href="${apiURL}" class="ico_naver"><img src="../resources/images/btnW_아이콘원형.png"/></a></li>
                 </ul>
             </div>
             <div class="bottom_button_box">

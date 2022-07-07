@@ -63,5 +63,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 	(#{memberNo}, #{seatNo}, CURRENT_TIMESTAMP())
 		
 	</insert>
+	
+	<select id="selectSeatMemberNo" parameterType="Long" resultType="SeatDTO">
+		SELECT SEAT_NO, MEMBER_NO, SEAT_STATUS, SEAT_DATE, SEAT_CODE
+		  FROM SEAT
+		 WHERE MEMBER_NO = #{memberNo}
+	</select>
 
 </mapper>

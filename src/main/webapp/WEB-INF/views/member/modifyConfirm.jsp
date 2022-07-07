@@ -26,10 +26,7 @@
 
 </script>
 <style>
-* {
-    padding: 0;
-    margin: 0;
-}
+
 
 .modifyConfirm {
     width: 500px;

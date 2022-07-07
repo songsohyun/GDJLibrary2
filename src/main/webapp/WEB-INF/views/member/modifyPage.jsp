@@ -102,10 +102,7 @@
 	.dont {
 		color: #666b7d;
 	}
-	* {
-            margin: 0;
-            padding: 0;
-    }
+
     .mofidy_warp {
         width: 800px;
         margin: 40px auto 0;
