@@ -5,24 +5,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.goodee.gdlibrary.mapper.SeatMapper">
 	
-	<select id="selectSeatList" parameterType="List" resultType="SeatDTO">
+
+	<select id="selectSeatList" resultType="SeatDTO">
 		SELECT SEAT_NO, MEMBER_NO, SEAT_STATUS, SEAT_DATE, SEAT_CODE
 		  FROM SEAT
 		 ORDER BY SEAT_NO
 	</select>
-
-	<select id="selectSeatByNo" parameterType="Long" resultType="Integer">
-		SELECT SEAT_STATUS
+	
+	<select id="selectSeatByNo" parameterType="Long" resultType="SeatDTO">
+		SELECT SEAT_NO, MEMBER_NO, SEAT_STATUS, SEAT_DATE, SEAT_CODE
 		  FROM SEAT
 		 WHERE SEAT_NO = #{seatNo}
-	</select>
-	
-	<select id="selectRegMember" parameterType="String" resultType="Integer">
-		SELECT COUNT(*)
-		  FROM (SELECT S.SEAT_NO, S.MEMBER_NO, S.SEAT_STATUS, S.SEAT_DATE, S.SEAT_CODE
-		  		  FROM SEAT S INNER JOIN MEMBER M
-		  		    ON S.MEMBER_NO = M.MEMBER_NO
-		  		 WHERE MEMBER_ID = #{memberId})A
 	</select>
 	
 	<update id="updateUpSeatStatus" parameterType="SeatDTO">
@@ -71,5 +64,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 	(#{memberNo}, #{seatNo}, CURRENT_TIMESTAMP())
 		
 	</insert>
+	
+	
+	<!-- 추가한 부분 -->
+	<select id="selectSeatByMemberNo" parameterType="Long" resultType="Integer">
+		SELECT COUNT(*)
+		  FROM SEAT
+		 WHERE MEMBER_NO = #{memberNo}
+	</select>
 
 </mapper>

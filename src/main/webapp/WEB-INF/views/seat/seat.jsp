@@ -209,6 +209,7 @@
 				data: 'seatNo=' + $(this).text(),
 				dataType: 'json',
 				success: function(obj){
+<<<<<<< HEAD
 					console.log(obj);
 					var seat = obj.seats;
 					var member = obj.member;
@@ -234,8 +235,25 @@
 					}else{
 						alert('이미 이용하고 있는 좌석이 있습니다');
 						return;
+=======
+					if(obj.status == 1){
+						alert('이미 이용중인 좌석이 있습니다.');
+						return;
+					} else if(obj.status == 0){
+						if(obj.seats.seatStatus == 1) {
+							if(confirm(obj.seats.seatNo + '번 좌석을 사용하시겠습니까?')){
+	
+								alert('예약되었습니다. 좌석코드는 ' + obj.code + '입니다. 출력된 번호표를 가져가세요.');
+								location.href='${contextPath}/seat/upSeatStatus?seatNo=' + obj.seats.seatNo;
+							}
+						} else if(obj.seats.seatStatus == 2){
+							alert('이미 이용중인 좌석입니다. 다른 좌석을 선택해주세요.');
+						}						
+					}
+>>>>>>> main
 
 				}
+				
 			})
 			
 		})
@@ -513,7 +531,11 @@
 								좌석갱신
 								<input type="button" value="좌석 갱신" id="btnSeatRenew" class="formBtn">
 								<label for="btnSeatRenew">&nbsp;<i class="fa-solid fa-computer-mouse bt"></i>&nbsp;</label>
+<<<<<<< HEAD
 
+=======
+								
+>>>>>>> main
 							</div>
 						</td>
 		    		</tr>

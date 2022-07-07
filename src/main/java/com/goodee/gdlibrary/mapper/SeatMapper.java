@@ -11,8 +11,8 @@ public interface SeatMapper {
 	
 	public List<SeatDTO> selectSeatList();
 	
-	public int selectSeatByNo(Long seatNo);
-	public int selectRegMember(String memberId);
+	public SeatDTO selectSeatByNo(Long seatNo);
+
 	
 	public int updateUpSeatStatus(SeatDTO seat);
 	public int updateDownSeatStatus(Long seatCode);
@@ -21,4 +21,7 @@ public interface SeatMapper {
 	public void updateRandomCode(SeatDTO seat);
 	public void updateSeatDate(SeatDTO seat);
 	public void insertSeatInfo(SeatDTO seat);
+	
+	// 추가한 부분
+	public int selectSeatByMemberNo(Long memberNo);
 }
