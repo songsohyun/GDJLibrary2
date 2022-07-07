@@ -76,6 +76,7 @@
 					$.each(result.overdueBookList, function(i, overdueBook){
 						$('<tr>')
 						.append($('<td>').html('<input type="checkbox" class="checkOneOverdue" name="overdueNo" value="' + overdueBook.overdueNo + '">'))
+						// .append($('<td class="img_wrap">').html('<img src="' + overdueBook.bookImage + '" width="50">'))
 						.append($('<td class="img_wrap">').html('<img src="' + overdueBook.bookImage + '" width="50">'))
 						// .append($('<td>').text(overdueBook.bookTitle))
 						.append($('<td>').html(overdueBook.bookTitle))
@@ -264,11 +265,28 @@
 		/* border-bottom: 1px solid silver; */
 		text-align: center;
 	}
+	
+	/* 원본 */
+	/*  
 	td:nth-of-type(1) { width: 50px; }
 	td:nth-of-type(2) { width: 150px; }
 	td:nth-of-type(3) { width: 500px; }
 	td:nth-of-type(4) { width: 170px; }
 	td:nth-of-type(5) { width: 150px; }
+	*/
+	
+	#f1 td:nth-of-type(1) { width: 50px; }
+	#f1 td:nth-of-type(2) { width: 150px; }
+	#f1 td:nth-of-type(3) { width: 500px; }
+	#f1 td:nth-of-type(4) { width: 170px; }
+	#f1 td:nth-of-type(5) { width: 150px; }
+	
+	#f2 td:nth-of-type(1) { width: 50px; }
+	#f2 td:nth-of-type(2) { width: 200px; }
+	#f2 td:nth-of-type(3) { width: 600px; }
+	#f2 td:nth-of-type(4) { width: 200px; }
+	
+	
 	
 	.img_wrap {
 		padding-top: 20px;

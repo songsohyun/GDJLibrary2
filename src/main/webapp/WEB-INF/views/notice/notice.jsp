@@ -78,7 +78,7 @@
 	}
 	.notice_top {
 		width: 100%;
-		padding-left: 390px;
+		padding-left: 430px;
 		margin-top: 40px;
 		margin-bottom: 40px;
 		font-size: 24px;
