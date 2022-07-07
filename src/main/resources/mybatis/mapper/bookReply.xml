@@ -31,8 +31,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  FROM BOOK_REPLY
 		 WHERE BOOK_NO = #{bookNo}
 	</select>
-
 	
+	<!-- 대여기록체크 -->
+	<select id="selectRentCheck" parameterType="BookReplyDTO" resultType="Integer">
+		SELECT COUNT(*)
+		  FROM RENT
+		 WHERE BOOK_NO = #{bookNo}
+		   AND MEMBER_ID = #{memberId}
+	</select>
+	<!-- 대여기록체크 -->
+	<select id="selectReturnCheck" parameterType="BookReplyDTO" resultType="Integer">
+		SELECT COUNT(*)
+		  FROM RETURNED
+		 WHERE BOOK_NO = #{bookNo}
+		   AND MEMBER_ID = #{memberId}
+	</select>
+	<!-- 대여기록체크 -->
+	<select id="selectOverdueCheck" parameterType="BookReplyDTO" resultType="Integer">
+		SELECT COUNT(*)
+		  FROM OVERDUE
+		 WHERE BOOK_NO = #{bookNo}
+		   AND MEMBER_ID = #{memberId}
+	</select>
 	
 	
 </mapper>

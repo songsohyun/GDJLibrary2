@@ -34,12 +34,15 @@ public class SeatServiceImpl implements SeatService {
 	
 	@Override
 	public void upSeatStatus(Long seatNo, HttpServletRequest request) {
-		MemberDTO loginMember = (MemberDTO) request.getSession().getAttribute("loginMember");
+		  MemberDTO loginMember = (MemberDTO) request.getSession().getAttribute("loginMember");
 	      Long memberNo = loginMember.getMemberNo();
+	      String memberId = loginMember.getMemberId();
 	      SeatDTO seat = SeatDTO.builder()
 	    		  .memberNo(memberNo)
 	    		  .seatNo(seatNo)
+	    		  .memberId(memberId)
 	    		  .build();
+	      
 		seatMapper.updateUpSeatStatus(seat);
 	}
 	

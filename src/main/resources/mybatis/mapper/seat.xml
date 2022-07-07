@@ -5,14 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.goodee.gdlibrary.mapper.SeatMapper">
 	
-	<!--  
-	<select id="selectSeatList" parameterType="List" resultType="SeatDTO">
-		SELECT SEAT_NO, MEMBER_NO, SEAT_STATUS, SEAT_DATE, SEAT_CODE
-		  FROM SEAT
-		 ORDER BY SEAT_NO
-	</select>
-	-->
-	
+
 	<select id="selectSeatList" resultType="SeatDTO">
 		SELECT SEAT_NO, MEMBER_NO, SEAT_STATUS, SEAT_DATE, SEAT_CODE
 		  FROM SEAT

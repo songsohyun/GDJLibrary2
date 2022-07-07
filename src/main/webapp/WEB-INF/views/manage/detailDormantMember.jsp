@@ -53,7 +53,7 @@
 	<form id="f" action="${contextPath}/admin/saveDormantToMember?memberNo=${member.memberNo}" method="post">
 		<input type="hidden" value="${value}" name="value">
 		<input type="button" value="수정페이지" id="btnChangePage">
-	    <input type="button" value="목록" id="btnList">
+	    <input type="button" value="휴면 회원 목록" id="btnList">
 		<button id="btnDormantMember">활동회원전환</button>
 	</form>
 </body>

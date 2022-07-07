@@ -82,11 +82,7 @@ public class BookServiceImpl implements BookService {
 			book.setBookAuthor(b.getString("recomauthor"));
 			book.setBookPublisher(b.getString("recompublisher"));
 			book.setBookPubdateTime(b.getString("regdate"));
-			if(b.getString("recomcontens").length() > 3000) {
-				book.setBookDescription(b.getString("recomcontens").substring(0, 3000));
-			}else {
-				book.setBookDescription(b.getString("recomcontens"));
-			}
+			book.setBookDescription(b.getString("recomcontens"));
 			book.setBookImage(b.getString("recomfilepath"));
 			book.setBookType(b.getString("drCodeName"));
 			bookMapper.insertBook(book);

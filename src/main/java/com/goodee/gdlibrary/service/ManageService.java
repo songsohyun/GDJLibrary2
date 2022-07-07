@@ -49,7 +49,7 @@ public interface ManageService {
 	
 	
 	// book 서비스
-	public Map<String, Object> checkBookIsbn(String isbn);
+	public Map<String, Object> checkBookByIsbn(String isbn);
 	
 	public void findBooks(HttpServletRequest request, Model model);
 	public void findBookByNo(HttpServletRequest request, Model model);
@@ -59,4 +59,6 @@ public interface ManageService {
 	public void changeBook(HttpServletRequest request, HttpServletResponse response, Model model);
 	public void findSearchBooks(HttpServletRequest request, Model model);
 	public Map<String, Object> autoCompleteBook(HttpServletRequest request);
+	
+	public void insertFnq(HttpServletRequest request, HttpServletResponse response);
 }

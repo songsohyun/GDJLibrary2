@@ -129,6 +129,7 @@
            <div class="container">
                <ul>
                 <li class="aeq">${loginMember.memberName}님</li>
+                <li class="aeq">${loginMember.memberId}님</li>
                 <li><a href="${contextPath}/member/logout">로그아웃</a></li>
                <li><a href="${contextPath}/member/myPage">마이페이지</a></li>
                </ul>
