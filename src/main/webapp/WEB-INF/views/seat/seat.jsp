@@ -215,9 +215,9 @@
 							alert('예약되었습니다. 좌석코드는 ' + obj.code + '입니다. 출력된 번호표를 가져가세요.');
 							location.href='${contextPath}/seat/upSeatStatus?seatNo=' + obj.seats.seatNo;
 						}
-					} else if(obj.seats.seatStatus == 2){
+						
+					} else{
 						alert('이미 이용중인 좌석입니다. 다른 좌석을 선택해주세요.');
-						event.preventDefault();
 					}
 				}
 			})
@@ -493,13 +493,11 @@
 								
 								<br>
 								
+								
 								좌석갱신
 								<input type="button" value="좌석 갱신" id="btnSeatRenew" class="formBtn">
 								<label for="btnSeatRenew">&nbsp;<i class="fa-solid fa-computer-mouse bt"></i>&nbsp;</label>
-								
-								<br>
-								
-								<input type="button" value="첫페이지로 가기" onclick="location.href='${contextPath}'">
+
 							</div>
 						</td>
 		    		</tr>
