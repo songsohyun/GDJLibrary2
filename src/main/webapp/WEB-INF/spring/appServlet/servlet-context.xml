@@ -30,6 +30,7 @@
 	<beans:bean class="com.goodee.gdlibrary.interceptor.KeepLoginInterceptor" id="keepLoginInterceptor" />
 	<beans:bean class="com.goodee.gdlibrary.interceptor.NaverLoginInterceptor" id="NaverLoginInterceptor" />
 	<beans:bean class="com.goodee.gdlibrary.interceptor.PreventNaverInterceptor" id="PreventNaverInterceptor" />
+	
    
    <interceptors>
       <interceptor>
@@ -63,27 +64,28 @@
 	
 	
 
-	<beans:bean class="com.goodee.gdlibrary.interceptor.RequiredLoginInterceptor1" id="requiredLoginInterceptor1" />
+	<beans:bean class="com.goodee.gdlibrary.interceptor.RequiredLoginInterceptor1" id="requiredLoginInterceptor" />
 
 	  
 	<interceptors>
 		<interceptor>
+			<mapping path="/rent/rentBook"/>
 			<mapping path="/returned/returnedBookPage"/>
 			<mapping path="/qaa/addQaaPage"/>
 			<mapping path="/seat/seatAgreePage"/>
-			<beans:ref bean="requiredLoginInterceptor1"/>
+			<beans:ref bean="requiredLoginInterceptor"/>
 		</interceptor>
-	</interceptors>	
+	</interceptors>
 	
 	
-	<beans:bean class="com.goodee.gdlibrary.interceptor.RequiredLoginInterceptor2" id="requiredLoginInterceptor2" />
+	<beans:bean class="com.goodee.gdlibrary.interceptor.AdminInterceptor" id="adminInterceptor" />
 	
 	<interceptors>
 		<interceptor>
-			<mapping path="/rent/rentBook"/>
-			<beans:ref bean="requiredLoginInterceptor2"/>
+			<mapping path="/admin/manageMain"/>
+			<beans:ref bean="adminInterceptor"/>
 		</interceptor>
-	</interceptors>	
+	</interceptors>
 	
 	
 </beans:beans>
