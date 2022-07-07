@@ -195,7 +195,7 @@
 		width: 860px;
 /* 		margin-top: 30px;
 		margin-bottom: 70px; */
-		margin: 30px auto;
+		margin: 100px auto;
 		padding-left: 15px;
 		
 	}
@@ -249,6 +249,8 @@
 </style>
 </head>
 <body>
+	
+	<jsp:include page="../layout/header.jsp"></jsp:include><br><br><br>
 	
 	<c:if test="${res eq 'add'}">
 		<div class="addNotice_wrap">

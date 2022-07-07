@@ -104,7 +104,11 @@ public class SeatServiceImpl implements SeatService {
 	
 	
 	
-	
+	// 추가한 부분
+	@Override
+	public int findSeatByMemberNo(Long memberNo) {
+		return seatMapper.selectSeatByMemberNo(memberNo);
+	}
 	
 	
 	

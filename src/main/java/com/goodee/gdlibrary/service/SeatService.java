@@ -17,4 +17,7 @@ public interface SeatService {
 	public Map<String, Object> seatRenew();
 	public Long randomSeatCode(Long seatNo);
 	public void addSeatInfo(Long seatNo, HttpServletRequest request);
+	
+	// 추가한 부분
+	public int findSeatByMemberNo(Long memberNo);
 }

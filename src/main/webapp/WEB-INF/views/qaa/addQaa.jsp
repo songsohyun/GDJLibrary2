@@ -12,7 +12,7 @@
 <style>
 	.addQaa_wrap {
 		width: 600px;
-		margin: 30px auto; 
+		margin: 100px auto; 
 		/* padding-left: 20px; */
 	}
 	input[name="title"], input[name="memberId"] {
@@ -96,6 +96,8 @@
 
 </head>
 <body>
+
+	<jsp:include page="../layout/header.jsp"></jsp:include><br><br><br>
 
 	<div class="addQaa_wrap">
 		<form id="f" action="${contextPath}/qaa/addQaa" method="post">

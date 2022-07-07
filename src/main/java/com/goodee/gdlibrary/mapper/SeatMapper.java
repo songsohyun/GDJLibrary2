@@ -18,4 +18,7 @@ public interface SeatMapper {
 	public void updateRandomCode(SeatDTO seat);
 	public void updateSeatDate(SeatDTO seat);
 	public void insertSeatInfo(SeatDTO seat);
+	
+	// 추가한 부분
+	public int selectSeatByMemberNo(Long memberNo);
 }
