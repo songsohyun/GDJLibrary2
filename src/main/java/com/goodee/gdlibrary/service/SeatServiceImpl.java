@@ -27,36 +27,8 @@ public class SeatServiceImpl implements SeatService {
 	
 	
 	@Override
-	public Map<String, Object> findSeat(HttpServletRequest request) {
-		
-			Long seatNo = Long.parseLong(request.getParameter("seatNo"));
-			
-			String str = "";
-			for(int i = 0; i <6; i++) {
-				str += ((int)(Math.random() * 9) + 1);
-			}
-			Long seatCode = Long.parseLong(str);
-	
-			MemberDTO loginMember = (MemberDTO) request.getSession().getAttribute("loginMember");
-
-		    String memberId = loginMember.getMemberId();
-		    
-		    Integer seatStatus = seatMapper.selectSeatByNo(seatNo);
-		    
-		    SeatDTO seat = SeatDTO.builder()
-		    				.seatCode(seatCode)
-		    				.seatNo(seatNo)
-		    				.memberId(memberId)
-		    				.seatStatus(seatStatus).build();
-		    
-		    int res = seatMapper.selectRegMember(memberId);
-		    seatMapper.updateRandomCode(seat);
-			Map<String, Object> map = new HashMap<>();
-			map.put("seats", seat);
-			map.put("member", res);
-			
-			return map;
-
+	public SeatDTO findSeat(Long seatNo) {
+		return seatMapper.selectSeatByNo(seatNo);
 	}
 	
 	
@@ -86,6 +58,8 @@ public class SeatServiceImpl implements SeatService {
 	@Override
 	public Map<String, Object> seatConfirm(String memberId) {
 		Map<String, Object> map = new HashMap<String, Object>();
+		
+		
 		map.put("res", seatMapper.selectSeatById(memberId));
 		return map;
 	}
@@ -135,7 +109,11 @@ public class SeatServiceImpl implements SeatService {
 	
 	
 	
-	
+	// 추가한 부분
+	@Override
+	public int findSeatByMemberNo(Long memberNo) {
+		return seatMapper.selectSeatByMemberNo(memberNo);
+	}
 	
 	
 	

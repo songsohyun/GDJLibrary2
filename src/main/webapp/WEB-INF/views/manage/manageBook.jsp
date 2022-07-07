@@ -91,21 +91,21 @@
 			}
 			
 			// 책제목 검색
-			var regBookTitle = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]*$/; // 한글 + 영어 + 숫자 + 공백 가능
+			var regBookTitle = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|\s]+$/; // 한글 + 영어 + 숫자 + 공백 가능
 			if( column.val() == 'BOOK_TITLE' && regBookTitle.test(query.val()) == false ) {
 				alert('제목이 올바르지 않습니다.');
 				return;
 			}
 			
 			// 책작가 검색
-			var regBookAuthor = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]*$/; // 한글 + 영어 + 숫자 + 공백 가능
+			var regBookAuthor =  /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|\s]+$/; // 한글 + 영어 + 숫자 + 공백 가능
 			if( column.val() == 'BOOK_AUTHOR' && regBookAuthor.test(query.val()) == false ) {
 				alert('작가 이름이 올바르지 않습니다.');
 				return;
 			}
 			
 			// 출판사 검색
-			var regBookPublisher = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]*$/; // 한글 + 영어 + 숫자 + 공백 가능
+			var regBookPublisher = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|\s]+$/; // 한글 + 영어 + 숫자 + 공백 가능
 			if( column.val() == 'BOOK_PUBLISHER' && regBookPublisher.test(query.val()) == false ) {
 				alert('출판사 이름이 올바르지 않습니다.');
 				return;
@@ -140,7 +140,7 @@
 			} else if( $(this).val() == 'BOOK_ISBN' || $(this).val() == 'BOOK_TITLE' || $(this).val() == 'BOOK_AUTHOR' || $(this).val() == 'BOOK_PUBLISHER') {
 				$('#equalArea').css('display', 'inline');
 				$('#rangeArea').css('display', 'none');
-				$('#selectSection').css('padding-left', '114px');
+				$('#selectSection').css('padding-left', '108px');
 			}
 		})
 		
@@ -246,7 +246,7 @@
  		margin-left: 180px;
  	}
  	#tfoot{
- 		padding-right: 10px;
+ 		padding-right: 21px;
  			
  	}
  	.link, .unlink{
@@ -270,14 +270,14 @@
     페이지별검색수: ${value}        
 	&nbsp;&nbsp;
 	책수: ${totalRecord}권
-	<input type="button" value="전체책조회" id="btnSearchAll">&nbsp;&nbsp;&nbsp;<input type="button" value="책 추가하기" id="btnInsert">&nbsp;&nbsp;&nbsp;<input type="button" value="네이버API 책 추가하기" id="btnInsertNaver">
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<input type="button" value="관리자메인페이지" id="btnManageMain">
+	<input type="button" value="전체 책 조회" id="btnSearchAll">&nbsp;&nbsp;&nbsp;<input type="button" value="책 추가하기" id="btnInsert">&nbsp;&nbsp;&nbsp;<input type="button" value="네이버API 책 추가하기" id="btnInsertNaver">
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="button" value="관리자 메인 페이지" id="btnManageMain">
 	</div>
 	
 	<br>	
 				
-	<form id="f" action="${contextPath}/admin/removeCheckBook" method="post">
+	<form id="f" action="${contextPath}/admin/removeCheckBook?value=${value}" method="post">
 		<table border="1" class="table">
 			<thead>
 				<tr>
@@ -305,7 +305,6 @@
 						<td>${book.bookPublisher}</td>
 						<td>${book.bookPubdateTime}</td>					
 						<td><a href="${contextPath}/admin/removeBook?bookNo=${book.bookNo}&value=${value}" onclick="return confirm('정말 삭제하시겠습니까?')"><i class="fa-solid fa-circle-xmark"></i></a></td>					
-						<input type="hidden" name="value" value="${value}">
 					</tr>
 				</c:forEach>
 			</tbody>

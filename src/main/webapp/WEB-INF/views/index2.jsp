@@ -146,8 +146,10 @@
 		<div class="divBottomMenu"><a href="${contextPath}/returned/returnedBookPage">반납하기</a></div>
 		<div class="divBottomMenu"><a href="${contextPath}/notice/noticePage">공지사항</a></div>
 		<div class="divBottomMenu"><a href="${contextPath}/qaa/qaaPage">질문과답변</a></div>
-		<div class="divBottomMenu"><a href="${contextPath}/admin/manageMain">관리자페이지</a></div>
 		<div class="divBottomMenu"><a href="${contextPath}/member/map">찾아오시는 길</a></div>
+		<c:if test="${loginMember.memberId eq \"admin\"}">
+			<div class="divBottomMenu"><a href="${contextPath}/admin/manageMain">관리자페이지</a></div>
+		</c:if>
 	</div>
 	<div id="divBottomText">
 		<div style="margin-left: 100px;">

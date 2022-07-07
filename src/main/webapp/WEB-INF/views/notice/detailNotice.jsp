@@ -49,7 +49,7 @@
 	}
 	.notice_wrap {
 		width: 860px;
-		margin: 30px auto; 
+		margin: 100px auto; 
 	}
 	.notice_detail_wrap {
 		width: 850px;
@@ -155,6 +155,9 @@
 </style>
 </head>
 <body>
+
+	<jsp:include page="../layout/header.jsp"></jsp:include><br><br><br>
+	
 	<div class="notice_wrap">
 		<div class="notice_top">
 			- 공지사항 -

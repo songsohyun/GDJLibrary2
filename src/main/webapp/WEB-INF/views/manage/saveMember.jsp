@@ -16,6 +16,104 @@
 	.dont {
 		color: crimson;
 	}
+	
+	#phoneMsg {
+		color: crimson;
+	}
+	
+	* {
+	  margin: 0;
+	  padding: 0;
+	  box-sizing: border-box;
+    }
+	ul, li {
+	  list-style: none;
+	}
+	a {
+	  text-decoration: none;
+	  color: inherit;
+	}        
+	.register{
+	            width: 550px;
+	            margin: 200px auto 0;
+	            padding: 15px 20px;
+            background: white;
+            color: #2b2e4a;
+            font-size: 14px;
+            text-align: left;
+            box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+    }
+    .register h3{
+        font-size: 20px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    .register input{
+        width: 100%;
+        height: 40px;
+        outline: none;
+        padding: 10px;
+        border: 1px solid #707070;
+        transition: 0.3s;
+    }
+    .register input:valid, .register input:focus{
+        border: 1px solid #2b2e4a;
+    }
+    .register .center{
+        display: flex;
+        align-items: center;
+    }
+    .register .flex{
+        display: flex;
+        flex-direction: column;
+    }
+    .register .flex .container{
+        display: grid;
+        grid-template-columns: 1fr 3fr 1fr;
+        margin-bottom: 10px;
+    }
+    .register .flex .container .item:first-child{
+       margin-right: 10px;
+    }
+    .register .flex .container .item .idcheck{
+        height: 100%;
+        margin-left: 10px;
+        padding: 5px 15px;
+        background: #2b2e4a;
+        border: 1px solid #2b2e4a;
+        color: white;
+        font-size: 12px;
+        transition: 0.3s;
+    }
+    .register .flex .container .item .idcheck:hover{
+        background: white;
+        color: #2b2e4a;
+    }
+    .register .flex .container .item select{
+        height: 40px;
+        padding: 10px;
+        border: 1px solid #2b2e4a;
+    }
+    .register .submit{
+        width: 100%;
+        height: 40px;
+        color: white;
+        border: none;
+        border: 1px solid #2b2e4a;
+        background: #2b2e4a;
+        transition: 0.3s;
+    }
+    .register .flex .container:last-child{
+        margin: 0;
+    }
+    .register .submit:hover{
+        width: 100%;
+        height: 40px;
+        border: none;
+        border: 1px solid #2b2e4a;
+        color: #2b2e4a;
+        background: white;
+    }
 </style>
 <script src="../resources/js/jquery-3.6.0.js"></script>
 <script>
@@ -28,7 +126,10 @@
 		fnEmailCheck();
 		fnSignIn();
 		fnPhoneCheck();
-		
+		// 목록
+		$('#btnList').on('click', function(){
+			location.href='${contextPath}/admin/listMember?value=${value}';
+		})
 	})
 	
 	
@@ -38,13 +139,16 @@
 	// 6. 회원추가
 	function fnSignIn(){
 		$('#f').on('submit', function(event){
-			
 			if(idPass == false){
 				alert('아이디를 확인하세요.');
 				event.preventDefault();
 				return false;
 			} else if(pwPass == false || rePwPass == false){
 				alert('비밀번호를 확인하세요.');
+				event.preventDefault();
+				return false;
+			} else if(phonePass == false){
+				alert('휴대전화 번호를 확인하세요.');
 				event.preventDefault();
 				return false;
 			} else if(emailPass == false){
@@ -55,15 +159,11 @@
 				alert('이미 사용중인 이메일입니다.');
 				event.preventDefault();
 				return false;
-			} else if(phonePass == false){
-				alert('휴대전화 번호를 확인하세요.');
-				event.preventDefault();
-				return false;
-			} else if($('#id').val() == '' || $('#pw').val() == '' || $('#name').val() == '' || $('#phone').val() == '' || $('#email').val() == '' || $('#postcode').val() == '' || $('#roadAddress').val() == '' || $('#detailAddress').val() == ''){
-		        alert('내용을 모두 입력해주세요.');
-		        event.preventDefault();
-				return false;
-			} 
+			} else if($('#id').val() == '' || $('#pw').val() == '' || $('#pwConfirm').val() == '' || $('#name').val() == '' || $('#phone').val() == '' || $('#email').val() == '' || $('#postcode').val() == '' || $('#roadAddress').val() == '' || $('#detailAddress').val() == ''){
+			        alert('내용을 모두 입력해주세요.');
+			        event.preventDefault();
+					return false;
+		    } 
 
 			return true;
 		})
@@ -71,16 +171,16 @@
 	
 	
 	// 5. 휴대전화 확인
-	let PhonePass = false;
+	let phonePass = false;
 	function fnPhoneCheck(){
 		$('#phone').on('keyup', function(){
 			let regPhone = /^[0-9]{3}-[0-9]{4}-[0-9]{4}$/;
 			if(regPhone.test($('#phone').val()) == false) {
 				$('#phoneMsg').text('휴대전화 형식 예) 010-1234-5678');
-				PhonePass = false;
+				phonePass = false;
 			} else {
 				$('#phoneMsg').text('');
-				PhonePass = true;
+				phonePass = true;
 			}
 		})
 	}
@@ -130,7 +230,7 @@
 	function fnPwConfirm(){
 		$('#pwConfirm').on('keyup', function(){
 			if($('#pwConfirm').val() != '' && $('#pw').val() != $('#pwConfirm').val()){
-				$('#pwConfirmMsg').text('비밀번호를 확인하세요.').addClass('dont').removeClass('ok');
+				$('#pwConfirmMsg').text('비밀번호가 일치하지 않습니다.').addClass('dont').removeClass('ok');
 				rePwPass = false;
 			} else {
 				$('#pwConfirmMsg').text('');
@@ -153,7 +253,7 @@
 			   $('#pwMsg').text('사용 가능한 비밀번호 입니다.').addClass('ok').removeClass('dont');
 			   pwPass = true;
 			} else {
-				$('#pwMsg').text('8~20자 영문 대 소문자, 숫자, 특수문자 중 3개 이상을 사용하세요.').addClass('dont').removeClass('ok');
+				$('#pwMsg').text('8~20자 영문 대 소문자,숫자,특수문자 중 3개 이상을 사용하세요.').addClass('dont').removeClass('ok');
 				pwPass = false;
 			}
 		})
@@ -198,44 +298,134 @@
 </script>
 </head>
 <body>
-	
-	
-	
-	<h1>회원추가화면</h1>
-	
-	<form id="f" action="${contextPath}/admin/saveMember?value=${value}" method="post">
-		<label for="id">
-			아이디<br>
-			<input type="text" name="id" id="id"><br>
-			<span id="idMsg"></span>
-		</label><br><br>
-		<label for="pw">
-			비밀번호<br>
-			<input type="password" name="pw" id="pw"><br>
-			<span id="pwMsg"></span>
-		</label><br><br>
-		
-		<label for="pwConfirm">
-			비밀번호 재확인<br>
-			<input type="password" id="pwConfirm" name="pwConfirm"><br>
-			<span id="pwConfirmMsg"></span>
-		</label><br><br>
-		<input type="text" name="name"  id="name" placeholder="이름"><br>
-		<input type="text" name="phone" id="phone" placeholder="전화번호">
-		<span id="phoneMsg"></span><br><br>
-	
-		<label for="email">
-			이메일<br>
-			<input type="text" name="email" id="email"><br>
-			<span id="emailMsg"></span><br>
-		</label><br>
-	
-		<input type="text" name="postcode" id="postcode" placeholder="우편번호"><br>
-		<span id="postMsg"></span><br>
-		<input type="text" name="roadAddress" id="roadAddress" placeholder="주소"><br>
-		<input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소"><br>
-		<button>작성완료</button>
-	</form>
-	
+	 <div class="register">
+        <h3>회원추가</h3>
+        <form id="f" action="${contextPath}/admin/saveMember?value=${value}" method="post">
+            <div class="flex">
+                <ul class="container">
+                    <li class="item center">
+                        아이디
+                    </li>
+                    <li class="item">
+                        <input type="text" name="id" id="id" placeholder="아이디를 입력하세요.">
+                    </li>
+                    <li class="item">
+                        
+                    </li>
+                </ul>
+                <ul class="container">
+                   
+                    <li class="item center">
+                        비밀번호
+                    </li>
+                    <li class="item">
+                        <span id="idMsg"></span>
+                        <input type="password" name="pw" id="pw" placeholder="비밀번호를 입력하세요.">
+                    </li>
+                  	<li class="item">
+                        
+                    </li>
+                </ul>
+                <ul class="container">
+                
+                    <li class="item center">
+                        
+                        비밀번호 확인
+                    </li>
+                    <li class="item">
+                        <span id="pwMsg"></span>
+                        <input type="password" id="pwConfirm" name="pwConfirm" placeholder="비밀번호를 입력하세요.">
+                    </li>
+                    <li class="item">
+                        
+                    </li>
+                </ul>
+                <ul class="container">
+                    
+                    <li class="item center">
+                         이름
+                    </li>
+                    <li class="item">
+                        <span id="pwConfirmMsg"></span>
+                        <input type="text" name="name" id="name" placeholder="이름을 입력하세요.">
+                    </li>
+                    <li class="item">
+                        
+                    </li>
+                </ul>
+                <ul class="container">
+                    <li class="item center">
+                        전화번호
+                    </li>
+                    <li class="item">
+                       <input type="text" name="phone" id="phone" placeholder="전화번호를 입력하세요.">
+                    </li>
+                     <li class="item">
+                        
+                    </li>
+                </ul>
+                <ul class="container">
+                    
+                    <li class="item center">
+                        이메일
+                    </li>
+                    <li class="item">
+                        <span id="phoneMsg"></span>
+                        <input type="text" name="email" id="email" placeholder="이메일을 입력하세요.">
+                    </li>
+                    <li class="item">
+                        
+                    </li>
+                </ul>
+                <ul class="container">
+                    <li class="item center">
+                        우편번호
+                    </li>
+                    <li class="item">
+                        <span id="emailMsg"></span>
+                        <input type="text" name="postcode" id="postcode" placeholder="우편번호를 입력하세요.">
+                    </li>
+                    <li class="item">
+                        
+                    </li>
+                </ul>
+                 <ul class="container">
+                    <li class="item center">
+                        도로명 주소
+                    </li>
+                    <li class="item">
+                        <span id="emailMsg"></span>
+                        <input type="text" name="roadAddress" id="roadAddress" placeholder="도로명 주소를 입력하세요.">
+                    </li>
+                    <li class="item">
+                        
+                    </li>
+                </ul>
+                 <ul class="container">
+                    <li class="item center">
+                        상세주소
+                    </li>
+                    <li class="item">
+                        <input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소를 입력하세요.">
+                    </li>
+                    <li class="item">
+                        
+                    </li>
+                </ul>
+                <ul class="container">
+                    <li class="item center">
+                        
+                    </li>
+                    <li class="item">
+                        <button class="submit">추가하기</button>
+                    </li>
+                    <li class="item">
+                        
+                    </li>
+                </ul>
+            </div>
+        </form>
+    </div>
+  
 </body>
 </html>
