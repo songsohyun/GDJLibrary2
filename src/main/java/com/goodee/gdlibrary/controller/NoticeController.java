@@ -45,11 +45,18 @@ public class NoticeController {
 	}
 	
 	
-	// summernote로 이미지 등록한 후 보여주기
+	// summernote로 이미지 등록하기
 	@ResponseBody
 	@PostMapping(value="/notice/uploadSummernoteImage", produces="application/json")
 	public Map<String, Object> uploadSummernoteImage(MultipartHttpServletRequest multipartRequest){
 		return noticeService.uploadSummernoteImage(multipartRequest);
+	}
+	
+	// summernote로 등록한 이미지 보여주기
+	@ResponseBody
+	@GetMapping("/notice/display")
+	public ResponseEntity<byte[]> noticeDisplay(HttpServletRequest request) {
+		return noticeService.display(request);
 	}
 	
 	

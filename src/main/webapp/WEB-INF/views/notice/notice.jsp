@@ -52,9 +52,14 @@
 
 </script>
 <style>
+
+ 	@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+	
 	* {
 		box-sizing: border-box;
-	}
+		font-family: 'Noto Sans KR', sans-serif;
+		color: #4e4c4c;
+	} 
 /* 	.link:hover {
 		border: 1px solid orange;
 		color: limegreen;
@@ -73,7 +78,7 @@
 	}
 	.notice_all_wrap {
 		width: 1020px;
-		margin: 100px auto; 
+		margin: 200px auto; 
 		/* padding-left: 20px; */
 	}
 	.notice_top {
@@ -160,7 +165,7 @@
 		border-radius: 10px;
 		vertical-align: middle;
 		padding-left: 10px;
-		padding-top: 3px;
+		/* padding-top: 3px; */
 	}
 	#btnSearch {
 		display: none;
@@ -173,7 +178,7 @@
 		height: 27px;
 		background-color: #4390de;
 		cursor: pointer;
-		padding-top: 1px;
+		/* padding-top: 1px; */
 		text-align: center;
 	}
 

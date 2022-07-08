@@ -184,12 +184,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 
 		스케쥴러 사용을 위한 SQL 
-		어제 저장된 첨부 파일 목록(MySQL)
-	-->
+		어제 저장된 첨부 파일 목록(MySQL)(원본)
+	
 	<select id="selectFileAttachListAtYesterday" resultType="NoticeFileAttachDTO">
 		SELECT NOTICE_FILE_ATTACH_NO, NOTICE_FILE_ATTACH_PATH, NOTICE_FILE_ATTACH_ORIGIN, NOTICE_FILE_ATTACH_SAVED, NOTICE_NO
 		  FROM NOTICE_FILE_ATTACH
 		 WHERE NOTICE_FILE_ATTACH_PATH = CONCAT('C:\\upload\\', DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 DAY), '%Y\\%c\\%e'))
 	</select>
-
+    -->
+    
+    
+    <!-- 
+		스케쥴러 사용을 위한 SQL 
+		어제 저장된 첨부 파일 목록(MySQL)(수정본)
+	-->
+	<select id="selectFileAttachListAtYesterday" resultType="NoticeFileAttachDTO">
+		SELECT NOTICE_FILE_ATTACH_NO, NOTICE_FILE_ATTACH_PATH, NOTICE_FILE_ATTACH_ORIGIN, NOTICE_FILE_ATTACH_SAVED, NOTICE_NO
+		  FROM NOTICE_FILE_ATTACH
+		 WHERE NOTICE_FILE_ATTACH_PATH LIKE CONCAT('%', '/resources/upload/', DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 DAY), '%Y/%m/%d'))
+	</select>
+    
+    
+    
 </mapper>

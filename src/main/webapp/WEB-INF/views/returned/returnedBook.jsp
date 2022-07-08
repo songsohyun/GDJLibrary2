@@ -247,12 +247,16 @@
 	
 </script>
 <style>
+	@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+	
 	* {
 		box-sizing: border-box;
+		font-family: 'Noto Sans KR', sans-serif;
+		color: #4e4c4c;
 	}
 	.bookList_wrap {
 		width: 1020px;
-		margin: 100px auto; 
+		margin: 200px auto; 
 		/* padding-left: 20px; */
 	}
 	table {
