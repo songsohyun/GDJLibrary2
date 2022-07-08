@@ -109,6 +109,7 @@
    }
    
    #logo{
+   		margin: 30px 40px -60px 80px;
          margin: 30px 40px -60px 80px;
    }
    
@@ -143,7 +144,10 @@
     </header>
    </c:if>
    <section class="clearfix2">
-   <div id="logo"><img width="150px" src="${contextPath}/resources/images/logo2.png" ></div>
+
+   <div id="logo"><a href="${contextPath}"><img width="150px" src="${contextPath}/resources/images/logo3.png" ></a></div>
+
+
     <div class="container2">
         <ul>
             <li><a href="${contextPath}/book/listPage">도서관리</a></li>

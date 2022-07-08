@@ -11,7 +11,42 @@
 <meta charset="UTF-8">
 <title>GDJLibrary</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="./resources/js/jquery-3.6.0.js"></script>
+<script>
+		// 페이지로드
+		$(function(){
+			fnRecomBook();
+		})
+		
+		// 1. 추천책
+		function fnRecomBook(){
+		$.ajax({
+			url: '${contextPath}/book/recomBook',
+			type: 'get',
+			dataType : 'json',
+			success: function(obj){
+				$.each(obj.recom, function(i, recom){
+					var sp = '<span>';
+					sp += '<ul class="recom1"><a href="${contextPath}/book/detail?bookNo=' + recom.bookNo + '"><img src="' + recom.bookImage + '" width=130px height=170px></a></ul>';
+					sp += '<ul>' + recom.bookTitle + '</ul>';
+					sp += '</span>'
+					$('#recomeBook').append(sp);
+				})
+			}
+			
+		})
+		
+	}
+		
+		
+</script>
 <style>
+	@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+   
+   * {
+      font-family: 'Noto Sans KR', sans-serif;
+   }
+
 	body {
 		background-color: #fbfbf2;
 	}
@@ -81,6 +116,10 @@
 		background-color: #efefb8;
 	}
 
+	#recomeBook{
+		display: inline-flex;
+	}
+	
 	
 </style>
 </head>
@@ -88,7 +127,7 @@
 	<jsp:include page="./layout/header.jsp"></jsp:include><br><br><br>
 	<div id="divTop">
 
-	<div style="padding-left: 30px"><img width="200px" src="https://yclib.sen.go.kr/resources/homepage/yclib/img/yclib_logo.png" alt="GDJLibrary"></div>
+	
 	
 	</div>
 	
@@ -138,6 +177,8 @@
 					<li>야야야야
 				</ul>
 			</div>
+			<h3 class="recomText">추천도서</h3>
+			<div id="recomeBook"></div>
 			</div>
 		</div>
 	</div>
