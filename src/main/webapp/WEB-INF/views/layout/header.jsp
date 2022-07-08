@@ -107,6 +107,11 @@
       font-weight: bold;
       font-size: 25px;
    }
+   
+   #logo{
+         margin: 30px 40px -60px 80px;
+   }
+   
 </style>
 </head>
 <body>
@@ -132,11 +137,13 @@
                 <li><a href="${contextPath}/member/logout">로그아웃</a></li>
                <li><a href="${contextPath}/member/myPage">마이페이지</a></li>
                </ul>
+   
            </div>
           
     </header>
    </c:if>
    <section class="clearfix2">
+   <div id="logo"><img width="150px" src="${contextPath}/resources/images/logo2.png" ></div>
     <div class="container2">
         <ul>
             <li><a href="${contextPath}/book/listPage">도서관리</a></li>

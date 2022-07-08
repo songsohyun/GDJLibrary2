@@ -9,9 +9,14 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
+   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+   
+   * {
+      font-family: 'Noto Sans KR', sans-serif;
+   }
 
    body {
-      background-color: #ffffe0;
+      background-color: ;
       /* background: url("https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMTAzMjVfOTUg%2FMDAxNjE2NjU0MzAyODA0.8qpcyIw3gwNDawEqIpOS5C8xd0ARF3To_SKeVQ7j9cwg.0cfChaGaJ8SK-IEBOx5mb7ZOZTwZ5XqKRNUxyLCBV7Eg.JPEG.qpdpxpfkd%2F20210324%25A3%25DF160114.jpg&type=sc960_832");
       background-repeat: no-repeat;
       height: 100vh;
@@ -20,7 +25,7 @@
    }
    
    h1 {
-      color:#8a2be2
+      color: #4e4c4c;
    }
    
    .td {
@@ -54,10 +59,14 @@
    }
    .divBody {
       text-align: center;
+      padding-top: 170px;
   
    }
    .divSeatTableSmall {
       display: inline-block;
+      border: solid #4e4c4c;
+      background-color: #ecece5;
+      padding: 10px 10px 10px 10px;
    }
    .doorText {
       text-align: left;
@@ -236,9 +245,12 @@
 </head>
 <body>
 
+	<jsp:include page="../layout/header.jsp"></jsp:include>
+
    <div class="divBody">
+   <br>
       <h1>좌석을 선택하세요</h1>
-      
+      <br>
       <div class="divSeatTableSmall">
           <table>
              <caption>열람실</caption>
@@ -476,6 +488,7 @@
                    <tr>
                       <td colspan="11">&nbsp;</td>
                    </tr>
+                   
              </tbody>
              <tfoot>
                 <tr>

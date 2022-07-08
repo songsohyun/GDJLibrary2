@@ -205,6 +205,13 @@
 
 </script>
 <style>
+ 	@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+	
+	* {
+		font-family: 'Noto Sans KR', sans-serif;
+		color: #4e4c4c;
+	} 
+	
 	h2 {
 		display: inline-block;
 	}
@@ -213,7 +220,7 @@
 	}
 	#fnq_wrap {
 		width: 800px;
-		margin: 100px auto; 
+		margin: 200px auto; 
 		/* padding-left: 20px; */
 	}
 	.top_title_wrap {
@@ -304,7 +311,7 @@
 		border: 1px solid #7c7c7c;
 		border-radius: 10px;
 		width: 60px;
-		height: 20px;
+		height: 25px;
 		color: white;
 		background-color: #4390de;
 		cursor: pointer;
@@ -320,7 +327,7 @@
 		border-radius: 10px;
 		vertical-align: middle;
 		padding-left: 10px;
-		padding-top: 3px;
+		/* padding-top: 3px; */
 	}
 	#btnSearch {
 		display: none;
