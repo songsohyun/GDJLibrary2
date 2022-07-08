@@ -16,11 +16,7 @@
    }
 
    body {
-<<<<<<< HEAD
-      background-color: #ffffe0;
-=======
       background-color: ;
->>>>>>> main
       /* background: url("https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMTAzMjVfOTUg%2FMDAxNjE2NjU0MzAyODA0.8qpcyIw3gwNDawEqIpOS5C8xd0ARF3To_SKeVQ7j9cwg.0cfChaGaJ8SK-IEBOx5mb7ZOZTwZ5XqKRNUxyLCBV7Eg.JPEG.qpdpxpfkd%2F20210324%25A3%25DF160114.jpg&type=sc960_832");
       background-repeat: no-repeat;
       height: 100vh;
@@ -29,11 +25,7 @@
    }
    
    h1 {
-<<<<<<< HEAD
-      color:#8a2be2
-=======
       color: #4e4c4c;
->>>>>>> main
    }
    
    .td {
@@ -67,20 +59,14 @@
    }
    .divBody {
       text-align: center;
-<<<<<<< HEAD
-=======
       padding-top: 170px;
->>>>>>> main
   
    }
    .divSeatTableSmall {
       display: inline-block;
-<<<<<<< HEAD
-=======
       border: solid #4e4c4c;
       background-color: #ecece5;
       padding: 10px 10px 10px 10px;
->>>>>>> main
    }
    .doorText {
       text-align: left;
@@ -259,282 +245,6 @@
 </head>
 <body>
 
-<<<<<<< HEAD
-   <div class="divBody">
-      <h1>좌석을 선택하세요</h1>
-      
-      <div class="divSeatTableSmall">
-          <table>
-             <caption>열람실</caption>
-             
-             <thead>
-                <tr>
-                   <td colspan="11" class="door"><i class="fa-solid fa-door-closed door"></i></td>
-                </tr>
-             </thead>
-             <tbody class="tbody">
-                
-                   <tr >
-                      <td class="hdoor"><div class="doorText" style="font-weight:700">출입문</div></td>
-                      <td colspan="5"></td>
-                      <c:forEach begin="0" end="4" items="${seats}" var="seat">
-                      
-                            
-                         <c:if test="${seat.seatStatus == 1}">
-                            <td class="td td1"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                         <c:if test="${seat.seatStatus == 2}">
-                            <td class="td td2"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                      </c:forEach>
-                   </tr>
-                   
-                   <tr>
-                         <td colspan="6"></td>
-                      <c:forEach begin="5" end="9" items="${seats}" var="seat">
-                      
-                            
-                         <c:if test="${seat.seatStatus == 1}">
-                            <td class="td td1"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                         <c:if test="${seat.seatStatus == 2}">
-                            <td class="td td2"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                      </c:forEach>
-                   </tr>
-                   
-                   <tr>
-                      <c:forEach begin="10" end="14" items="${seats}" var="seat">
-                      
-                      
-                         <c:if test="${seat.seatStatus == 1}">
-                            <td class="td td1"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                         <c:if test="${seat.seatStatus == 2}">
-                            <td class="td td2"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                      </c:forEach>
-                      <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                      <c:forEach begin="15" end="19" items="${seats}" var="seat">
-                      
-                      
-                         <c:if test="${seat.seatStatus == 1}">
-                            <td class="td td1"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                         <c:if test="${seat.seatStatus == 2}">
-                            <td class="td td2"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                      </c:forEach>
-                   </tr>
-                   
-                   
-                   <tr>
-                      <c:forEach begin="20" end="24" items="${seats}" var="seat">
-                         <c:if test="${seat.seatStatus == 1}">
-                            <td class="td td1"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                         <c:if test="${seat.seatStatus == 2}">
-                            <td class="td td2"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                      </c:forEach>
-                      <td></td>
-                      <c:forEach begin="25" end="29" items="${seats}" var="seat">
-                         <c:if test="${seat.seatStatus == 1}">
-                            <td class="td td1"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                         <c:if test="${seat.seatStatus == 2}">
-                            <td class="td td2"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                      </c:forEach>
-                   </tr>
-                   
-                   <tr>
-                      <c:forEach begin="30" end="34" items="${seats}" var="seat">
-                         <c:if test="${seat.seatStatus == 1}">
-                            <td class="td td1"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                         <c:if test="${seat.seatStatus == 2}">
-                            <td class="td td2"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                      </c:forEach>
-                      <td></td>
-                      <c:forEach begin="35" end="39" items="${seats}" var="seat">
-                         <c:if test="${seat.seatStatus == 1}">
-                            <td class="td td1"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                         <c:if test="${seat.seatStatus == 2}">
-                            <td class="td td2"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                      </c:forEach>
-                   </tr>
-                   
-                   <tr>
-                      <c:forEach begin="40" end="44" items="${seats}" var="seat">
-                         <c:if test="${seat.seatStatus == 1}">
-                            <td class="td td1"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                         <c:if test="${seat.seatStatus == 2}">
-                            <td class="td td2"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                      </c:forEach>
-                      <td></td>
-                      <c:forEach begin="45" end="49" items="${seats}" var="seat">
-                         <c:if test="${seat.seatStatus == 1}">
-                            <td class="td td1"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                         <c:if test="${seat.seatStatus == 2}">
-                            <td class="td td2"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                      </c:forEach>
-                   </tr>
-                   
-                   <tr>
-                      <td colspan="11">&nbsp;</td>
-                   </tr>
-                   <tr>
-                      <td colspan="11">&nbsp;</td>
-                   </tr>
-                   
-                   <tr>
-                      <c:forEach begin="50" end="54" items="${seats}" var="seat">
-                         <c:if test="${seat.seatStatus == 1}">
-                            <td class="td td1"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                         <c:if test="${seat.seatStatus == 2}">
-                            <td class="td td2"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                      </c:forEach>
-                      <td></td>
-                      <c:forEach begin="55" end="59" items="${seats}" var="seat">
-                         <c:if test="${seat.seatStatus == 1}">
-                            <td class="td td1"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                         <c:if test="${seat.seatStatus == 2}">
-                            <td class="td td2"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                      </c:forEach>
-                   </tr>
-                   
-                   <tr>
-                      <c:forEach begin="60" end="64" items="${seats}" var="seat">
-                         <c:if test="${seat.seatStatus == 1}">
-                            <td class="td td1"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                         <c:if test="${seat.seatStatus == 2}">
-                            <td class="td td2"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                      </c:forEach>
-                      <td></td>
-                      <c:forEach begin="65" end="69" items="${seats}" var="seat">
-                         <c:if test="${seat.seatStatus == 1}">
-                            <td class="td td1"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                         <c:if test="${seat.seatStatus == 2}">
-                            <td class="td td2"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                      </c:forEach>
-                   </tr>
-                   
-                   <tr>
-                      <c:forEach begin="70" end="74" items="${seats}" var="seat">
-                         <c:if test="${seat.seatStatus == 1}">
-                            <td class="td td1"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                         <c:if test="${seat.seatStatus == 2}">
-                            <td class="td td2"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                      </c:forEach>
-                      <td></td>
-                      <c:forEach begin="75" end="79" items="${seats}" var="seat">
-                         <c:if test="${seat.seatStatus == 1}">
-                            <td class="td td1"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                         <c:if test="${seat.seatStatus == 2}">
-                            <td class="td td2"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                      </c:forEach>
-                   </tr>
-                   
-                   <tr>
-                      <c:forEach begin="80" end="84" items="${seats}" var="seat">
-                         <c:if test="${seat.seatStatus == 1}">
-                            <td class="td td1"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                         <c:if test="${seat.seatStatus == 2}">
-                            <td class="td td2"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                      </c:forEach>
-                      <td></td>
-                      <c:forEach begin="85" end="89" items="${seats}" var="seat">
-                         <c:if test="${seat.seatStatus == 1}">
-                            <td class="td td1"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                         <c:if test="${seat.seatStatus == 2}">
-                            <td class="td td2"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                      </c:forEach>
-                   </tr>
-                   
-                   <tr>
-                      <c:forEach begin="90" end="94" items="${seats}" var="seat">
-                         <c:if test="${seat.seatStatus == 1}">
-                            <td class="td td1"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                         <c:if test="${seat.seatStatus == 2}">
-                            <td class="td td2"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                      </c:forEach>
-                      <td></td>
-                      <c:forEach begin="95" end="99" items="${seats}" var="seat">
-                         <c:if test="${seat.seatStatus == 1}">
-                            <td class="td td1"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                         <c:if test="${seat.seatStatus == 2}">
-                            <td class="td td2"><i class="fa-solid fa-chair"></i>${seat.seatNo}</td>
-                         </c:if>
-                      </c:forEach>
-                   </tr>
-                   <tr>
-                      <td colspan="11" class="back">back</td>
-                   </tr>
-                   <tr>
-                      <td colspan="11">&nbsp;</td>
-                   </tr>
-             </tbody>
-             <tfoot>
-                <tr>
-                   <td colspan="11">   
-                      <div class="divButton">
-                        퇴실하기
-                        <form id="formCheckOut" class="divForm">
-                           <input type="text" name="seatCode" placeholder="좌석코드를 입력하세요.">
-                           <input type="button" id="btnCheckOut" class="formBtn">
-                           <label for="btnCheckOut">&nbsp;<i class="fa-solid fa-magnifying-glass bt"></i>&nbsp;</label>
-                        </form>
-                        
-                        <br>
-                        
-                        좌석확인
-                        <form id="formConfirm" class="divForm">
-                           <input type="text" name="memberId" id="id2" placeholder="아이디를 입력하세요.">
-                           <input type="button" value="검색" id="btnConfirm" class="formBtn">
-                           <label for="btnConfirm">&nbsp;<i class="fa-solid fa-magnifying-glass bt"></i>&nbsp;</label>
-                        </form>
-                        
-                        <br>
-                        
-                        좌석갱신
-                        <input type="button" value="좌석 갱신" id="btnSeatRenew" class="formBtn">
-                        <label for="btnSeatRenew">&nbsp;<i class="fa-solid fa-computer-mouse bt"></i>&nbsp;</label>
-                        
-                     </div>
-                  </td>
-                </tr>
-             </tfoot>
-          </table>
-       </div>
-
-=======
 	<jsp:include page="../layout/header.jsp"></jsp:include>
 
    <div class="divBody">
@@ -813,7 +523,6 @@
           </table>
        </div>
 
->>>>>>> main
    
    </div>
 </body>
