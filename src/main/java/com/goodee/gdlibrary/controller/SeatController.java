@@ -27,7 +27,7 @@ public class SeatController {
 
    
    @GetMapping("/seat/seatAgreePage")
-   public String seatPage() {
+   public String seatPage() { 
       return "seat/agree";
    }
    

@@ -107,11 +107,6 @@
       font-weight: bold;
       font-size: 25px;
    }
-   
-   #logo{
-         margin: 30px 40px -60px 80px;
-   }
-   
 </style>
 </head>
 <body>
@@ -137,25 +132,22 @@
                 <li><a href="${contextPath}/member/logout">로그아웃</a></li>
                <li><a href="${contextPath}/member/myPage">마이페이지</a></li>
                </ul>
-   
            </div>
           
     </header>
    </c:if>
    <section class="clearfix2">
-   <div id="logo"><img width="150px" src="${contextPath}/resources/images/logo2.png" ></div>
     <div class="container2">
         <ul>
-            <li><a href="${contextPath}/book/listPage">도서관리</a></li>
-            <li><a href="${contextPath}/returned/returnedBookPage">반납하기</a></li>
-            <li><a href="${contextPath}/notice/noticePage">공지사항</a></li>
-            <li><a href="${contextPath}/qaa/qaaPage">질문과답변</a></li>
-            <li><a href="${contextPath}/fnq/fnqPage">자주하는질문</a></li>
-            <li><a href="${contextPath}/seat/seatAgreePage">열람실이용</a></li>
+            <li><a href="${contextPath}/admin/listMember?value=15">활동회원관리</a></li>
+            <li><a href="${contextPath}/admin/listDormantMember?value=15">휴면회원관리</a></li>
+            <li><a href="${contextPath}/admin/listSignOutMember?value=15">탈퇴회원관리</a></li>
+            <li><a href="${contextPath}/admin/listBook?value=15">도서관리</a></li>
+            <li><a href="${contextPath}/fnq/fnqWrite">FAQ 글쓰기</a></li>
+            <li><a href="${contextPath}/">메인홈페이지이동</a></li>
         </ul>
     </div>
    </section>
-  
    
    
 </body>

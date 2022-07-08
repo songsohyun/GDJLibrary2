@@ -10,9 +10,15 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+ 	@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+	
+	* {
+		font-family: 'Noto Sans KR', sans-serif;
+		color: #4e4c4c;
+	} 
 	.qaa_all_wrap {
 		width: 600px;
-		margin: 100px auto; 
+		margin: 200px auto; 
 		/* padding-left: 20px; */
 	}
 	input[name="qaaTitle"], #memberId {

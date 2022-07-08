@@ -17,6 +17,8 @@
 		fnSeatNo();
 	})
 	
+	
+	
 	// 마이페이지 대여 목록
 	function fnRentBookList(){
 		$.ajax({

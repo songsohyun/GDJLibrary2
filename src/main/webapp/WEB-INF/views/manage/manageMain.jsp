@@ -18,21 +18,63 @@
 </script>
 <style>
 	
-   
   
+   .img{
+  
+    background: url("../resources/images/adminLibrary.jpg");                                                              
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 100vh;
+	margin-left: 100px;
+	margin-right: 100px;
+    }
+
+   
+
+   #divBottomMenu {
+		background-color: beige;
+		
+		text-align: center;
+	}
+   
+   #divBottomText {
+		background-color: #efefb8;
+   }
+   
+   .img .content{
+     position: absolute;
+     top:50%;
+     left:50%;
+     transform: translate(-50%, -50%);                                                                   
+     font-size:5rem;
+     color: white;
+     z-index: 2;
+     text-align: center;
+   }  
+
+   
+   
+   
 </style>
 </head>
 <body>
-	<a href="${contextPath}/admin/listMember?value=15">활동회원관리</a>
-	<a href="${contextPath}/admin/listDormantMember?value=15">휴면회원관리</a>
-	<a href="${contextPath}/admin/listSignOutMember?value=15">탈퇴회원관리</a>
-	<a href="${contextPath}/admin/listBook?value=15">도서관리</a>
-	<a href="${contextPath}/fnq/fnqWrite">FAQ 글쓰기</a>
 	
-	<a href="${contextPath}/">메인홈페이지이동</a>
+	<jsp:include page="../layout/adminHeader.jsp"></jsp:include><br><br><br>
+	 <div class="img">
+        <div class="content">
+            <h1>GDJ 도서관</h1>
+            <h2>관리자 시스템</h2>
+        </div>
+ 
+    </div>
 	
 	
-	
-																	
+	<div id="divBottomText">
+		<div style="margin-left: 100px;">
+		주소(우)(07988) 서울 양천구 목동서로 113 (목동, 양천도서관)&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-phone"></i> 02-2062-3900(TEL) &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-fax"></i> 02-2062-3919(FAX)<br>
+		Copyright © 2019 Yangcheon Public Library. All Rights Reserved.
+		</div>
+	</div>
+																
 </body>
 </html>
