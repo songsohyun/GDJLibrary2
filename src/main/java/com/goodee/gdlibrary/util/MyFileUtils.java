@@ -24,16 +24,22 @@ public class MyFileUtils {
 			return UUID.randomUUID().toString().replaceAll("-", "") + "." + extension;
 		}
 		
+		// summernote 경로
+		public static String summerNotePath() {
+			String sep = Matcher.quoteReplacement(File.separator);
+			return "resources" + sep + "upload" + sep + "summernote";
+		}
 		
 		// 오늘경로
 		// 2022\\5\\31
 		public static String getTodayPath() {
 			Calendar calendar = Calendar.getInstance();
 			int year = calendar.get(Calendar.YEAR);
-			int month = calendar.get(Calendar.MONTH)+1;
+			int month = calendar.get(Calendar.MONTH) + 1;
 			int day = calendar.get(Calendar.DAY_OF_MONTH);
 			String sep = Matcher.quoteReplacement(File.separator);
-			return "C:" + sep + "upload" + sep + year + sep + month + sep + day;
+			// 원본 : return "C:" + sep + "upload" + sep + year + sep + month + sep + day;
+			return "resources" + sep + "upload" + sep + year + sep + fillZero(month) + sep + fillZero(day);
 		}
 		
 		public static String getYesterdayPath() {
@@ -43,10 +49,14 @@ public class MyFileUtils {
 			int month = calendar.get(Calendar.MONTH)+1;
 			int day = calendar.get(Calendar.DAY_OF_MONTH);
 			String sep = Matcher.quoteReplacement(File.separator);
-			return "C:" + sep + "upload" + sep + year + sep + month + sep + day;
+			// 원본 : return "C:" + sep + "upload" + sep + year + sep + month + sep + day;
+			return "resources" + sep + "upload" + sep + year + sep + fillZero(month) + sep + fillZero(day);
 		}
 		
-		
+		// 1~9 => 01~09
+		public static String fillZero(int num) {
+			return num < 10 ? "0" + num : "" + num;
+		}
 		
 		
 		

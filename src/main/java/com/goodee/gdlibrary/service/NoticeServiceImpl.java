@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.regex.Matcher;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +23,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -75,7 +77,7 @@ public class NoticeServiceImpl implements NoticeService {
 	
 	
 	
-	// summernote로 이미지 등록한 후 보여주기
+	// summernote로 이미지 등록하기
 	@Override
 	public Map<String, Object> uploadSummernoteImage(MultipartHttpServletRequest multipartRequest) {
 		
@@ -86,7 +88,8 @@ public class NoticeServiceImpl implements NoticeService {
 		String saved = MyFileUtils.getUuidName(multipartFile.getOriginalFilename());
 				
 		// 저장할 경로
-		String path = "C:" + File.separator + "upload" + File.separator + "summernote";
+		// 원본 : String path = "C:" + File.separator + "upload" + File.separator + "summernote";
+		String path = multipartRequest.getServletContext().getRealPath(MyFileUtils.summerNotePath());
 		
 		// 경로가 없으면 만들기
 		File dir = new File(path);
@@ -110,8 +113,26 @@ public class NoticeServiceImpl implements NoticeService {
 		
 		// 저장된 파일의 경로를 반환
 		Map<String, Object> map = new HashMap<>();
-		map.put("src", multipartRequest.getContextPath() + "/getImage/" + saved);
+		map.put("src", multipartRequest.getContextPath() + "/notice/display?filename=" + saved);
 		return map;
+	}
+	
+	
+	// summernote로 등록한 이미지 보여주기
+	@Override
+	public ResponseEntity<byte[]> display(HttpServletRequest request) {
+		
+		String filename = request.getParameter("filename");
+		File file = new File(request.getServletContext().getRealPath(MyFileUtils.summerNotePath()), filename);
+		
+		ResponseEntity<byte[]> entity = null;
+		try {
+			entity = new ResponseEntity<byte[]>(FileCopyUtils.copyToByteArray(file), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return entity;
 	}
 	
 	
@@ -166,7 +187,8 @@ public class NoticeServiceImpl implements NoticeService {
 					String saved = MyFileUtils.getUuidName(origin);
 					
 					// 첨부파일의 저장 경로(디렉터리)
-					String path = MyFileUtils.getTodayPath();
+					// 원본 : String path = MyFileUtils.getTodayPath();
+					String path = multipartRequest.getServletContext().getRealPath(MyFileUtils.getTodayPath());
 					
 					// 저장 경로(디렉터리) 없으면 만들기
 					File dir = new File(path);
@@ -178,8 +200,8 @@ public class NoticeServiceImpl implements NoticeService {
 					File file = new File(dir, saved);
 					
 					// 첨부파일 확인
-					String contentType = Files.probeContentType(file.toPath()); 
-					if(contentType.endsWith("pdf") || contentType.endsWith("hwp")) {
+					// String contentType = Files.probeContentType(file.toPath()); 
+					if(saved.endsWith("pdf") || saved.endsWith("hwp")) {
 						
 						// 첨부파일 서버에 저장(업로드)
 						// transferTo() 메소드에 의해 저장 경로에 실질적으로 file이 생성됨
@@ -309,6 +331,33 @@ public class NoticeServiceImpl implements NoticeService {
 		Optional<String> opt = Optional.ofNullable(request.getParameter("noticeNo"));
 		Long noticeNo = Long.parseLong(opt.orElse("0"));
 		
+		// 저장되어 있는 첨부 파일 목록 가져오기
+		List<NoticeFileAttachDTO> fileList = noticeMapper.selectFileAttachListInTheNotice(noticeNo);
+		
+		// 저장되어 있는 첨부 파일이 있는지 확인
+		if(fileList != null && fileList.isEmpty() == false) {
+			
+			for(NoticeFileAttachDTO file : fileList) {
+				
+				String path = file.getNoticeFileAttachPath();
+				String saved = file.getNoticeFileAttachSaved();
+				
+				// 첨부 파일 알아내기
+				File fileAttach = new File(path, saved);
+				
+				try {
+					
+					if(fileAttach.exists()) {
+						fileAttach.delete();
+					}
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+	
 		int res = noticeMapper.deleteNoticeByNoticeNo(noticeNo);
 		
 		try {
@@ -405,7 +454,8 @@ public class NoticeServiceImpl implements NoticeService {
 					String saved = MyFileUtils.getUuidName(origin);
 					
 					// 첨부파일의 저장 경로(디렉터리)
-					String path = MyFileUtils.getTodayPath();
+					// 원본 : String path = MyFileUtils.getTodayPath();
+					String path = multipartRequest.getServletContext().getRealPath(MyFileUtils.getTodayPath());
 					
 					// 저장 경로(디렉터리) 없으면 만들기
 					File dir = new File(path);
@@ -417,8 +467,8 @@ public class NoticeServiceImpl implements NoticeService {
 					File file = new File(dir, saved);
 					
 					// 첨부파일 확인
-					String contentType = Files.probeContentType(file.toPath());
-					if(contentType.endsWith("pdf") || contentType.endsWith("hwp")) {
+					// String contentType = Files.probeContentType(file.toPath());
+					if(saved.endsWith("pdf") || saved.endsWith("hwp")) {
 						
 						// 첨부파일 서버에 저장(업로드)
 						multipartFile.transferTo(file);
@@ -526,14 +576,14 @@ public class NoticeServiceImpl implements NoticeService {
 			try {
 				
 				// 첨부 파일이 pdf, hwp가 맞는지 확인
-				String contentType = Files.probeContentType(file.toPath());
-				if(contentType.endsWith("pdf") || contentType.endsWith("hwp")) {
+				// String contentType = Files.probeContentType(file.toPath());
+				// if(contentType.endsWith("pdf") || contentType.endsWith("hwp")) {
 					
 					// 첨부 파일 삭제
 					if(file.exists()) {
 						file.delete();
 					}
-				}
+				// }
 				
 			} catch (Exception e) {
 				e.printStackTrace();

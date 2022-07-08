@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 public interface NoticeService {
 	public void getNotices(HttpServletRequest request, Model model);
 	public Map<String, Object> uploadSummernoteImage(MultipartHttpServletRequest multipartRequest);
+	public ResponseEntity<byte[]> display(HttpServletRequest request);
 	public void addNotice(MultipartHttpServletRequest multipartRequest, HttpServletResponse response);
 	public void detailNotice(HttpServletRequest request, Model model);
 	public ResponseEntity<Resource> download(String userAgent, Long noticeFileAttachNo);
