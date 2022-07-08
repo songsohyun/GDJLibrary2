@@ -188,14 +188,18 @@
 	
 </script>
 <style>
+	@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+	
 	* {
 		box-sizing: border-box;
+		font-family: 'Noto Sans KR', sans-serif;
+		color: #4e4c4c;
 	}
 	.addNotice_wrap, .modifyNotice_wrap {
 		width: 860px;
 /* 		margin-top: 30px;
 		margin-bottom: 70px; */
-		margin: 100px auto;
+		margin: 200px auto;
 		padding-left: 15px;
 		
 	}
@@ -209,7 +213,7 @@
 	.title {
 		display: inline-block;
 		margin-left: 20px;
-		height: 35px;
+		height: 32px;
 		padding-left: 10px;
 		
 		/* line-height: 40px;  */
@@ -257,7 +261,7 @@
 			<form id="f1" action="${contextPath}/notice/addNotice" method="post" enctype="multipart/form-data">
 	
 				<div class="title_wrap">
-					제목 <input type="text" name="title" class="title" id="title1" size="100">
+					제목 <input type="text" name="title" class="title" id="title1" size="105">
 				</div>
 				<div class="content_wrap">
 					<textarea name="content" class="content" id="content1"></textarea><br><br>
@@ -278,7 +282,7 @@
 				<!-- <span class="title_wrap">제목</span><input type="text" name="title" id="title" size="80"><br> -->
 	
 				<div class="title_wrap">
-					제목 <input type="text" name="title" class="title" id="title2" size="90" value="${notice.noticeTitle}">
+					제목 <input type="text" name="title" class="title" id="title2" size="105" value="${notice.noticeTitle}">
 				</div>
 				<div class="content_wrap">
 					<textarea name="content" class="content" id="content2">${notice.noticeContent}</textarea><br><br>

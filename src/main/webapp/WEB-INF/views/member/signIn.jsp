@@ -257,11 +257,10 @@
 	
 </script>
 <style>
-		* {
-			padding: 0;
-			margin: 0;
-		}
-		
+		@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+	* {
+	    font-family: 'Noto Sans KR', sans-serif;
+	}
 		.loginForm {
 		            width: 800px;
 		            margin: 40px auto 0;
@@ -295,6 +294,7 @@
         .loginForm label, .loginForm tr:nth-of-type(5) td:first-of-type {
             font-size: 13px;
             padding-left: 10px;
+            color:#4a4747;
         }
 
         .loginForm input[type="text"], .loginForm input[type="password"] {
@@ -320,7 +320,7 @@
         }
 
         .loginForm td span {
-            
+            color: #635f5f;
             font-size: 13px;
             padding-left: 5px;
         }
@@ -352,6 +352,7 @@
             background-color: #e5e5e5;
             padding: 2px 5px;
             cursor: pointer;
+            color:#4a4747;
             
         }
 

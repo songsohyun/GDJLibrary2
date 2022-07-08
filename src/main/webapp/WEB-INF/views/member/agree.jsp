@@ -67,6 +67,12 @@
 	})
 </script>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+   
+ * {
+    font-family: 'Noto Sans KR', sans-serif;
+ }
+
 .blind {
 	display: none;
 }
@@ -77,6 +83,7 @@
 	background-size: 18px 18px;
 	background-repeat: no-repeat;
 	margin-left:10px;
+	color: #635f5f;
 	cursor: pointer;
 }
 
@@ -86,7 +93,7 @@
 
 .h2 {
 	font-size: 20px;
-	color: #222;
+	color: #4a4747;
 	text-align: center;
 	margin: 0 auto;
 	padding: 80px 0 20px 0;
@@ -137,6 +144,7 @@
 	display: block;
 	width: 100px;
 	cursor: pointer;
+	
 }
 
 </style>

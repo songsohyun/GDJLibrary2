@@ -11,6 +11,21 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
+   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+   
+   * {
+      font-family: 'Noto Sans KR', sans-serif;
+   }
+   body {
+   	padding-left: 70px;
+   }
+   
+   #divTop {
+   		padding-top: 200px;
+   		font-size: 30px;
+   		color: #4e4c4c;
+   		font-weight: bold;
+   }
 	.blind {
 		display: none;
 	}
@@ -33,6 +48,35 @@
 	.item {
 		color: 
 	}
+	.w-btn {
+    position: relative;
+    border: none;
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 15px;
+    font-family: "paybooc-Light", sans-serif;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.25s;
+    }
+    .w-btn-indigo {
+    background-color: aliceblue;
+    color: #1e6b7b;
+	}
+	strong {
+		color: #1e6b7b;
+	}
+	li {
+		color: #4e4c4c;
+	}
+	h3 {
+		color: #4e4c4c;
+	}
+	.divBottom {
+		color: #4e4c4c;
+	}
+
 </style>
 <script src="../resources/js/jquery-3.6.0.js"></script>
 <script>
@@ -103,16 +147,19 @@
 </script>
 </head>
 <body>
+	<jsp:include page="../layout/header.jsp"></jsp:include>
 	
-	<h1>열람실 이용 전 확인사항</h1>
+	<br><div id="divTop">열람실 이용 전 확인사항</div><br>
 	
 	<form id="f" action="${contextPath}/seat/seatPage">
 		
 		<input type="checkbox" id="checkAll" class="blind checkAll">
 		<label for="checkAll" class="items"><strong>&nbsp;모두 확인하였습니다.</strong></label>
 		
-		<hr>
+		<br><br>
 		
+		<hr>
+		<br>
 		<input type="checkbox" id="check1" class="blind checkOne">
 		<label for="check1" class="item"><strong>&nbsp;일반현황</strong></label><br>
 		<ul>
@@ -147,14 +194,14 @@
 		
 		<br>
 		
-		<input type="button" value="취소" onclick="history.back()">
-		<input type="submit" value="다음">
-			
+		<input type="button"  class="w-btn w-btn-indigo" value="취소" onclick="history.back()">
+		<input type="submit" value="다음" class="w-btn w-btn-indigo">
+		
 	</form>
 	
 	<hr>
 	<h3><i class="fa-solid fa-book"></i>열람실은 이용자의 자료열람 및 학습공간으로 서로 배려하는 마음으로 정숙 등 기본 수칙을 지켜주시기 바랍니다.</h3>
-	열람실 불편사항 접수 : <i class="fa-solid fa-phone"></i> 010 - 8627 - 3069 <i class="fa-solid fa-phone"></i>
+	<div class="divBottom">열람실 불편사항 접수 : <i class="fa-solid fa-phone"></i> 010 - 8627 - 3069 <i class="fa-solid fa-phone"></i></div>
 	
 </body>
 </html>

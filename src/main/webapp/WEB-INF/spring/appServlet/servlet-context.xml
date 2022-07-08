@@ -54,6 +54,7 @@
       <interceptor>
          <mapping path="/member/pwModifyConfirm" />
          <mapping path="/member/deleteConfirm" />
+         <mapping path="/member/modifyConfirm" />
          <beans:ref bean="PreventNaverInterceptor" />
       </interceptor>
    </interceptors>

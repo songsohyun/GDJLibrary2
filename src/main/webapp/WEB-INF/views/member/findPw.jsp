@@ -74,9 +74,11 @@
 		color: #666b7d;
 	}
 	
+	@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
 	* {
-	    padding: 0;
-	    margin: 0;
+	    
+	    
+	    font-family: 'Noto Sans KR', sans-serif;
 	}
 	
 	.pwChange_wrap {

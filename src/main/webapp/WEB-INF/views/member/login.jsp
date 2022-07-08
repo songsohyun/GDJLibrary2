@@ -58,10 +58,10 @@
 
 </script>
     <style>
-        * {
-            padding: 0;
-            margin: 0;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+		* {
+		    font-family: 'Noto Sans KR', sans-serif;
+		}
         a {
             text-decoration: none;
             color: #333;
@@ -73,15 +73,16 @@
             border: 1px solid #f2f4f5;
         }
         .tit_bi {
-            width: 160px;
-            height: 40px;
+            width: 300px;
+            height: 100px;
             margin: 0 auto 30px;
-            /*
-            로고 넣을때 사용
-            background-image: url(http://img1.tmon.kr/static/img/sp_social_login.png);
+            background-image: url(../resources/images/logo.png);
+            background-size: 300px 100px;
             background-repeat: no-repeat;
-            background-position: left 0 top 0; 
-            text-indent: -9000px;*/
+            background-position: left 0 top 0px; 
+           
+
+            text-indent: -9000px;
         }
         .login_ipt_box {
             display: block;
@@ -117,6 +118,7 @@
             letter-spacing: -0.5px;
             text-align: center;
             line-height: 51px;
+            cursor: pointer;
         }
         .chk_choice {
             margin: 10px 0 40px;
@@ -157,6 +159,9 @@
         }
         .btn_sns_login > ul > li {
             display: block;
+        }
+        .btn_sns_login > ul  {
+            padding: 0;
         }
         .ico_naver {
             background-position: left 0 top 0;
@@ -213,7 +218,7 @@
             </div>
             <div class="btn_sns_login">
                 <ul>
-                    <li><a href="${apiURL}" class="ico_naver"><img src="../resources/images/btnNaver.png"/></a></li>
+                    <li><a href="${apiURL}" class="ico_naver"><img src="../resources/images/btnW_아이콘원형.png"/></a></li>
                 </ul>
             </div>
             <div class="bottom_button_box">
