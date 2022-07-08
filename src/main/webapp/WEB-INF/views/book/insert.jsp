@@ -41,6 +41,8 @@
 			})
 			
 		}
+		
+	
 	
 </script>
 </head>
@@ -51,6 +53,7 @@
 			<input type="text" name="query" id="query" placeholder="분야코드를 적어주세요">
 			<button>api 정보받아오기</button>
 		</form>
-
+			
+			
 </body>
 </html>

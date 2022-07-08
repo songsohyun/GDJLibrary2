@@ -10,6 +10,15 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+	
+	@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+   
+   * {
+      color: #4e4c4c;
+      font-family: 'Noto Sans KR', sans-serif;
+   }
+	
+	
 	.ok {
 		color: limegreen;
 	}
@@ -34,8 +43,8 @@
 	  color: inherit;
 	}        
 	.register{
-	            width: 550px;
-	            margin: 200px auto 0;
+	            width: 720px;
+	            margin: 130px auto 0;
 	            padding: 15px 20px;
             background: white;
             color: #2b2e4a;
@@ -126,6 +135,13 @@
 		fnEmailCheck();
 		fnSignIn();
 		fnPhoneCheck();
+		
+		
+		// 회원 목록 페이지 이동
+		$('#btnList').on('click', function(){
+		location.href='${contextPath}/admin/moveManageMain';
+		})
+		
 		// 목록
 		$('#btnList').on('click', function(){
 			location.href='${contextPath}/admin/listMember?value=${value}';
@@ -418,6 +434,18 @@
                     </li>
                     <li class="item">
                         <button class="submit">추가하기</button>
+                    </li>
+                    <li class="item">
+                        
+                    </li>
+                </ul>
+                <ul class="container">
+                    <li class="item center">
+                        
+                    </li>
+                    <li class="item">
+                       	<br>
+                        <input type="button" class="submit" value="회원 목록 페이지 이동" id="btnList">
                     </li>
                     <li class="item">
                         
