@@ -27,11 +27,7 @@ public class SeatController {
 
    
    @GetMapping("/seat/seatAgreePage")
-<<<<<<< HEAD
-   public String seatPage() {
-=======
    public String seatPage() { 
->>>>>>> main
       return "seat/agree";
    }
    

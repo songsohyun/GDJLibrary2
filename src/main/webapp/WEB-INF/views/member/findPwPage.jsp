@@ -116,6 +116,11 @@
 	
 </script>
 <style>
+	@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+	* {
+	    font-family: 'Noto Sans KR', sans-serif;
+	}
+	
 	.ok {
 		color: #3253cc;
 	}
@@ -124,10 +129,7 @@
 		color: #666b7d;
 	}
 	
-	* {
-        padding: 0;
-        margin: 0;
-    }
+
 
     .findPwPage_wrap {
         width: 500px;

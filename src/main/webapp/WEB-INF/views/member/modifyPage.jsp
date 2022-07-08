@@ -95,6 +95,10 @@
 	}
 </script>
 <style>
+	@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+	* {
+	    font-family: 'Noto Sans KR', sans-serif;
+	}
 	.ok {
 		color: #3253cc;
 	}
@@ -105,7 +109,7 @@
 
     .mofidy_warp {
         width: 800px;
-        margin: 40px auto 0;
+        margin: 180px auto 0;
         padding: 50px 50px 51px;
         
         
@@ -173,6 +177,7 @@
         letter-spacing: -0.5px;
         text-align: center;
         line-height: 30px;
+        cursor: pointer;
 
     }
 
