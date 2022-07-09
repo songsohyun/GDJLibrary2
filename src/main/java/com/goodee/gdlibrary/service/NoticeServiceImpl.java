@@ -89,7 +89,8 @@ public class NoticeServiceImpl implements NoticeService {
 				
 		// 저장할 경로
 		// 원본 : String path = "C:" + File.separator + "upload" + File.separator + "summernote";
-		String path = multipartRequest.getServletContext().getRealPath(MyFileUtils.summerNotePath());
+		// 수정1 : String path = multipartRequest.getServletContext().getRealPath(MyFileUtils.summerNotePath());
+		String path = MyFileUtils.summerNotePath();
 		
 		// 경로가 없으면 만들기
 		File dir = new File(path);
@@ -123,7 +124,8 @@ public class NoticeServiceImpl implements NoticeService {
 	public ResponseEntity<byte[]> display(HttpServletRequest request) {
 		
 		String filename = request.getParameter("filename");
-		File file = new File(request.getServletContext().getRealPath(MyFileUtils.summerNotePath()), filename);
+		// 원본 : File file = new File(request.getServletContext().getRealPath(MyFileUtils.summerNotePath()), filename);
+		File file = new File(MyFileUtils.summerNotePath(), filename);
 		
 		ResponseEntity<byte[]> entity = null;
 		try {
@@ -188,7 +190,8 @@ public class NoticeServiceImpl implements NoticeService {
 					
 					// 첨부파일의 저장 경로(디렉터리)
 					// 원본 : String path = MyFileUtils.getTodayPath();
-					String path = multipartRequest.getServletContext().getRealPath(MyFileUtils.getTodayPath());
+					// 수정1 : String path = multipartRequest.getServletContext().getRealPath(MyFileUtils.getTodayPath());
+					String path = MyFileUtils.getTodayPath();
 					
 					// 저장 경로(디렉터리) 없으면 만들기
 					File dir = new File(path);
@@ -455,7 +458,8 @@ public class NoticeServiceImpl implements NoticeService {
 					
 					// 첨부파일의 저장 경로(디렉터리)
 					// 원본 : String path = MyFileUtils.getTodayPath();
-					String path = multipartRequest.getServletContext().getRealPath(MyFileUtils.getTodayPath());
+					// 수정1 : String path = multipartRequest.getServletContext().getRealPath(MyFileUtils.getTodayPath());
+					String path = MyFileUtils.getTodayPath();
 					
 					// 저장 경로(디렉터리) 없으면 만들기
 					File dir = new File(path);
