@@ -242,7 +242,7 @@ public class ManageController {
 	}
 	
 	@ResponseBody
-	@GetMapping(value="/admin/checkBookByIsbn", produces="application/json")
+	@GetMapping(value="/admin/checkBookByIsbn", produces="application/json; charset=UTF-8")
 	public Map<String, Object> checkBookIsbn(@RequestParam String isbn) {
 		return manageService.checkBookByIsbn(isbn);
 		// {"res": null}

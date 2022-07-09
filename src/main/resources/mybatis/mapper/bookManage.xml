@@ -54,9 +54,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 책 대여하기(MySQL) -->
 	<insert id="insertRent" parameterType="Map">
 		INSERT INTO RENT
-			(BOOK_NO, MEMBER_ID)
+			(BOOK_NO, MEMBER_ID, RENT_EXPIRATION_DATE)
 		VALUES
-			(#{bookNo}, #{memberId})
+			(#{bookNo}, #{memberId}, DATE_ADD(CURDATE(), INTERVAL 7 DAY))
 	</insert>
 	
 	

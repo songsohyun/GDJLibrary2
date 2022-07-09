@@ -145,7 +145,7 @@
    </c:if>
    <section class="clearfix2">
 
-   <div id="logo"><a href="${contextPath}"><img width="150px" src="${contextPath}/resources/images/logo3.png" ></a></div>
+   <div id="logo"><a href="${contextPath}/"><img width="150px" src="${contextPath}/resources/images/logo3.png" ></a></div>
 
 
     <div class="container2">

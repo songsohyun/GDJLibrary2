@@ -188,7 +188,7 @@
 	
 	<div class="join_cont">
         <form id='f' action="${contextPath}/member/login" method="post" >
-            <a href="${contextPath}"><h2 class="tit_bi">로고사진넣기</h2></a>
+            <a href="${contextPath}/"><h2 class="tit_bi">로고사진넣기</h2></a>
             <input type="hidden" name="url" value="${url}">
             <label for="memberid" class="login_ipt_box">
                 

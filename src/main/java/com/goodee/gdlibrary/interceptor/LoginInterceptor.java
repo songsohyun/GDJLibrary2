@@ -77,7 +77,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 			
 			
 			if(url.toString().isEmpty()) {  
-				response.sendRedirect(request.getContextPath());
+				response.sendRedirect(request.getContextPath() + "/");
 			} else {  
 				response.sendRedirect(url.toString());
 			}

@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.goodee.gdlibrary.domain.MemberDTO;
 import com.goodee.gdlibrary.mapper.MemberMapper;
-import com.goodee.gdlibrary.util.MyFileUtils;
 
 @Component
 public class Dormant {
@@ -18,7 +17,7 @@ public class Dormant {
 	private MemberMapper memberMapper;
 
 	@Transactional
-	@Scheduled(cron="0 0/1 * * * ?") // 오전 12:30분 마다 -> 언니꺼랑 맞춰둠
+	@Scheduled(cron="0 30 0 * * ?") // 오전 12:30분 마다 -> 언니꺼랑 맞춰둠
 	public void execute() throws Exception {
 
 		List<MemberDTO> member = memberMapper.selectMemberLogSignIn();
