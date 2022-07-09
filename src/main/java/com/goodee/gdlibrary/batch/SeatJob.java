@@ -11,17 +11,13 @@ import com.goodee.gdlibrary.service.SeatService;
 @Component  // 안녕. 난 bean이야.
 public class SeatJob {
 
-	@Autowired
-	private SeatService seatService;
+   @Autowired
+   private SeatService seatService;
 
-	
-	@Scheduled(cron="0 0/1 * * * ?")
-		public void execute() {
-
-		System.out.println("스케줄 !");
-
-
-		seatService.downSeatStatusByScheduled();
-	}
-	
+   
+   @Scheduled(cron="0 0/1 * * * ?")
+      public void execute() {
+      seatService.downSeatStatusByScheduled();
+   }
+   
 }

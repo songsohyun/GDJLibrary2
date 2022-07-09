@@ -156,7 +156,7 @@ public class MemberServiceImpl implements MemberService {
 				request.getSession().setAttribute("loginMember", loginMember);
 				out.println("<script>");
 				out.println("alert('회원 가입되었습니다.')");
-				out.println("location.href='" + request.getContextPath() + "'");
+				out.println("location.href='" + request.getContextPath() + "/'");
 				out.println("</script>");
 				out.close();
 			} else {
@@ -393,7 +393,7 @@ public class MemberServiceImpl implements MemberService {
 					}
 					out.println("<script>");
 					out.println("alert('탈퇴되었습니다.')");
-					out.println("location.href='" + request.getContextPath() + "'");
+					out.println("location.href='" + request.getContextPath() + "/'");
 					out.println("</script>");
 					out.close();
 
@@ -530,7 +530,7 @@ public class MemberServiceImpl implements MemberService {
 		String apiURL = "";
 		try {
 			String clientId = "72gskAJwbB1EXRAVmpJS";
-			String redirectURI = URLEncoder.encode("http://localhost:9090/gdlibrary/member/callback", "UTF-8");
+			String redirectURI = URLEncoder.encode("http://skykjm1212.cafe24.com/member/callback", "UTF-8");
 			SecureRandom random = new SecureRandom();
 			String state = new BigInteger(130, random).toString();
 			apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
@@ -557,7 +557,7 @@ public class MemberServiceImpl implements MemberService {
 		String apiURL = "";
 		String accessToken = "";
 		try {
-			String redirectURI = URLEncoder.encode("http://localhost:9090/gdlibrary/", "UTF-8");
+			String redirectURI = URLEncoder.encode("http://skykjm1212.cafe24.com/", "UTF-8");
 			apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
 			apiURL += "client_id=" + clientId;
 			apiURL += "&client_secret=" + clientSecret;

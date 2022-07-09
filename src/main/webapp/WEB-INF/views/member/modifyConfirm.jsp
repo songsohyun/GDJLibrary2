@@ -26,14 +26,14 @@
 
 </script>
 <style>
-* {
-    padding: 0;
-    margin: 0;
-}
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+	* {
+	    font-family: 'Noto Sans KR', sans-serif;
+	}
 
 .modifyConfirm {
     width: 500px;
-    margin: 150px auto 0;
+    margin: 230px auto 0;
 }
 
 .modifyConfirm table {
@@ -86,6 +86,7 @@
 	font-size: 12px;
 	padding: 5px 18px;
 	margin: 0 5px 5px 10px;
+	cursor: pointer;
 }
 </style>
 </head>

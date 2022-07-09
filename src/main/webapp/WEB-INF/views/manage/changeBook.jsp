@@ -16,6 +16,12 @@
 		fnBookChange();
 		fnList();
 		fnIsbnCheck();
+	
+		// 목록
+		$('#btnList').on('click', function(){
+			location.href='${contextPath}/admin/listBook?value=${value}';
+		})
+	
 	})
 
 
@@ -98,27 +104,268 @@
 		})
 	}
 </script>
+<style>
+	@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+   
+   * {
+   	  color: #4e4c4c;
+      font-family: 'Noto Sans KR', sans-serif;
+   }
+	.ok {
+		color: limegreen;
+	}
+	.dont {
+		color: crimson;
+	}
+	
+	#phoneMsg {
+		color: crimson;
+	}
+	
+	* {
+	  margin: 0;
+	  padding: 0;
+	  box-sizing: border-box;
+    }
+	ul, li {
+	  list-style: none;
+	}
+	a {
+	  text-decoration: none;
+	  color: inherit;
+	}        
+	.register{
+	            width: 550px;
+	            margin: 20px auto 0;
+	            padding: 15px 20px;
+            background: white;
+            color: #2b2e4a;
+            font-size: 14px;
+            text-align: left;
+            box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+    }
+    .register h3{
+        font-size: 20px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    .register input{
+        width: 100%;
+        height: 40px;
+        outline: none;
+        padding: 10px;
+        border: 1px solid #707070;
+        transition: 0.3s;
+    }
+    .register textarea {
+    	outline: none;
+        padding: 10px;
+        border: 1px solid #707070;
+        transition: 0.3s;
+    }
+    .register input:valid, .register input:focus, .register textarea:valid, .register textarea:focus{
+        border: 1px solid #2b2e4a;
+    }
+    .register .center{
+        display: flex;
+        align-items: center;
+    }
+    .register .flex{
+        display: flex;
+        flex-direction: column;
+    }
+    .register .flex .container{
+        display: grid;
+        grid-template-columns: 1fr 3fr 1fr;
+        margin-bottom: 10px;
+    }
+    .register .flex .container .item:first-child{
+       margin-right: 10px;
+    }
+    .register .flex .container .item .idcheck{
+        height: 100%;
+        margin-left: 10px;
+        padding: 5px 15px;
+        background: #2b2e4a;
+        border: 1px solid #2b2e4a;
+        color: white;
+        font-size: 12px;
+        transition: 0.3s;
+    }
+    .register .flex .container .item .idcheck:hover{
+        background: white;
+        color: #2b2e4a;
+    }
+    .register .flex .container .item select{
+        height: 40px;
+        padding: 10px;
+        border: 1px solid #2b2e4a;
+    }
+    .register .submit{
+        width: 100%;
+        height: 40px;
+        color: white;
+        border: none;
+        border: 1px solid #2b2e4a;
+        background: #2b2e4a;
+        transition: 0.3s;
+    }
+    .register .flex .container:last-child{
+        margin: 0;
+    }
+    .register .submit:hover{
+        width: 100%;
+        height: 40px;
+        border: none;
+        border: 1px solid #2b2e4a;
+        color: #2b2e4a;
+        background: white;
+    }
+    
+    
+</style>
 </head>
 <body>
-	<h1>책 수정 화면</h1>
 	
-	<form id="f" action="${contextPath}/admin/changeBook?value=${value}" method="post">
+	<div class="register">
+        <h3>책수정</h3>
+        <form id="f" action="${contextPath}/admin/changeBook?value=${value}" method="post">
+            <div class="flex">
+                <ul class="container">
+                    <li class="item center">
+                        책번호
+                    </li>
+                    <li class="item">
+                        ${book.bookNo}
+                    </li>
+                    <li class="item">
+                        <input type="hidden" name="bookNo" value="${book.bookNo}">
+                    </li>
+                </ul>
+                <ul class="container">
+                    <li class="item center">
+                        ISBN
+                    </li>
+                    <li class="item">
+                        <input type="text" name="isbn" id="isbn" placeholder="ISBN을 입력하세요.">
+                    </li>
+                    <li class="item">
+                   
+                    </li>
+                </ul>
+                <ul class="container">
+                   
+                    <li class="item center">
+                        제목
+                    </li>
+                    <li class="item">
+                        <span id="isbnMsg"></span>
+                        <input type="text" name="title" id="title" value="${book.bookTitle}" placeholder="제목을 입력하세요.">
+                    </li>
+                  	<li class="item">
+                        
+                    </li>
+                </ul>
+                <ul class="container">
+                
+                    <li class="item center">
+						작가                        
+                    </li>
+                    <li class="item">
+                        <input type="text" id="author" name="author" value="${book.bookAuthor}" placeholder="작가를 입력하세요.">
+                    </li>
+                    <li class="item">
+                        
+                    </li>
+                </ul>
+                <ul class="container">
+                    
+                    <li class="item center">
+                         출판사
+                    </li>
+                    <li class="item">
+                        <input type="text" name="publisher" id="publisher" value="${book.bookPublisher}" placeholder="출판사를 입력하세요.">
+                    </li>
+                    <li class="item">
+                        
+                    </li>
+                </ul>
+                <ul class="container">
+                    <li class="item center">
+                        출판날짜
+                    </li>
+                    <li class="item">
+                       <input type="text" name="pubdate" id="pubdate" value="${book.bookPubdateTime}" placeholder="출판날짜를 입력하세요.">
+                    </li>
+                     <li class="item">
+                        
+                    </li>
+                </ul>
+                <ul class="container">
+                    
+                    <li class="item center">
+                        내용
+                    </li>
+                    <li class="item">
+                        <textarea rows="15" cols="38" name="description" id="description" placeholder="내용을 입력하세요.">${book.bookDescription}</textarea>
+                    </li>
+                    <li class="item">
+                        
+                    </li>
+                </ul>
+                <ul class="container">
+                    <li class="item center">
+                        이미지주소
+                    </li>
+                    <li class="item">
+                        <input type="text" name="image" id="image" value="${book.bookImage}" placeholder="이미지 주소를 입력하세요.">
+                    </li>
+                    <li class="item">
+                        
+                    </li>
+                </ul>
+                 <ul class="container">
+                    <li class="item center">
+                        분야
+                    </li>
+                    <li class="item">
+                        <span id="emailMsg"></span>
+                        <input type="text" name="field" id="field" value="${book.bookType}" placeholder="도로명 주소를 입력하세요.">
+                    </li>
+                    <li class="item">
+                        
+                    </li>
+                </ul>
+ 
+                <ul class="container">
+                    <li class="item center">
+                        
+                    </li>
+                    <li class="item">
+                        <button class="submit">수정하기</button>
+                    </li>
+                    <li class="item">
+                        
+                    </li>
+                </ul>
+                <ul class="container">
+                    <li class="item center">
+                        
+                    </li>
+                    <li class="item">
+                       	<br>
+                        <input type="button" class="submit" value="도서 목록 페이지 이동" id="btnList">
+                    </li>
+                    <li class="item">
+                        
+                    </li>
+                </ul>
+            </div>
+        </form>
+    </div>
+   
 	
-		책번호 ${book.bookNo}<br>
-		<input type="text" name="isbn" id="isbn">
-		<span id="isbnMsg"></span><br><br>
-		<input type="hidden" name="bookNo" value="${book.bookNo}">
-		제목 <input type="text" name="title" id="title" value="${book.bookTitle}"><br>
-		작가 <input type="text" name="author" id="author" value="${book.bookAuthor}"><br>
-		출판사 <input type="text" name="publisher" id="publisher" value="${book.bookPublisher}"><br>
-		출판날짜 <input type="text" name="pubdate" id="pubdate" value="${book.bookPubdateTime}"><br>
-		설명 <input type="text" name="description" id="description" value="${book.bookDescription}"><br>
-		이미지주소 <input type="text" name="image" id="image" value="${book.bookImage}"><br>
-		분야 <input type="text" name="field" id="field" value="${book.bookType}"><br>
-		
-		<button>수정완료</button>
-		<input type="button" value="목록" id="btnList">
-		
-	</form>
+	
+	
 </body>
 </html>

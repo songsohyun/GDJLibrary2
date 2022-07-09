@@ -18,13 +18,18 @@
 </script>
 <style>
 	
-  
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+   
+   * {
+      
+      font-family: 'Noto Sans KR', sans-serif;
+   }
    .img{
   
     background: url("../resources/images/adminLibrary.jpg");                                                              
 	background-repeat: no-repeat;
 	background-size: cover;
-	height: 100vh;
+	height: 87vh;
 	margin-left: 100px;
 	margin-right: 100px;
     }

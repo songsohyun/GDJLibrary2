@@ -12,7 +12,8 @@
 <script src="../resources/js/jquery-3.6.0.js"></script>
 <script>
 	$(function(){
-
+			
+			// 모든 내용 입력확인
 			$('#f').on('submit', function(event){
 				if($('#title').val() == '' || $('#content').val() == ''){
 				        alert('내용을 모두 입력해주세요.');
@@ -21,10 +22,23 @@
 			    }
 				return true;
 			})
+			
+			// 관리자 메인 페이지 이동 
+			$('#btnList').on('click', function(){
+			location.href='${contextPath}/admin/moveManageMain';
+			})
 		
 	})
 </script>
 <style>
+	
+	@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+   
+   * {
+      color: #4e4c4c;
+      font-family: 'Noto Sans KR', sans-serif;
+   }
+	
 	.ok {
 		color: limegreen;
 	}
@@ -48,7 +62,7 @@
 	}        
 	.register{
 	            width: 550px;
-	            margin: 200px auto 0;
+	            margin: 170px auto 0;
 	            padding: 15px 20px;
 	            background: white;
 	            color: #2b2e4a;
@@ -128,25 +142,6 @@
         background: white;
     }
 </style>
-<script src="../resources/js/jquery-3.6.0.js"></script>
-<script>
-	
-	// 페이지 로드 이벤트
-	$(function(){
-		// 목록
-		$('#btnList').on('click', function(){
-			location.href='${contextPath}/admin/moveManageMain';
-		})
-		
-	})
-	
-	
-	// 함수
-	
-
-	
-	
-</script>
 </head>
 <body>
 	

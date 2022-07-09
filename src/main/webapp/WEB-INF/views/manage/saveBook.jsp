@@ -10,6 +10,14 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+	@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+   
+   * {
+      color: #4e4c4c;
+      font-family: 'Noto Sans KR', sans-serif;
+   }
+	
+	
 	.ok {
 		color: limegreen;
 	}
@@ -31,13 +39,14 @@
 	}        
 	.register{
 	            width: 550px;
-	            margin: 200px auto 0;
+	            margin: 70px auto 0;
 	            padding: 15px 20px;
             background: white;
             color: #2b2e4a;
             font-size: 14px;
             text-align: left;
             box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+            
     }
     .register h3{
         font-size: 20px;
@@ -52,7 +61,14 @@
         border: 1px solid #707070;
         transition: 0.3s;
     }
-    .register input:valid, .register input:focus{
+    
+     .register textarea {
+    	outline: none;
+        padding: 10px;
+        border: 1px solid #707070;
+        transition: 0.3s;
+    }
+    .register input:valid, .register input:focus, .register textarea:valid, .register textarea:focus{
         border: 1px solid #2b2e4a;
     }
     .register .center{
@@ -110,6 +126,7 @@
         color: #2b2e4a;
         background: white;
     }
+    
 	
 </style>
 <script src="../resources/js/jquery-3.6.0.js"></script>
@@ -120,6 +137,14 @@
 	
 		fnIsbnCheck();
 		fnBookAdd();
+		
+		// 책 목록 페이지 이동
+		$('#btnList').on('click', function(){
+		location.href='${contextPath}/admin/listBook?value=${value}';
+		})
+	
+	
+	
 	})
 	
 	
@@ -128,28 +153,33 @@
 	// 2. 책추가
 	function fnBookAdd(){
 		$('#f').on('submit', function(event){
-			if($('#isbn').val() == '' || $('#title').val() == '' || $('#author').val() == '' || $('#publisher').val() == '' || $('#pubdate').val() == '' || $('#description').val() == '' || $('#image').val() == '' || $('#field').val() == ''){
-				alert('내용을 모두 입력해주세요.');
-				event.preventDefault();
-				return false;
-			} else if(isbnOverlapPass == false){
+			if(isbnPass == false){
+					alert('ISBN 형식을 확인해 주세요.');
+					event.preventDefault();
+					return false;
+		    } else if(isbnOverlapPass == false){
 				alert('이미 등록된 ISBN입니다.');
 				event.preventDefault();
 				return false;
-			} 
+			} else if($('#isbn').val() == '' || $('#title').val() == '' || $('#author').val() == '' || $('#publisher').val() == '' || $('#pubdate').val() == '' || $('#description').val() == '' || $('#image').val() == '' || $('#field').val() == ''){
+				alert('내용을 모두 입력해주세요.');
+				event.preventDefault();
+				return false;
+			}  
 			return true;
 		})
 	}
 
 	
 	// 1. ISBN 정규식 & 중복체크
+	let isbnPass = false;
 	let isbnOverlapPass = false;
 	function fnIsbnCheck(){
 		$('#isbn').on('keyup', function(){
 			// 정규식 체크하기
 			let regIsbn = /^[0-9-.=]{1,16}$/;  
 			if(regIsbn.test($('#isbn').val())==false){
-				$('#isbnMsg').text('ISBN은 숫자 또는 특수문자(- . =) 1~16자 입니다.').addClass('dont').removeClass('ok');
+				$('#isbnMsg').text('ISBN은 숫자 또는 특수문자(-.=) 1~16자 입니다.').addClass('dont').removeClass('ok');
 				isbnPass = false;
 				return;
 			}
@@ -163,15 +193,16 @@
 				success: function(obj){
 					if(obj.res == null){
 						$('#isbnMsg').text('멋진 Isbn이네요!').addClass('ok').removeClass('dont');
+						isbnPass = true;
 						isbnOverlapPass = true;
 					} else {
 						$('#isbnMsg').text('이미 사용중인 ISBN입니다.').addClass('dont').removeClass('ok');
+						isbnPass = true;
 						isbnOverlapPass = false;
 					}
 				},
 				error: function(jqXHR){
 					$('#isbnMsg').text(jqXHR.responseText).addClass('dont').removeClass('ok');
-					isbnPass = true;
 					isbnOverlapPass = false;
 				}
 			})
@@ -182,6 +213,7 @@
 </script>
 </head>
 <body>
+
 	
 	<div class="register">
         <h3>책추가</h3>
@@ -204,7 +236,7 @@
                         제목
                     </li>
                     <li class="item">
-                        <span id="idMsg"></span>
+                        <span id="isbnMsg"></span>
                         <input type="text" name="title" id="title" placeholder="제목을 입력하세요.">
                     </li>
                   	<li class="item">
@@ -214,11 +246,10 @@
                 <ul class="container">
                 
                     <li class="item center">
-                    	    
+                    	 작가  
                     </li>
                     <li class="item">
-                        <span id="pwMsg"></span>
-                        <input type="password" id="pwConfirm" name="pwConfirm" placeholder="비밀번호를 입력하세요.">
+                        <input type="text" id="author" name="author" placeholder="작가를 입력하세요.">
                     </li>
                     <li class="item">
                         
@@ -227,11 +258,11 @@
                 <ul class="container">
                     
                     <li class="item center">
-                         이름
+                         출판사
                     </li>
                     <li class="item">
                         <span id="pwConfirmMsg"></span>
-                        <input type="text" name="name" id="name" placeholder="이름을 입력하세요.">
+                        <input type="text" name="publisher" id="publisher" placeholder="출판사를 입력하세요.">
                     </li>
                     <li class="item">
                         
@@ -239,10 +270,10 @@
                 </ul>
                 <ul class="container">
                     <li class="item center">
-                        전화번호
+                        출판날짜
                     </li>
                     <li class="item">
-                       <input type="text" name="phone" id="phone" placeholder="전화번호를 입력하세요.">
+                       <input type="text" name="pubdate" id="pubdate" placeholder="출판날짜를 입력하세요.">
                     </li>
                      <li class="item">
                         
@@ -251,11 +282,10 @@
                 <ul class="container">
                     
                     <li class="item center">
-                        이메일
+                        내용
                     </li>
                     <li class="item">
-                        <span id="phoneMsg"></span>
-                        <input type="text" name="email" id="email" placeholder="이메일을 입력하세요.">
+                        <textarea rows="16" cols="38" name="description" id="description" placeholder="내용을 입력하세요."></textarea>
                     </li>
                     <li class="item">
                         
@@ -263,11 +293,11 @@
                 </ul>
                 <ul class="container">
                     <li class="item center">
-                        우편번호
+                        이미지 주소
                     </li>
                     <li class="item">
                         <span id="emailMsg"></span>
-                        <input type="text" name="postcode" id="postcode" placeholder="우편번호를 입력하세요.">
+                        <input type="text" name="image" id="image" placeholder="이미지 주소를 입력하세요.">
                     </li>
                     <li class="item">
                         
@@ -275,22 +305,11 @@
                 </ul>
                  <ul class="container">
                     <li class="item center">
-                        도로명 주소
+                        분야
                     </li>
                     <li class="item">
                         <span id="emailMsg"></span>
-                        <input type="text" name="roadAddress" id="roadAddress" placeholder="도로명 주소를 입력하세요.">
-                    </li>
-                    <li class="item">
-                        
-                    </li>
-                </ul>
-                 <ul class="container">
-                    <li class="item center">
-                        상세주소
-                    </li>
-                    <li class="item">
-                        <input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소를 입력하세요.">
+                        <input type="text" name="field" id="field" placeholder="분야를 입력하세요.">
                     </li>
                     <li class="item">
                         
@@ -307,27 +326,23 @@
                         
                     </li>
                 </ul>
+                <ul class="container">
+                    <li class="item center">
+                        
+                    </li>
+                    <li class="item">
+                       	<br>
+                        <input type="button" class="submit" value="도서 목록 페이지 이동" id="btnList">
+                    </li>
+                    <li class="item">
+                        
+                    </li>
+                </ul>
             </div>
         </form>
     </div>
+  
 	
-	<h1>책추가화면</h1>
-	
-	<form id="f" action="${contextPath}/admin/saveBook?value=${value}" method="post">
-		<label for="isbn">
-			ISBN<br>
-			<input type="text" name="isbn" id="isbn"><br>
-			<span id="isbnMsg"></span>
-		</label><br><br>
-		<input type="text" name="title" id="title" placeholder="제목"><br>
-		<input type="text" name="author" id="author" placeholder="작가"><br>
-		<input type="text" name="publisher" id="publisher" placeholder="출판사"><br>
-		<input type="text" name="pubdate" id="pubdate" placeholder="출판날짜"><br>
-		<input type="text" name="description" id="description" placeholder="설명"><br>
-		<input type="text" name="image" id="image" placeholder="이미지주소"><br>
-		<input type="text" name="field" id="field" placeholder="분야"><br>
-		<button>작성완료</button>
-	</form>
 	
 </body>
 </html>

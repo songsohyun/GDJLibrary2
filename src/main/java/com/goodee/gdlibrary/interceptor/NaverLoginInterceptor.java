@@ -36,7 +36,7 @@ public class NaverLoginInterceptor implements HandlerInterceptor {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginMember", loginMember);
 
-			response.sendRedirect(request.getContextPath());
+			response.sendRedirect(request.getContextPath() + "/");
 
 		}
 

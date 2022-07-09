@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.goodee.gdlibrary.domain.MemberDTO;
 import com.goodee.gdlibrary.mapper.MemberMapper;
-import com.goodee.gdlibrary.util.MyFileUtils;
 
 @Component
 public class Dormant {

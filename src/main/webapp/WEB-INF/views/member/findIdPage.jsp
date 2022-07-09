@@ -67,7 +67,12 @@
 	.dont {
 		color: #666b7d;
 	}
-	
+	@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+	* {
+	    
+	    
+	    font-family: 'Noto Sans KR', sans-serif;
+	}
 
 
      .findId_wrap {
@@ -79,10 +84,7 @@
          text-decoration: none;
          color: #333;
      }
-	* {
-         padding: 0;
-         margin: 0;
-     }
+
      .findId_wrap table {
          margin: 0 auto;
          
@@ -131,7 +133,7 @@
          border-color: #f5d7ac;
          padding: 3px 5px;
          font-size: 12px;
-
+		color: #333;
      }
 
      .findId > h3 {
@@ -182,7 +184,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="3"><span id="emailMsg">aa</span></td>
+                        <td colspan="3"><span id="emailMsg"></span></td>
                     </tr>
                 </tbody>
             </table>
