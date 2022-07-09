@@ -301,7 +301,7 @@
             margin-left: 10px;
             width: 150px;
             height: 10px;
-            padding: 5px 10px 5px 7px;
+            padding: 8px 10px 8px 10px;
             font-size: 14px;
             
             color: #635f5f;
