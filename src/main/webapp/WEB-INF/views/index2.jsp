@@ -16,6 +16,7 @@
 		// 페이지로드
 		$(function(){
 			fnRecomBook();
+			initMap();
 		})
 		
 		// 1. 추천책
@@ -37,7 +38,27 @@
 		})
 		
 	}
+	
+		// 2. 찾아오시는길
 		
+		function initMap() {
+		
+		var map = new naver.maps.Map('map', {
+	        center: new naver.maps.LatLng(37.478095, 126.879192),
+	        zoom: 17
+	    });
+		
+	    var marker = new naver.maps.Marker({
+	        map: map,
+	        title: "GDJLibrary",
+	        position: new naver.maps.LatLng(37.478095, 126.879192),
+	        icon: {
+	            content: '<img src="<c:url value="/resources/images/map-pin-g894a2ee8c_1920.png"/>" alt="" style="margin: 0px; padding: 0px; border: 0px solid transparent; display: block; max-width: none; max-height: none; -webkit-user-select: none;position: absolute; width: 25px; height: 40px; left: 0px; top: 0px;">',
+	            size: new naver.maps.Size(1, 1),
+	            anchor: new naver.maps.Point(16, 32)
+	        }
+	    });
+	}
 		
 </script>
 <style>
@@ -113,14 +134,27 @@
 		color: white;
 	}
 	#divBottomText {
+        margin-top: 30px;
+        margin-left: 90px;
 		background-color: #efefb8;
+        display: inline-flex;
 	}
 
 	#recomeBook{
 		display: inline-flex;
 	}
 	
+	#map{
+		width:200px;
+		height:200px;
+		margin-left:100px;
+        background-color: aqua;
+	}
 	
+    #libraryInfo{
+        
+    }
+
 </style>
 </head>
 <body>
@@ -182,21 +216,14 @@
 			</div>
 		</div>
 	</div>
-	<div id="divBottomMenu">
-		<div class="divBottomMenu"><a href="${contextPath}/rent/rentBook?bookNo=1">대여하기</a></div>
-		<div class="divBottomMenu"><a href="${contextPath}/returned/returnedBookPage">반납하기</a></div>
-		<div class="divBottomMenu"><a href="${contextPath}/notice/noticePage">공지사항</a></div>
-		<div class="divBottomMenu"><a href="${contextPath}/qaa/qaaPage">질문과답변</a></div>
-		<div class="divBottomMenu"><a href="${contextPath}/member/map">찾아오시는 길</a></div>
-		<c:if test="${loginMember.memberId eq \"admin\"}">
-			<div class="divBottomMenu"><a href="${contextPath}/admin/manageMain">관리자페이지</a></div>
-		</c:if>
-	</div>
+	
 	<div id="divBottomText">
-		<div style="margin-left: 100px;">
+        
+		<div id="libraryInfo" style="margin-left: 100px;">
 		주소(우)(07988) 서울특별시 금천구 가산동 448 대륭테크노타운 3차 1109호 (가산동,GDJ도서관)&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-phone"></i> 02-2062-3900(TEL) &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-fax"></i> 02-2062-3919(FAX)<br>
 		Copyright © 2022 GDJ Library. All Rights Reserved.
 		</div>
+        <div id="map"></div>
 	</div>
 </body>
 </html>
