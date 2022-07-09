@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>GDJLibrary</title>
 <script src="../resources/js/jquery-3.6.0.js"></script>
 <script>
 	$(function(){
@@ -61,7 +61,10 @@
 		})
 	}
 	
-	
+	//취소하기
+	function fnCancel(){
+		location.href='${contextPath}/member/loginPage';
+	}
 	
 </script>
 <style>
@@ -167,7 +170,7 @@
 	<div class="pwChange_wrap">
         <div class="pwChange">
             <h3>비밀번호 변경</h3>
-            <form id="f" action="${contextPath}/member/pwModify" method="post">
+            <form id="f" action="${contextPath}/member/changePw" method="post">
                 <input type="hidden" name="memberId" id="memberId" value="${loginMember.memberId}">
                 <table>
                     <tbody>

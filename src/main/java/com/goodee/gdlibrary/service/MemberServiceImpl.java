@@ -101,7 +101,7 @@ public class MemberServiceImpl implements MemberService {
 			message.setHeader("Content-Type", "text/plain; charset=UTF-8");
 			message.setFrom(new InternetAddress(USERNAME, "GDJLibrary"));
 			message.setRecipient(Message.RecipientType.TO, new InternetAddress(memberEmail));
-			message.setSubject("GDJLibrary 회원가입 인증메일입니다.");
+			message.setSubject("GDJLibrary 인증메일입니다.");
 			message.setText("인증번호는 " + authCode + "입니다.");
 
 			Transport.send(message);
@@ -437,7 +437,6 @@ public class MemberServiceImpl implements MemberService {
 			PrintWriter out = response.getWriter();
 			if(member != null) {
 				out.println("<script>");
-				out.println("alert('확인되었습니다.')");
 				out.println("location.href='" + request.getContextPath() + "/member/pwModifyPage'");
 				out.println("</script>");
 				out.close();
@@ -506,7 +505,6 @@ public class MemberServiceImpl implements MemberService {
 			PrintWriter out = response.getWriter();
 			if(member != null) {
 				out.println("<script>");
-				out.println("alert('확인되었습니다.')");
 				out.println("location.href='" + request.getContextPath() + "/member/modifyPage?memberId=" + memberId + "'");
 				out.println("</script>");
 				out.close();

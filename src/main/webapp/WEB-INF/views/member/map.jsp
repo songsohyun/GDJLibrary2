@@ -7,7 +7,7 @@
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=r9az651hqi"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <meta charset="EUC-KR">
-<title>Insert title here</title>
+<title>GDJLibrary</title>
 <script type="text/javascript">
 	$(function() {
 		initMap();

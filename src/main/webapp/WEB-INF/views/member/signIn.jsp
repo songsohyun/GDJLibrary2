@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>GDJLibrary</title>
 
 <script src="../resources/js/jquery-3.6.0.js"></script>
 <script
@@ -283,16 +283,16 @@
             width: 650px;
             border-top: 1px solid #f2f4f5;
             border-bottom: 1px solid #f2f4f5;
-            height: 40px;
+            height: 45px;
         }
         
         .loginForm table td:first-of-type {
             border-right: 1px solid #f2f4f5;
-            width: 150px;
+            width: 130px;
         }
 
         .loginForm label, .loginForm tr:nth-of-type(5) td:first-of-type {
-            font-size: 13px;
+            font-size: 15px;
             padding-left: 10px;
             color:#4a4747;
         }
