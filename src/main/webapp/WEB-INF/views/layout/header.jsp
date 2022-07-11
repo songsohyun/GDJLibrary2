@@ -90,7 +90,7 @@
    .clearfix2 ul {
       float: center;
       margin-right: 50px;
-      margin-left: 230px;
+      margin-left: 320px;
    }
    
    .clearfix2 ul li {
