@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -120,7 +121,8 @@ public class BookServiceImpl implements BookService {
 
 		String column = request.getParameter("column");
 		String query = request.getParameter("query");
-		int page = Integer.parseInt(request.getParameter("page"));
+		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
+		int page = Integer.parseInt(opt.orElse("1"));
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("query", query);

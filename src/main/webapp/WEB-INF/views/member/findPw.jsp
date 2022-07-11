@@ -171,7 +171,7 @@
         <div class="pwChange">
             <h3>비밀번호 변경</h3>
             <form id="f" action="${contextPath}/member/changePw" method="post">
-                <input type="hidden" name="memberId" id="memberId" value="${loginMember.memberId}">
+                <input type="hidden" name="memberId" id="memberId" value="${memberId}">
                 <table>
                     <tbody>
                         <tr>
