@@ -16,6 +16,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.XML;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -23,10 +25,10 @@ import org.springframework.ui.Model;
 import com.goodee.gdlibrary.domain.BookDTO;
 import com.goodee.gdlibrary.mapper.BookMapper;
 import com.goodee.gdlibrary.util.PageUtils1;
-
+@PropertySource(value={"classpath:secret/secret.properties"})
 @Service
 public class BookServiceImpl implements BookService {
-
+	@Value(value="${book.api.key}") private String bookApiKey;
 		@Autowired
 		private BookMapper bookMapper;
 	
@@ -36,7 +38,7 @@ public class BookServiceImpl implements BookService {
 		public void getBooksInfo(HttpServletRequest request) {
 
 		// API URL with Parameter
-		String key = "d99cfc0bc8e22bb018dd441c09f57af2624e907b48a7135e2bce67d44b6a0db3";
+		String key = bookApiKey;
 		int startRowNumApi = 1;
 		int endRowNemApi = 30;
 		Long query = Long.parseLong(request.getParameter("query"));
