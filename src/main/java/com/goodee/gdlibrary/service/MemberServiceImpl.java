@@ -32,6 +32,8 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -43,11 +45,15 @@ import com.goodee.gdlibrary.domain.SeatDTO;
 import com.goodee.gdlibrary.mapper.MemberMapper;
 import com.goodee.gdlibrary.util.SecurityUtils;
 
+@PropertySource(value={"classpath:secret/secret.properties"})
 @Service
 public class MemberServiceImpl implements MemberService {
 
 	private static final Logger logger = LoggerFactory.getLogger(MemberServiceImpl.class);
-
+	@Value(value="${email.admin}") private String emailAdmin;
+	@Value(value="${email.admin.password}") private String emailAdminPassword;
+	@Value(value="${naver.clientId}") private String naverClientId;
+	@Value(value="${naver.clientSecret}") private String naverClientSecret;
 	@Autowired
 	private MemberMapper memberMapper;
 
@@ -84,8 +90,8 @@ public class MemberServiceImpl implements MemberService {
 		props.put("mail.smtp.auth", "true"); 
 		props.put("mail.smtp.starttls.enable", "true"); 
 
-		final String USERNAME = "qotjd950120@gmail.com";
-		final String PASSWORD = "odxlbmucdbkfbxum"; 
+		final String USERNAME = emailAdmin;
+		final String PASSWORD = emailAdminPassword; 
 
 		Session session = Session.getInstance(props, new Authenticator() {
 			@Override
@@ -527,7 +533,7 @@ public class MemberServiceImpl implements MemberService {
 	public String getNaverURL(HttpServletRequest request) {
 		String apiURL = "";
 		try {
-			String clientId = "72gskAJwbB1EXRAVmpJS";
+			String clientId = naverClientId;
 			String redirectURI = URLEncoder.encode("http://skykjm1212.cafe24.com/member/callback", "UTF-8");
 			SecureRandom random = new SecureRandom();
 			String state = new BigInteger(130, random).toString();
@@ -548,8 +554,8 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public String getNaverAccessToken(HttpServletRequest request) {
 
-		String clientId = "72gskAJwbB1EXRAVmpJS";
-		String clientSecret = "57g5sjb0L5";
+		String clientId = naverClientId;
+		String clientSecret = naverClientSecret;
 		String code = request.getParameter("code");
 		String state = request.getParameter("state");
 		String apiURL = "";
