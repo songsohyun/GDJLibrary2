@@ -27,7 +27,8 @@ public class MyFileUtils {
 		// summernote 경로
 		public static String summerNotePath() {
 			String sep = Matcher.quoteReplacement(File.separator);
-			return "resources" + sep + "upload" + sep + "summernote";
+			// 원본 : return "resources" + sep + "upload" + sep + "summernote";
+			return "upload" + sep + "summernote";
 		}
 		
 		// 오늘경로
@@ -39,7 +40,8 @@ public class MyFileUtils {
 			int day = calendar.get(Calendar.DAY_OF_MONTH);
 			String sep = Matcher.quoteReplacement(File.separator);
 			// 원본 : return "C:" + sep + "upload" + sep + year + sep + month + sep + day;
-			return "resources" + sep + "upload" + sep + year + sep + fillZero(month) + sep + fillZero(day);
+			// 수정1 : return "resources" + sep + "upload" + sep + year + sep + fillZero(month) + sep + fillZero(day);
+			return "upload" + sep + year + sep + fillZero(month) + sep + fillZero(day);
 		}
 		
 		public static String getYesterdayPath() {
@@ -50,7 +52,8 @@ public class MyFileUtils {
 			int day = calendar.get(Calendar.DAY_OF_MONTH);
 			String sep = Matcher.quoteReplacement(File.separator);
 			// 원본 : return "C:" + sep + "upload" + sep + year + sep + month + sep + day;
-			return "resources" + sep + "upload" + sep + year + sep + fillZero(month) + sep + fillZero(day);
+			// 수정1 : return "resources" + sep + "upload" + sep + year + sep + fillZero(month) + sep + fillZero(day);
+			return "upload" + sep + year + sep + fillZero(month) + sep + fillZero(day);
 		}
 		
 		// 1~9 => 01~09

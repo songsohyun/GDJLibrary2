@@ -32,6 +32,8 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -43,11 +45,15 @@ import com.goodee.gdlibrary.domain.SeatDTO;
 import com.goodee.gdlibrary.mapper.MemberMapper;
 import com.goodee.gdlibrary.util.SecurityUtils;
 
+@PropertySource(value={"classpath:secret/secret.properties"})
 @Service
 public class MemberServiceImpl implements MemberService {
 
 	private static final Logger logger = LoggerFactory.getLogger(MemberServiceImpl.class);
-
+	@Value(value="${email.admin}") private String emailAdmin;
+	@Value(value="${email.admin.password}") private String emailAdminPassword;
+	@Value(value="${naver.clientId}") private String naverClientId;
+	@Value(value="${naver.clientSecret}") private String naverClientSecret;
 	@Autowired
 	private MemberMapper memberMapper;
 
@@ -84,8 +90,8 @@ public class MemberServiceImpl implements MemberService {
 		props.put("mail.smtp.auth", "true"); 
 		props.put("mail.smtp.starttls.enable", "true"); 
 
-		final String USERNAME = "qotjd950120@gmail.com";
-		final String PASSWORD = "odxlbmucdbkfbxum"; 
+		final String USERNAME = emailAdmin;
+		final String PASSWORD = emailAdminPassword; 
 
 		Session session = Session.getInstance(props, new Authenticator() {
 			@Override
@@ -101,7 +107,7 @@ public class MemberServiceImpl implements MemberService {
 			message.setHeader("Content-Type", "text/plain; charset=UTF-8");
 			message.setFrom(new InternetAddress(USERNAME, "GDJLibrary"));
 			message.setRecipient(Message.RecipientType.TO, new InternetAddress(memberEmail));
-			message.setSubject("GDJLibrary 회원가입 인증메일입니다.");
+			message.setSubject("GDJLibrary 인증메일입니다.");
 			message.setText("인증번호는 " + authCode + "입니다.");
 
 			Transport.send(message);
@@ -156,7 +162,7 @@ public class MemberServiceImpl implements MemberService {
 				request.getSession().setAttribute("loginMember", loginMember);
 				out.println("<script>");
 				out.println("alert('회원 가입되었습니다.')");
-				out.println("location.href='" + request.getContextPath() + "'");
+				out.println("location.href='" + request.getContextPath() + "/'");
 				out.println("</script>");
 				out.close();
 			} else {
@@ -393,7 +399,7 @@ public class MemberServiceImpl implements MemberService {
 					}
 					out.println("<script>");
 					out.println("alert('탈퇴되었습니다.')");
-					out.println("location.href='" + request.getContextPath() + "'");
+					out.println("location.href='" + request.getContextPath() + "/'");
 					out.println("</script>");
 					out.close();
 
@@ -437,7 +443,6 @@ public class MemberServiceImpl implements MemberService {
 			PrintWriter out = response.getWriter();
 			if(member != null) {
 				out.println("<script>");
-				out.println("alert('확인되었습니다.')");
 				out.println("location.href='" + request.getContextPath() + "/member/pwModifyPage'");
 				out.println("</script>");
 				out.close();
@@ -506,7 +511,6 @@ public class MemberServiceImpl implements MemberService {
 			PrintWriter out = response.getWriter();
 			if(member != null) {
 				out.println("<script>");
-				out.println("alert('확인되었습니다.')");
 				out.println("location.href='" + request.getContextPath() + "/member/modifyPage?memberId=" + memberId + "'");
 				out.println("</script>");
 				out.close();
@@ -529,8 +533,8 @@ public class MemberServiceImpl implements MemberService {
 	public String getNaverURL(HttpServletRequest request) {
 		String apiURL = "";
 		try {
-			String clientId = "72gskAJwbB1EXRAVmpJS";
-			String redirectURI = URLEncoder.encode("http://localhost:9090/gdlibrary/member/callback", "UTF-8");
+			String clientId = naverClientId;
+			String redirectURI = URLEncoder.encode("http://skykjm1212.cafe24.com/member/callback", "UTF-8");
 			SecureRandom random = new SecureRandom();
 			String state = new BigInteger(130, random).toString();
 			apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
@@ -550,14 +554,14 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public String getNaverAccessToken(HttpServletRequest request) {
 
-		String clientId = "72gskAJwbB1EXRAVmpJS";
-		String clientSecret = "57g5sjb0L5";
+		String clientId = naverClientId;
+		String clientSecret = naverClientSecret;
 		String code = request.getParameter("code");
 		String state = request.getParameter("state");
 		String apiURL = "";
 		String accessToken = "";
 		try {
-			String redirectURI = URLEncoder.encode("http://localhost:9090/gdlibrary/", "UTF-8");
+			String redirectURI = URLEncoder.encode("http://skykjm1212.cafe24.com/", "UTF-8");
 			apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
 			apiURL += "client_id=" + clientId;
 			apiURL += "&client_secret=" + clientSecret;

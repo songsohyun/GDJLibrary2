@@ -27,10 +27,12 @@ import com.zaxxer.hikari.HikariDataSource;
 @Configuration
 public class DBConfig {
 
-	@Value(value="${hikariConfig.driverClassName}") private String driverClassName;
-	@Value(value="${hikariConfig.jdbcUrl}") private String jdbcUrl;
-	@Value(value="${hikariConfig.username}") private String username;
-	@Value(value="${hikariConfig.password}") private String password;
+	@Value(value="${spring.datasource.driver-class-name}") private String driverClassName;
+	@Value(value="${spring.datasource.url}") private String jdbcUrl;
+	@Value(value="${spring.datasource.username}") private String username;
+	@Value(value="${spring.datasource.password}") private String password;
+	@Value(value="${mybatis.config-location}") private String configLocation;
+	@Value(value="${mybatis.mapper-locations}") private String mapperLocations;
 	
 	@Bean
 	public HikariConfig hikariConfig() {

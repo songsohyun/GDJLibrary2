@@ -54,9 +54,9 @@ public class OverdueJob {
 		
 		// 어제 경로를 알아내기
 		// 원본 : String yesterdayPath = MyFileUtils.getYesterdayPath();  
-		String sep = Matcher.quoteReplacement(File.separator);
-		String yesterdayPath = sep + "skykjm1212" + sep + "tomcat" + sep + "webapps" + sep + "ROOT" + sep + MyFileUtils.getYesterdayPath();
-		
+		// String sep = Matcher.quoteReplacement(File.separator);
+		// String yesterdayPath = sep + "skykjm1212" + sep + "tomcat" + sep + "webapps" + sep + "ROOT" + sep + MyFileUtils.getYesterdayPath();
+		String yesterdayPath = MyFileUtils.getYesterdayPath();
 		
 		// DB에서 가져온 어제 저장된 첨부 파일 목록
 		List<NoticeFileAttachDTO> fileAttaches = noticeMapper.selectFileAttachListAtYesterday();

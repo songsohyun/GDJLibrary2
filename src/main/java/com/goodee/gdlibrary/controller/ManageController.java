@@ -241,7 +241,17 @@ public class ManageController {
 		manageService.saveBook(request, response);
 	}
 	
+<<<<<<< HEAD
 
+=======
+	@ResponseBody
+	@GetMapping(value="/admin/checkBookByIsbn", produces="application/json; charset=UTF-8")
+	public Map<String, Object> checkBookIsbn(@RequestParam String isbn) {
+		return manageService.checkBookByIsbn(isbn);
+		// {"res": null}
+		// {"res": {"bookNo":1, ...}}
+	}
+>>>>>>> main
 	
 	@GetMapping("/admin/detailBook")
 	public String detailBook(HttpServletRequest request, Model model) {
