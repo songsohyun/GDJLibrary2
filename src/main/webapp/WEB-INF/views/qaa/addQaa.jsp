@@ -9,67 +9,9 @@
 <head>
 <meta charset="UTF-8">
 <title>GDJLibrary</title>
-<style>
- 	@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
-	
-	* {
-		font-family: 'Noto Sans KR', sans-serif;
-		color: #4e4c4c;
-	} 
-	.addQaa_wrap {
-		width: 600px;
-		margin: 200px auto; 
-		/* padding-left: 20px; */
-	}
-	input[name="title"], input[name="memberId"] {
-		width: 400px;
-		height: 25px;
-		padding-left: 15px;
-	}
-	textarea {
-		width: 470px;
-		height: 300px;
-		resize: none;
-	}
-	#btn {
-		width: 500px;
-		margin-top: 20px;
-		text-align: center;
-	}
-	.pointer {
-		display: inline-block;
-		border: 1px solid #7c7c7c;
-		border-radius: 170px;
-		width: 60px;
-		height: 27px;
-		background-color: #4390de;
-		cursor: pointer;
-		padding-top: 1px;
-		text-align: center;
-		color: white;
-	}
-
-	.title_wrap, .memberId_wrap, .question_wrap {
-		display: block;
-		margin-top: 30px;
-	}
-	.td_title, .td_memberId {
-		display: inline-block;
-	}
-	.title_first {
-		margin-right: 25px;
-	}
-	.memberId_first {
-		margin-right: 10px;
-	}
-	#content {
-		padding-left: 15px;
-		padding-top: 15px;
-		font-size: 16px;
-	}
-
-</style>
 <script src="../resources/js/jquery-3.6.0.js"></script>
+<script src="../resources/js/qaa_addQaa.js"></script>
+<link rel="stylesheet" href="../resources/css/qaa_addQaa.css" />
 <script>
 
 	$(function(){
@@ -78,28 +20,7 @@
 		fnList();
 	});
 	
-	
-	function fnQaaAdd(){
-		$('#f').on('submit', function(event){
-			if($('#title').val() == '' || $('#content').val() == ''){
-				alert('제목과 내용을 전부 작성해주세요.');
-				event.preventDefault();
-				return;
-			}
-			
-			$(this).submit();
-			
-		});
-	}
-	
-	function fnList() {
-		$('#btnList').on('click', function(){
-			location.href='${contextPath}/qaa/qaaPage';
-		});
-	}
-
 </script>
-
 </head>
 <body>
 
