@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>GDJLibrary</title>
 <script src="../resources/js/jquery-3.6.0.js"></script>
 <script>
 		$(function(){
@@ -41,6 +41,8 @@
 			})
 			
 		}
+		
+	
 	
 </script>
 </head>
@@ -51,6 +53,7 @@
 			<input type="text" name="query" id="query" placeholder="분야코드를 적어주세요">
 			<button>api 정보받아오기</button>
 		</form>
-
+			
+			
 </body>
 </html>

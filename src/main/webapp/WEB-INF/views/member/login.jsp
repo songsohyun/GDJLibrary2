@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>GDJLibrary</title>
 <script src="../resources/js/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <!-- jquery cookie -->
@@ -188,7 +188,7 @@
 	
 	<div class="join_cont">
         <form id='f' action="${contextPath}/member/login" method="post" >
-            <a href="${contextPath}"><h2 class="tit_bi">로고사진넣기</h2></a>
+            <a href="${contextPath}/"><h2 class="tit_bi">로고사진넣기</h2></a>
             <input type="hidden" name="url" value="${url}">
             <label for="memberid" class="login_ipt_box">
                 

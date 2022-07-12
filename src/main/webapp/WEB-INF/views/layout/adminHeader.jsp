@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>GDJLibrary</title>
 <style>
    .container {
    width: 1140px;

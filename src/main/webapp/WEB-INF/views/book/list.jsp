@@ -9,9 +9,20 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>GDJLibrary</title>
 <style>
-
+		
+		@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+   
+   * {
+      font-family: 'Noto Sans KR', sans-serif;
+      color: #4e4c4c;
+   }
+		
+		.all{
+			margin: 100px 0 50px 0px;
+		}
+		
 		.listTable{
 			margin-left: auto;
 			margin-right: auto;			
@@ -241,6 +252,7 @@
 </script>
 </head>
 <body>
+	<jsp:include page="../layout/header.jsp"></jsp:include><br><br><br>
 		<div id="insertApi">
 		<a href="${contextPath}/book/insertBook">책추가하기</a>
 		</div>

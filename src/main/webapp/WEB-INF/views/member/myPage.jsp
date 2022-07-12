@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>GDJLibrary</title>
 <script src="../resources/js/jquery-3.6.0.js"></script>
 <script>
 
@@ -83,7 +83,7 @@
 					.appendTo('#myPageReservationSeatNo');
 				} else {
 					$('<tr>')
-					.append($('<td>').html('예약된 좌석이 없습니다.'))
+					.append($('<td colspan="2">').html('예약된 좌석이 없습니다.'))
 					.appendTo('#myPageReservationSeatNo');
 				}
 			}

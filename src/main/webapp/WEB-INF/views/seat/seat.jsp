@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>GDJLibrary</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
@@ -15,15 +15,6 @@
       font-family: 'Noto Sans KR', sans-serif;
    }
 
-   body {
-      background-color: ;
-      /* background: url("https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMTAzMjVfOTUg%2FMDAxNjE2NjU0MzAyODA0.8qpcyIw3gwNDawEqIpOS5C8xd0ARF3To_SKeVQ7j9cwg.0cfChaGaJ8SK-IEBOx5mb7ZOZTwZ5XqKRNUxyLCBV7Eg.JPEG.qpdpxpfkd%2F20210324%25A3%25DF160114.jpg&type=sc960_832");
-      background-repeat: no-repeat;
-      height: 100vh;
-      background-size: cover;
-      */
-   }
-   
    h1 {
       color: #4e4c4c;
    }
@@ -515,10 +506,6 @@
                         좌석갱신
                         <input type="button" value="좌석 갱신" id="btnSeatRenew" class="formBtn">
                         <label for="btnSeatRenew">&nbsp;<i class="fa-solid fa-computer-mouse bt"></i>&nbsp;</label>
-                        
-                        <br>
-                        
-                        <input type="button" value="첫페이지로 가기" onclick="location.href='${contextPath}'">
                      </div>
                   </td>
                 </tr>
