@@ -8,19 +8,146 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>GDJLibrary</title>
+<title>Insert title here</title>
 <script src="../resources/js/jquery-3.6.0.js"></script>
-<script src="../resources/js/member_agree.js"></script>
-<link rel="stylesheet" href="../resources/css/member_agree.css">
+
 <script>
 	$(function() {
-		fnCheckAll();
-		fnCheckOne();
-		fnCheckToggle();
-		fnAgreeSubmit();
+
+		//전체 선택
+		$('#checkAll').on('click', function() {
+			
+			$('.checkOne').prop('checked', $('#checkAll').prop('checked'));
+
+			if ($('#checkAll').is(':checked')) { 
+				$('.item, .items').addClass('check');
+			} else {
+				$('.item, .items').removeClass('check');
+			}
+		})
+
+		//개별 선택
+		$('.checkOne').on('click', function() {
+
+			let checkAll = true; 
+
+			$.each($('.checkOne'), function(i, checkOne) {
+				if ($(checkOne).is(':checked') == false) { 
+					$('#checkAll').prop('checked', false);
+					$('.items').removeClass('check');
+					checkAll = false; 
+					return;
+				}
+			})
+			if (checkAll) {
+				$('#checkAll').prop('checked', true);
+				$('.items').addClass('check');
+			}
+
+		})
+
+		//체크 박스는 클릭할때마다 check 클래스를 줬다 뺐었다 해야 함
+		$('.item, .items').on('click', function() {
+			$(this).toggleClass('check');
+		})
+
+		//다음 버튼
+		$('#f').on(
+				'submit',
+				function(event) {
+					if ($('#service').is(':checked') == false
+							|| $('#privacy').is(':checked') == false) {
+						alert('필수 약관에 모두 동의하세요.');
+						event.preventDefault();
+						return false;
+					}
+					return true;
+
+				})
 	})
 </script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+   
+ * {
+    font-family: 'Noto Sans KR', sans-serif;
+ }
 
+.blind {
+	display: none;
+}
+
+.items, .item {
+	padding-left: 20px;
+	background-image: url(../resources/images/uncheck.png);
+	background-size: 18px 18px;
+	background-repeat: no-repeat;
+	margin-left:10px;
+	color: #635f5f;
+	cursor: pointer;
+}
+
+.check {
+	background-image: url(../resources/images/check.png);
+}
+
+.h2 {
+	font-size: 20px;
+	color: #4a4747;
+	text-align: center;
+	margin: 0 auto;
+	padding: 80px 0 20px 0;
+}
+
+.agree {
+	border: 1px solid #e6e6e6;
+	width: 650px;
+	margin: 20px auto;
+}
+.agree:first-of-type {
+	border: 0;
+}
+
+.agree > div {
+	padding: 23px 19px;
+	height: 124px;
+	overflow: auto;
+	font-size: 13px;
+	color: #555;
+	line-height: 23px;
+}
+
+.agree:last-of-type > div {
+	height: 25px;
+}
+
+.agree > p {
+	background-color: #f8f8f8;
+	border-top: 1px solid #e6e6e6;
+	height: 43px;
+	line-height: 43px;
+	margin: 0 0;
+	color: #222;
+	text-indent: 19px;
+	font-size: 13px;
+}
+
+.agreeSubmit {
+	box-sizing: border-box;
+	margin: 0 auto;
+	padding: 13px 14px;
+	background-color: #4390de;
+	font-size: 20px;
+	color: #fff;
+	line-height: 20px;
+	border: #4390de;
+	display: block;
+	width: 100px;
+	cursor: pointer;
+	
+}
+
+</style>
 </head>
 <body>
 
