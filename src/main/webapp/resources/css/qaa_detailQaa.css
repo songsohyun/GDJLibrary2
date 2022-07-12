@@ -1,0 +1,68 @@
+@charset "UTF-8";
+ 	@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+	
+	* {
+		font-family: 'Noto Sans KR', sans-serif;
+		color: #4e4c4c;
+	} 
+	.qaa_all_wrap {
+		width: 600px;
+		margin: 200px auto; 
+		/* padding-left: 20px; */
+	}
+	input[name="qaaTitle"], #memberId {
+		width: 400px;
+		height: 25px;
+		/* border: none; */
+		outline: none;
+		
+	}
+	#title, #memberId {
+		padding-left: 10px;
+	}
+	textarea {
+		width: 470px;
+		height: 300px;
+		resize: none;
+		/* border: none; */
+		outline: none;
+	}
+	#btn {
+		width: 500px;
+		text-align: center;
+		margin-top: 30px;
+	}
+	.pointer {
+		display: inline-block;
+		border: 1px solid #7c7c7c;
+		border-radius: 170px;
+		width: 60px;
+		height: 27px;
+		background-color: #4390de;
+		cursor: pointer;
+		padding-top: 1px;
+		text-align: center;
+		color: white;
+	}
+	.blind {
+		display: none;
+	}
+	.title_wrap, .memberId_wrap, .question_wrap {
+		display: block;
+		margin-top: 30px;
+	}
+	.td_title, .td_memberId {
+		display: inline-block;
+		
+	}
+	.title_first {
+		margin-right: 25px;
+	}
+	.memberId_first {
+		margin-right: 10px;
+	}
+	#content {
+		padding-left: 10px;
+		padding-top: 10px;
+		font-size: 16px;
+	}
