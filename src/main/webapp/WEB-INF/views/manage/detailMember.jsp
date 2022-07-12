@@ -10,16 +10,101 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="../resources/js/jquery-3.6.0.js"></script>
-<script src="../resources/js/detailMember.js"></script>
+<script type="text/javascript">
+	$(function(){
+		// 수정페이지
+		$('#btnChangePage').on('click', function(){
+			location.href='${contextPath}/admin/changeMemberPage?memberNo=${member.memberNo}&value=${value}';
+		})
+		
+		// 목록
+		$('#btnList').on('click', function(){
+			location.href='${contextPath}/admin/listMember?value=${value}';
+		})
+		
+		
+	})
+	
+	
+	
+	
+</script>
+<style>
+	@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+   
+   * {
+   	  color: #4e4c4c;
+      font-family: 'Noto Sans KR', sans-serif;
+   }
+ 
+	/* layout */
+	html, body{padding:0;margin:0;width:100%;height:100%;overflow:hidden;}
+	 
+	#wrap{position:relative;width:100%;height:100%}
+	#container{position:absolute;top:10px;right:0;bottom:38px;left:0;overflow-x:hidden;overflow-y:auto}
+	#container .inner{width:680px; margin:0 auto; padding:10px 0}
+	 
+	/* layout */
+	html, body{padding:0;margin:0;width:100%;height:100%;overflow:hidden;}
+	 
+	#wrap{position:relative;width:100%;height:100%}
+	#container{position:absolute;top:10px;right:0;bottom:38px;left:0;overflow-x:hidden;overflow-y:auto}
+	#container .inner{width:680px; margin:0 auto; padding:10px 0}
+	 
+	/* table */
+	table {border-collapse:separate;border-spacing:0;text-align:center;line-height:1.5;border-top:1px solid #ccc;border-left:1px solid #ccc;margin:auto;}
+	table th {padding: 10px;font-weight: bold;vertical-align: middle;text-align:center;border-right:1px solid #ccc;border-bottom:1px solid #ccc;border-top:1px solid #fff;border-left:1px solid #fff;background:#eee;}
+	table td {padding:10px;vertical-align:middle;text-align:center;border-right:1px solid #ccc;border-bottom:1px solid #ccc;}
+	 
+	table.table02 caption{height:45px;line-height:45px;color:#333;padding-left:35px;border-top:3px solid #464646;border-bottom:1px solid #c9c9c9;background:#ececec}
+	table.table02 caption.center{padding-top:6px;height:39px;line-height:130%;text-align:center;color:#333;padding-left:0;border-top:3px solid #464646;border-bottom:1px solid #c9c9c9;background:#ececec}
+	table.table02 tbody th{padding:10px;vertical-align:middle;font-family:'malgunbd';color:#333;border-right:1px solid #c9c9c9;border-bottom:1px solid #c9c9c9;background:#ececec}
+	table.table02 tbody td{padding:10px;vertical-align:middle;padding-left:15px;background:#fafafa;border-bottom:1px solid #c9c9c9}
+	 
+	
+	 
+	
+	 /* button_align */
+	.btn_left{clear:both;text-align:left}
+	.btn_right{clear:both;text-align:right}
+	.btn_center{clear:both;text-align:center}
+	
+	 /* text_color_style */
+	.t_blue{color:#004fa8}
+	.t_red{color:#f55500}
+	 
+	/* margin & padding */
+	
+	.mt15{margin-top:15px}
+	
+	 
+	
+	 
+	
+	 /* button_align */
+	.btn_left{clear:both;text-align:left}
+	.btn_right{clear:both;text-align:right}
+	.btn_center{clear:both;text-align:center}
+	
+	 /* text_color_style */
+	.t_blue{color:#004fa8}
+	.t_red{color:#f55500}
+	 
+	/* margin & padding */
+	
+	.mt15{margin-top:15px}
 
-<link rel="stylesheet" href="../resources/css/detailMember.css">
+
+ 
+	
+</style>
 </head>
 <body>
 	<div id="wrap">
 	    <div id="container">
 	        <div class="inner">    
 	            <h2>활동 회원 상세</h2>
-	            <form id="f" action="/admin/saveDormantMember?memberNo=${member.memberNo}" method="post">        
+	            <form id="f" action="${contextPath}/admin/saveDormantMember?memberNo=${member.memberNo}" method="post">        
 	                <table width="100%" class="table01">
 	                    <thead>
 	                    	<tr>
@@ -56,7 +141,7 @@
 	              
 	            </form>
 	            <div class="btn_right mt15">
-		            <form id="f" action="/admin/saveDormantMember?memberNo=${member.memberNo}&yes=1" method="post">
+		            <form id="f" action="${contextPath}/admin/saveDormantMember?memberNo=${member.memberNo}&yes=1" method="post">
 						<input type="hidden" value="${member.memberNo}" name="memberNo">
 				
 						<input type="hidden" value="${value}" name="value">

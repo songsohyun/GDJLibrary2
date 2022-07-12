@@ -8,8 +8,59 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../resources/css/manageMain.css">
+<script src="../resources/js/jquery-3.6.0.js"></script>
+<script>
+	
+	$(function(){
+		
+	})
 
+</script>
+<style>
+	
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+   
+   * {
+      
+      font-family: 'Noto Sans KR', sans-serif;
+   }
+   .img{
+  
+    background: url("../resources/images/adminLibrary.jpg");                                                              
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 86vh;
+	margin-left: 100px;
+	margin-right: 100px;
+    }
+
+   
+
+   #divBottomMenu {
+		background-color: beige;
+		
+		text-align: center;
+	}
+   
+   #divBottomText {
+		background-color: #efefb8;
+   }
+   
+   .img .content{
+     position: absolute;
+     top:50%;
+     left:50%;
+     transform: translate(-50%, -50%);                                                                   
+     font-size:4.7rem;
+     color: white;
+     z-index: 2;
+     text-align: center;
+   }  
+
+   
+   
+   
+</style>
 </head>
 <body>
 	

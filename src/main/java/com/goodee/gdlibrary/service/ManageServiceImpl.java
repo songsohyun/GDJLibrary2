@@ -118,7 +118,7 @@ public class ManageServiceImpl implements ManageService {
 			if(memberResult == 1) {
 				out.println("<script>");
 				out.println("alert('회원이 추가되었습니다.')");
-				out.println("location.href='/admin/listMember?value=" + value + "'");
+				out.println("location.href='" + request.getContextPath() + "/admin/listMember?value=" + value + "'");
 				out.println("</script>");
 				out.close();
 			} else {
@@ -190,7 +190,7 @@ public class ManageServiceImpl implements ManageService {
 			if(res == size && res1 == size) {
 				out.println("<script>");
 				out.println("alert('회원이 추방되었습니다.')");
-				out.println("location.href='/admin/listMember?value=" + value + "'");
+				out.println("location.href='" + request.getContextPath() + "/admin/listMember?value=" + value + "'");
 				out.println("</script>");
 				out.close();
 			} else {
@@ -221,7 +221,7 @@ public class ManageServiceImpl implements ManageService {
 			if(res == size) {
 				out.println("<script>");
 				out.println("alert('회원이 추방되었습니다.')");
-				out.println("location.href='/admin/listMember?value=" + value + "'");
+				out.println("location.href='" + request.getContextPath() + "/admin/listMember?value=" + value + "'");
 				out.println("</script>");
 				out.close();
 			} else {
@@ -273,7 +273,7 @@ public class ManageServiceImpl implements ManageService {
 			if(res == 1 && res1 == 1) {
 				out.println("<script>");
 				out.println("alert('회원이 추방되었습니다.')");
-				out.println("location.href='/admin/listMember?value=" + value + "'");
+				out.println("location.href='" + request.getContextPath() + "/admin/listMember?value=" + value + "'");
 				out.println("</script>");
 				out.close();
 			} else {
@@ -302,7 +302,7 @@ public class ManageServiceImpl implements ManageService {
 			if(res == 1) {
 				out.println("<script>");
 				out.println("alert('회원이 추방되었습니다.')");
-				out.println("location.href='/admin/listMember?value=" + value + "'");
+				out.println("location.href='" + request.getContextPath() + "/admin/listMember?value=" + value + "'");
 				out.println("</script>");
 				out.close();
 			} else {
@@ -359,7 +359,7 @@ public class ManageServiceImpl implements ManageService {
 			if(memberResult == 1) {
 				out.println("<script>");
 				out.println("alert('회원정보가 수정되었습니다.')");
-				out.println("location.href='/admin/detailMember?memberNo=" + memberNo + "&value=" + value + "'");
+				out.println("location.href='" + request.getContextPath() + "/admin/detailMember?memberNo=" + memberNo + "&value=" + value + "'");
 				out.println("</script>");
 				out.close();
 			} else {
@@ -564,7 +564,7 @@ public class ManageServiceImpl implements ManageService {
 			if(dormantMemberResult == 1) {
 				out.println("<script>");
 				out.println("alert('휴면회원으로 전환되었습니다.')");
-				out.println("location.href='/admin/listMember?value=" + value + "'");
+				out.println("location.href='" + request.getContextPath() + "/admin/listMember?value=" + value + "'");
 				out.println("</script>");
 				out.close();
 			} else {
@@ -627,7 +627,7 @@ public class ManageServiceImpl implements ManageService {
 			if(memberResult == 1) {
 				out.println("<script>");
 				out.println("alert('휴면회원이 활동회원으로 전환되었습니다.')");
-				out.println("location.href='/admin/listDormantMember?value=" + value + "'");
+				out.println("location.href='" + request.getContextPath() + "/admin/listDormantMember?value=" + value + "'");
 				out.println("</script>");
 				out.close();
 			} else {
@@ -690,7 +690,7 @@ public class ManageServiceImpl implements ManageService {
 			if(res == size && res1 == size) {
 				out.println("<script>");
 				out.println("alert('휴면회원이 추방되었습니다.')");
-				out.println("location.href='/admin/listDormantMember?value=" + value + "'");
+				out.println("location.href='" + request.getContextPath() + "/admin/listDormantMember?value=" + value + "'");
 				out.println("</script>");
 				out.close();
 			} else {
@@ -739,7 +739,7 @@ public class ManageServiceImpl implements ManageService {
 				if(res == 1 && res1 == 1) {
 					out.println("<script>");
 					out.println("alert('휴면회원이 추방되었습니다.')");
-					out.println("location.href='/admin/listDormantMember?value=" + value + "'");
+					out.println("location.href='" + request.getContextPath() + "/admin/listDormantMember?value=" + value + "'");
 					out.println("</script>");
 					out.close();
 				} else {
@@ -770,7 +770,7 @@ public class ManageServiceImpl implements ManageService {
 			if(res == size) {
 				out.println("<script>");
 				out.println("alert('휴면 회원이 추방되었습니다.')");
-				out.println("location.href='/admin/listDormantMember?value=" + value + "'");
+				out.println("location.href='" + request.getContextPath() + "/admin/listDormantMember?value=" + value + "'");
 				out.println("</script>");
 				out.close();
 			} else {
@@ -799,7 +799,7 @@ public class ManageServiceImpl implements ManageService {
 			if(res == 1) {
 				out.println("<script>");
 				out.println("alert('휴면 회원이 추방되었습니다.')");
-				out.println("location.href='/admin/listDormantMember?value=" + value + "'");
+				out.println("location.href='" + request.getContextPath() + "/admin/listDormantMember?value=" + value + "'");
 				out.println("</script>");
 				out.close();
 			} else {
@@ -981,7 +981,7 @@ public class ManageServiceImpl implements ManageService {
 			if(res == size) {
 				out.println("<script>");
 				out.println("alert('탈퇴회원이 삭제되었습니다.')");
-				out.println("location.href='/admin/listSignOutMember?value=" + value + "'");
+				out.println("location.href='" + request.getContextPath() + "/admin/listSignOutMember?value=" + value + "'");
 				out.println("</script>");
 				out.close();
 			} else {
@@ -1017,7 +1017,7 @@ public class ManageServiceImpl implements ManageService {
 			if(res == 1) {
 				out.println("<script>");
 				out.println("alert('탈퇴회원이 삭제되었습니다.')");
-				out.println("location.href='/admin/listSignOutMember?value=" + value + "'");
+				out.println("location.href='" + request.getContextPath() + "/admin/listSignOutMember?value=" + value + "'");
 				out.println("</script>");
 				out.close();
 			} else {
@@ -1223,7 +1223,7 @@ public class ManageServiceImpl implements ManageService {
 			if(bookResult == 1) {
 				out.println("<script>");
 				out.println("alert('책이 등록되었습니다.')");
-				out.println("location.href='/admin/listBook?value=" + value + "'");
+				out.println("location.href='" + request.getContextPath() + "/admin/listBook?value=" + value + "'");
 				out.println("</script>");
 				out.close();
 			} else {
@@ -1259,7 +1259,7 @@ public class ManageServiceImpl implements ManageService {
 			if(res == size) {
 				out.println("<script>");
 				out.println("alert('책이 삭제되었습니다.')");
-				out.println("location.href='/admin/listBook?value=" + value + "'");
+				out.println("location.href='" + request.getContextPath() + "/admin/listBook?value=" + value + "'");
 				out.println("</script>");
 				out.close();
 			} else {
@@ -1286,7 +1286,7 @@ public class ManageServiceImpl implements ManageService {
 				if(res == 1) {
 					out.println("<script>");
 					out.println("alert('책이 삭제되었습니다.')");
-					out.println("location.href='/admin/listBook?value=" + value + "'");
+					out.println("location.href='" + request.getContextPath() + "/admin/listBook?value=" + value + "'");
 					out.println("</script>");
 					out.close();
 				} else {
@@ -1343,7 +1343,7 @@ public class ManageServiceImpl implements ManageService {
 			if(bookResult == 1) {
 				out.println("<script>");
 				out.println("alert('책정보가 수정되었습니다.')");
-				out.println("location.href='/admin/detailBook?bookNo=" + bookNo + "&value=" + value + "'");
+				out.println("location.href='" + request.getContextPath() + "/admin/detailBook?bookNo=" + bookNo + "&value=" + value + "'");
 				out.println("</script>");
 				out.close();
 			} else {
@@ -1479,7 +1479,7 @@ public class ManageServiceImpl implements ManageService {
 			if(fnqResult == 1) {
 				out.println("<script>");
 				out.println("alert('자주하는질문 게시글이 등록되었습니다.')");
-				out.println("location.href='/fnq/fnqPage'");
+				out.println("location.href='" + request.getContextPath() + "/fnq/fnqPage'");
 				out.println("</script>");
 				out.close();
 			} else {
