@@ -133,7 +133,7 @@ public class ManageController {
 	public void saveDormantToMember(HttpServletRequest request, HttpServletResponse response, Model model) {
 		manageService.findDormantMemberByNo(request, model);
 		manageService.saveDormantToMember(request, response, model);
-		manageService.removeDormantMember(request, response);
+		manageService.removeTransDormantMember(request, response);
 	}
 	
 	@ResponseBody
@@ -241,13 +241,7 @@ public class ManageController {
 		manageService.saveBook(request, response);
 	}
 	
-	@ResponseBody
-	@GetMapping(value="/admin/checkBookByIsbn", produces="application/json")
-	public Map<String, Object> checkBookIsbn(@RequestParam String isbn) {
-		return manageService.checkBookByIsbn(isbn);
-		// {"res": null}
-		// {"res": {"bookNo":1, ...}}
-	}
+
 	
 	@GetMapping("/admin/detailBook")
 	public String detailBook(HttpServletRequest request, Model model) {

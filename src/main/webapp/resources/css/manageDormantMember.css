@@ -1,0 +1,64 @@
+@charset "UTF-8";
+
+ @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+   
+   * {
+      color: #4e4c4c;
+      font-family: 'Noto Sans KR', sans-serif;
+   }
+	
+	
+	table {
+	    width: 70%;
+	    border-top: 1px solid #444444;
+	    border-collapse: collapse;
+	    margin: auto;
+    }
+	th, td {
+	    border-bottom: 1px solid #444444;
+	    padding: 10px;
+	    text-align: center;
+    }
+	th {
+    	background-color: #bbdefb;
+    }
+	td {
+    	background-color: #e3f2fd;
+    }
+ 	thead tr {
+	    background-color: #0d47a1;
+	    color: #ffffff;
+    }
+    tbody tr:nth-child(2n) {
+    	background-color: #bbdefb;
+    }
+    tbody tr:nth-child(2n+1) {
+    	background-color: #e3f2fd;
+    }
+ 	#tfoot{
+ 		background-color: #ffffff;
+ 		border-color: #ffffff;
+ 	} 
+ 	#search{
+ 		width: 70%;
+ 		margin: auto;
+ 	}
+ 	#search_inner{
+ 		
+ 		width: 70%;
+ 		margin: auto;
+ 	}
+ 	.form-group{
+ 		width: 70%;
+ 		margin: auto;
+ 	}
+ 	#column{
+ 		margin-left: 180px;
+ 	}
+ 	#tfoot{
+ 		padding-right: 20px;
+ 			
+ 	}
+ 	.link, .unlink{
+ 		padding-left: 8px;
+ 	}
