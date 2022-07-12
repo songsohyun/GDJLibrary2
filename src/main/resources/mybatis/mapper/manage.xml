@@ -291,7 +291,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO SIGN_OUT_MEMBER
 			(MEMBER_NO, MEMBER_ID, MEMBER_NAME, MEMBER_PHONE, MEMBER_EMAIL, MEMBER_POSTCODE, MEMBER_ROAD_ADDRESS, MEMBER_DETAIL_ADDRESS, MEMBER_AGREE_STATE, MEMBER_SIGN_UP)
 		VALUES
-			(#{memberNo}, #{memberId}, #{memberName}, #{memberPhone}, #{memberEmail}, #{memberPostcode}, #{memberRoadAddress}, #{memberDetailAddress}, #{memberAgreeState}, #{memberSignUp})
+			(#{memberNo}, #{memberId}, #{memberName}, #{memberPhone}, #{memberEmail}, #{memberPostcode, jdbcType = VARCHAR}, #{memberRoadAddress, jdbcType = VARCHAR}, #{memberDetailAddress, jdbcType = VARCHAR}, #{memberAgreeState, jdbcType = BIGINT}, #{memberSignUp})
 	</insert>
 	
 	<!-- 탈퇴 회원 삭제 -->
@@ -353,14 +353,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<!-- 책 -->
-	
-	<!-- 책ISBN체크 -->
-	<select id="checkBookByIsbn" parameterType="String" resultType="BookDTO">
-		SELECT BOOK_NO, BOOK_ISBN, BOOK_TITLE, BOOK_AUTHOR, BOOK_PUBLISHER, BOOK_PUBDATETIME, BOOK_DESCRIPTION, BOOK_IMAGE, BOOK_TYPE
-		  FROM BOOK
-		 WHERE BOOK_ISBN = #{bookIsbn}
-	</select>
-	
+
 	<!-- 전체 책 수 -->
 	<select id="selectBookCount" resultType="Integer">
 		SELECT COUNT(BOOK_NO)

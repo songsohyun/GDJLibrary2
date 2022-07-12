@@ -35,6 +35,8 @@ public interface ManageService {
 	public void saveDormantToMember(HttpServletRequest request, HttpServletResponse response, Model model);
 	public void removeCheckDormantMember(HttpServletRequest request, HttpServletResponse response);
 	public void removeDormantMember(HttpServletRequest request, HttpServletResponse response);
+	public void removeTransDormantMember(HttpServletRequest request, HttpServletResponse response);
+	public void removeTransCheckDormantMember(HttpServletRequest request, HttpServletResponse response);
 	public void findSearchDormantMembers(HttpServletRequest request, Model model);
 	public Map<String, Object> autoCompleteDormantMember(HttpServletRequest request);
 	
@@ -49,7 +51,7 @@ public interface ManageService {
 	
 	
 	// book 서비스
-	public Map<String, Object> checkBookByIsbn(String isbn);
+
 	
 	public void findBooks(HttpServletRequest request, Model model);
 	public void findBookByNo(HttpServletRequest request, Model model);
