@@ -1,0 +1,109 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+* {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.ok {
+	color: #3253cc;
+}
+
+.dont {
+	color: #666b7d;
+}
+
+.mofidy_warp {
+    width: 800px;
+    margin: 180px auto 0;
+    padding: 50px 50px 51px;
+    
+    
+}
+.mofidy_warp  h3 {
+    text-align: center;
+    margin-bottom: 50px;
+    color: #4e4c4c;
+   
+}
+.mofidy_warp table {
+    border-collapse: collapse;
+}
+
+.mofidy_warp table td {
+    width: 650px;
+    border-top: 1px solid #f2f4f5;
+    border-bottom: 1px solid #f2f4f5;
+    height: 40px;
+}
+
+.mofidy_warp table td:first-of-type {
+    border-right: 1px solid #f2f4f5;
+    width: 150px;
+}
+.mofidy_warp label, .mofidy_warp tr:nth-of-type(2) td:first-of-type{
+    font-size: 13px;
+    padding-left: 10px;
+}
+
+.mofidy_warp input[type="text"] {
+    margin-left: 10px;
+    width: 150px;
+    height: 10px;
+    padding: 5px 10px 5px 7px;
+    font-size: 14px;
+    
+    color: #635f5f;
+    outline-style: none;
+    border: 1px solid #d7d7d7
+   
+}
+.mofidy_warp tr:nth-of-type(3) td, .mofidy_warp tr:nth-of-type(4) td, .mofidy_warp tr:last-of-type td {
+    border-right: 0;
+}
+.mofidy_warp td span {
+    
+    font-size: 13px;
+    padding-left: 5px;
+}
+
+.remove_wrap{
+   text-align: right;
+   margin-bottom: 5px;
+}
+
+.btnRemove {
+    width: 80px;
+    height: 30px;
+    background-color: #f5e0c1;
+    border: #f5e0c1;
+    font-size: 13px;
+    font-weight: bold;
+    color: #4e4c4c;
+    letter-spacing: -0.5px;
+    text-align: center;
+    line-height: 30px;
+    cursor: pointer;
+
+}
+
+
+.mofidy_warp input[type="button"], .btnModify {
+    font-size: 13px;
+    border: 1px solid #f5e0c1;
+    background-color: #f5e0c1;
+    padding: 2px 5px;
+    cursor: pointer;
+    
+}
+.modifyBotton {
+    margin-top: 20px;
+    text-align: center;
+    
+}
+
+.modifyBotton input[type="button"] {
+    font-size: 13px;
+    border: 1px solid #f5e0c1;
+    background-color: #f5e0c1;
+    padding: 2px 5px;
+    cursor: pointer;
+}

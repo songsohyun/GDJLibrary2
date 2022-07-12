@@ -1,0 +1,124 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+* {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+a {
+    text-decoration: none;
+    color: #333;
+}
+.join_cont {
+    width: 390px;
+    margin: 110px auto 0;
+    padding: 60px 50px 51px;
+    border: 1px solid #f2f4f5;
+}
+.tit_bi {
+    width: 300px;
+    height: 100px;
+    margin: 0 auto 30px;
+    background-image: url(../resources/images/logo.png);
+    background-size: 300px 100px;
+    background-repeat: no-repeat;
+    background-position: left 0 top 0px; 
+   
+
+    text-indent: -9000px;
+}
+.login_ipt_box {
+    display: block;
+    height: 48px;
+    margin-bottom: 6px;
+    border: 1px solid #d7d7d7;
+    position: relative;
+}
+
+.login_ipt_box > input::placeholder {
+    color: #c3c3c3;
+}
+
+.login_ipt_box > input {
+    width: 350px;
+    height: 17px;
+    padding: 16px 19px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #635f5f;
+    outline-style: none;
+    border: none;
+}
+.btn_login {
+    width: 100%;
+    display: block;
+    height: 50px;
+    background-color: #4390de;
+    border: #4390de;
+    font-size: 14px;
+    font-weight: bold;
+    color: #FFF;
+    letter-spacing: -0.5px;
+    text-align: center;
+    line-height: 51px;
+    cursor: pointer;
+}
+.chk_choice {
+    margin: 10px 0 40px;
+}
+.uio_check_box {
+    display: inline-block;
+    height: 20px;
+    padding: 0 22px 0 10px;
+    font-size: 12px;
+    font-weight: normal;
+    color: #555;
+    letter-spacing: -0.5px;
+    line-height: 22px;
+    position: relative;
+    
+}
+
+
+
+.social_line {
+    margin-top: 8px;
+    text-align: center;
+}
+.social_line > span {
+    display: inline-block;
+    width: 114px;
+    height: 21px;
+    font-size: 12px;
+    color: #aaaaaa;
+}
+
+.btn_sns_login {
+    padding-top: 8px;
+    margin-bottom: 60px;
+    font-size: 0;
+    text-align: center;
+    
+}
+.btn_sns_login > ul > li {
+    display: block;
+}
+.btn_sns_login > ul  {
+    padding: 0;
+}
+.ico_naver {
+    background-position: left 0 top 0;
+}
+.ico_naver > img {
+	width: 50px;
+	height: 50px;
+}
+
+.bottom_button_box {
+    margin-top: 30px;
+    text-align: center;
+    border-top: 1px solid #f2f2f5;
+    font-size: 12px;
+}
+.bottom_button_box > a {
+    display: inline-block;
+    padding: 19px 18px 0;
+}
